@@ -69,8 +69,7 @@
                                     </select>
 
                                 </div>
-                                <input type="submit" value="Cadastrar"
-                                    class="btn text-white btn-block btn-primary mt-5">
+                                <input type="submit" value="Cadastrar" class="btn text-white btn-block btn-info mt-5">
                             </form>
                         </div>
                     </div>
