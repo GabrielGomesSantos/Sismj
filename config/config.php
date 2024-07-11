@@ -22,4 +22,9 @@ if (!$conn) {
 }
 
 mysqli_set_charset($conn, "utf8");
+
+
+// define('BASE_URL', 'http://localhost/Sismj/');
+// define('ASSETS_URL', BASE_URL . 'assets/');
+
 ?>

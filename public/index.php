@@ -16,7 +16,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <title>Login #8</title>
+    <title>Login</title>
   </head>
   <body>
   
