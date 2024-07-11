@@ -23,6 +23,7 @@
     <!-- Fonte Awesome -->
     
     <!-- Titulo Lembrar de mudar! -->
+    <link rel="shortcut icon" href="../../assets/images/favico.ico">
     <title>Cadastro de Funcionario</title>
 </head>
 
