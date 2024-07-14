@@ -18,6 +18,20 @@
 
     <title>Login</title>
   </head>
+
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark"  style="background-color: #17a2b8;">
+    <div class="container-fluid ">
+
+      <!-- Logo e Nome  -->
+
+      <a class="navbar-brand" href="index.html">
+        <img src="assets/images/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+        Sisman
+      </a>
+    </div>
+  </nav>
   <body>
   
 
@@ -37,15 +51,18 @@
               </div>
             <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
             </div>
-            <form action="#" method="post">
+
+
+            <form action="src/pages/login.php" method="post">
+
               <div class="form-group first">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username">
+                <label for="cpf">Cpf</label>
+                <input type="text" class="form-control" name="cpf" id="cpf" required>
 
               </div>
               <div class="form-group last mb-4">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password">
+                <input type="password" class="form-control" name="senha" id="password" required>
                 
               </div>
 
@@ -53,6 +70,8 @@
               
               </div>
             </form>
+
+
             </div>
           </div>
           
