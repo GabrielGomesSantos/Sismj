@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     
     <!-- Style -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 
     <title>Login</title>
   </head>
@@ -27,7 +27,7 @@
       <!-- Logo e Nome  -->
 
       <a class="navbar-brand" href="index.html">
-        <img src="assets/images/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+        <img src="../assets/images/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
         Sisman
       </a>
     </div>
@@ -40,7 +40,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 order-md-2">
-          <img src="assets/images/medicos.png" alt="Image" class="img-fluid">
+          <img src="../assets/images/medicos.png" alt="Image" class="img-fluid">
         </div>
         <div class="col-md-6 contents">
           <div class="row justify-content-center">
@@ -82,9 +82,9 @@
   </div>
 
   
-    <script src="assets/js/jquery-3.3.1.min.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="../assets/js/jquery-3.3.1.min.js"></script>
+    <script src="../assets/js/popper.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/main.js"></script>
   </body>
 </html>
