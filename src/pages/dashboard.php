@@ -25,24 +25,70 @@
     <!-- Titulo Lembrar de mudar! -->
     <link rel="shortcut icon" href="../../assets/images/favico.ico">
     <title>Sisman - Dashboard</title>
+
+     <style>
+        .card-title {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+        .card-title i {
+            margin-right: 10px;
+        }
+        .card-deck .card {
+            margin-bottom: 20px;
+        }
+        .btn {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <?php include('navbar.php')?>
 
 <body>
 
-    <div class="content">
-        <div class="container">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+<div class="content py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Card Cadastrar -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fa-solid fa-user-plus"></i> Cadastrar Funcionários</h5>
+                        <p class="card-text">Adicione novos funcionários ao sistema de maneira fácil e rápida.</p>
+                        <a href="#" class="btn btn-primary">Cadastrar</a>
+                    </div>
                 </div>
             </div>
+            <!-- Card Cadastrar -->
+
+            <!-- Card Editar -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fa-solid fa-user-pen"></i> Editar Funcionários</h5>
+                        <p class="card-text">Altere as informações dos funcionários cadastrados.</p>
+                        <a href="#" class="btn btn-primary">Editar</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card Editar -->
+
+            <!-- Card Excluir -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fa-solid fa-user-minus"></i> Excluir Funcionários</h5>
+                        <p class="card-text">Remova funcionários que não fazem mais parte da equipe.</p>
+                        <a href="#" class="btn btn-primary">Excluir</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card Excluir -->
         </div>
     </div>
+</div>
 
 
     <script src="../../assets/js/jquery-3.3.1.min.js"></script>
