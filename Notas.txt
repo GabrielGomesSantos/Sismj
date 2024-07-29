@@ -1,4 +1,47 @@
-<- Divisao de Tarefas por equipe ->
+=-=-=-=-=-=-=-=-=-=-=-=
+        Perfil:
 
+0 - Master
+1 - Gestor
+2 - Atendente 
 
-<- -=-=-=-=-=-=-=-=-=-=-=--=-=-= ->
+=-=-=-=-=-=-=-=-=-=-=-=
+
+=-=-=-=-=-=-=-=-=-=-=-=
+        Infos:
+ 
+Gestor: 
+
+    Processos(Exclusivo!);
+    compras;
+    pacientes;
+    medicos;
+
+Atendente:
+
+    Entregas;
+
+Master: 
+
+    Tudo; 
+
+=-=-=-=-=-=-=-=-=-=-=-=
+        Grupos:
+
+Equipe - 01:
+    Entregas;
+    Items de Entrega;
+
+Equipe - 02:
+
+    Compras;
+    Medicamentos;
+
+Equipe - 03:
+
+    Funcionarios;
+    Processos;
+    Pacientes;
+    medicos;
+
+=-=-=-=-=-=-=-=-=-=-=-=
