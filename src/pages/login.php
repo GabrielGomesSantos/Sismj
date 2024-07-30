@@ -19,10 +19,10 @@
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         if($row["senha"] == $senha){
-            header('location: sucesso.php');
             $_SESSION["Nome"] = $row["nome_funcionario"]
             $_SESSION["ID"] = $row["cof_funcionario"]
             $_SESSION["Perfil"] = $row["perfil"]
+            header('location: dashboard.php');
         }else{
             header('location: error_login.php');
         }        

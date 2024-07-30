@@ -1,7 +1,7 @@
 =-=-=-=-=-=-=-=-=-=-=-=
         Perfil:
 
-0 - Master
+0 - Adm
 1 - Gestor
 2 - Atendente 
 
@@ -21,7 +21,7 @@ Atendente:
 
     Entregas;
 
-Master: 
+Adm: 
 
     Tudo; 
 

@@ -11,7 +11,19 @@
       <?php
 
         session_start();
-      
+
+        if($_SESSION["Perfil"] = 2) //Caso o usuario seja um atendente
+        {
+
+        }elseif($_SESSION["Perfil"] = 1) //Caso o usuario seja um Gestor
+        {
+
+        }else //Caso o usuario seja um Adm
+        {
+
+        }
+
+
       ?>
 
 
