@@ -34,11 +34,8 @@
     <?php
         if($_SESSION['Perfil'] == 2){
             include("dashboard_atendente.php");
-        }elseif($_SESSION['Perfil'] == 1){
-            include("dashboard_gestor.php");
         }
     ?>
 </body>
-
 
 </html>
