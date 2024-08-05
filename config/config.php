@@ -4,8 +4,8 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "usbw";
-$dbname = "";
+$password = "";
+$dbname = "sis_mj";
 
 ////////////////////////////////
 

@@ -22,7 +22,7 @@
             $_SESSION["Nome"] = $row["nome_funcionario"];
             $_SESSION["ID"] = $row["cod_funcionario"];
             $_SESSION["Perfil"] = $row["perfil"];
-            header('location: sucesso.php');
+            header('location: dashboard.php');
         }else{
             header('location: error_login.php');
         }        
