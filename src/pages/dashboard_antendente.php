@@ -37,8 +37,8 @@
              <div class="row"><div class="col-2 offset-10"><button class="adiciona">teste</button></div></div>
              <div class="row" ><div style="display: flex; justify-content: center;" class="col-6 offset-3">
 
-                <table>qwertyiopasdfghjklzxcvbnm</table>
-                
+                <table>qwertyiopasdfghjkl[[][]zxcvbnm</table>
+
              </div></div>
             </div>
         </div>
