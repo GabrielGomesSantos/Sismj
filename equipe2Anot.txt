@@ -1,6 +1,9 @@
 Equipe 2:
 Compras; 
-Gestor é responsável,
+Gestor é responsável por: 
+- Compra de novos medicamentos
+- Aumentar a quantidade de medicamentos já comprados
+- Excluir 
 Gestor realiza compra, 
 Se houver o medicamento já no sistema, verifica a quantidade para a compra,
 Se não houver o medicamento, vai para processos,
