@@ -1,6 +1,5 @@
 Equipe 2:
 Compras; 
-funcionário faz a compra: informação do processo junto,
 Gestor é responsável,
 Gestor realiza compra, 
 Se houver o medicamento já no sistema, verifica a quantidade para a compra,
