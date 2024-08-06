@@ -1,0 +1,12 @@
+Equipe 2:
+Compras; 
+funcionário faz a compra: informação do processo junto,
+Gestor é responsável,
+Gestor realiza compra, 
+Se houver o medicamento já no sistema, verifica a quantidade para a compra,
+Se não houver o medicamento, vai para processos,
+tela para cadastrar medicamentos, deve-se ter um crud na tabela.
+
+
+Medicamentos;
+
