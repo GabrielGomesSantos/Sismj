@@ -1,14 +1,16 @@
 Equipe 2:
-Compras; 
+Compras e Medicamentos; 
 Gestor é responsável por: 
-- Compra de novos medicamentos
+- Cadastrar novos medicamentos
 - Aumentar a quantidade de medicamentos já comprados
-- Excluir 
-Gestor realiza compra, 
-Se houver o medicamento já no sistema, verifica a quantidade para a compra,
-Se não houver o medicamento, vai para processos,
-tela para cadastrar medicamentos, deve-se ter um crud na tabela.
+- Crud nos medicamentos
+  - Ler
+  - Editar
+  - Excluir
 
-
-Medicamentos;
-
+Se houver o medicamento já no sistema, verifica a quantidade para a compra.
+Compra medicamentos com base nos processos.
+Dashboard precisa de:
+- Tabela para ver os medicamentos cadastrados
+- Tela para cadastrar medicamentos
+- Tela para ver os processos pendentes
