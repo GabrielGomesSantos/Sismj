@@ -31,9 +31,14 @@
 
 <body>
 
-    <!--colocar formulario de update AQUI!-->
-    
-    <!--colocar formulario de update AQUI!-->
+    <?php
+
+        echo("<pre>");
+        print_r($_SESSION);
+
+    ?>
+
+
 
     <script src="../../assets/js/jquery-3.3.1.min.js"></script>
     <script src="../../assets/js/popper.min.js"></script>

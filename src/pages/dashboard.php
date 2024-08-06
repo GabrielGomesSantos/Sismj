@@ -25,31 +25,19 @@
     <!-- Titulo Lembrar de mudar! -->
     <link rel="shortcut icon" href="../../assets/images/favico.ico">
     <title>Sisman - Dashboard</title>
+
 </head>
 
 <?php include('navbar.php')?>
 
 <body>
-
-    <div class="content">
-        <div class="container">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <script src="../../assets/js/jquery-3.3.1.min.js"></script>
-    <script src="../../assets/js/popper.min.js"></script>
-    <script src="../../assets/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/main.js"></script>
-    <?php include('footer.php')?>
+    <?php
+        if($_SESSION['Perfil'] == 2){
+            include("dashboard_atendente.php");
+        }elseif($_SESSION['Perfil'] == 1){
+            include("dashboard_gestor.php");
+        }
+    ?>
 </body>
 
 

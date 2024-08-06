@@ -53,7 +53,7 @@
             </div>
 
 
-            <form action="src/pages/login.php" method="post">
+            <form action="../src/pages/login.php" method="post">
 
               <div class="form-group first">
                 <label for="cpf">Cpf</label>
