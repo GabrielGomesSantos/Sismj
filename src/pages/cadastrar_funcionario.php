@@ -40,7 +40,7 @@
                                 <h3>Cadastro de <strong>Funcionarios</strong></h3>
                                 <p class="mb-4">Formulario para cadastrar Funcionarios</p>
                             </div>
-                            <form action="#" method="post">
+                            <form action="cadastrar_funcionario.php" method="post">
                                 <div class="form-group first mb-4">
                                     <label for="nome_funcionario">Nome:</label>
                                     <input type="text" class="form-control" id="nome_funcionario"
@@ -96,3 +96,29 @@
 
 
 </html>
+
+<?php
+require_once('C:/xampp/htdocs/Sismj/config/config.php');
+
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    echo "<pre>";
+    $nome_funcionario = $_POST['nome_funcionario'];
+    $cpf_funcionario = $_POST['cpf_funcionario'];
+    $matricula_funcionario = $_POST['matricula_funcionario'];
+    $email_funcionario = $_POST['email_funcionario'];
+    $senha_funcionario = $_POST['senha_funcionario'];
+    $perfil_funcionario = $_POST['perfil_funcionario'];
+
+
+    $sql = "INSERT INTO funcionarios (nome_funcionario, cpf_funcionario, matricula, email_funcionario, senha, perfil) VALUES ('$nome_funcionario', '$cpf_funcionario', '$matricula_funcionario', '$email_funcionario', '$senha_funcionario', '$perfil_funcionario')";
+
+    if ($conn->query($sql) === TRUE) {
+        header("Location: listar_funcionario.php");
+        exit(); 
+    } else {
+        echo "Erro ao cadastrar funcionario: " . $conn->error;
+    }
+
+
+   
+}
