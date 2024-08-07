@@ -31,11 +31,10 @@
 <?php include('navbar.php')?>
 
 <body>
-    <?php
-        if($_SESSION['Perfil'] == 2){
-            include("dashboard_atendente.php");
-        }
-    ?>
-</body>
-
+     <!<?php 
+        
+        include("dashboard_atendente.php");
+      ?>
+</body> 
+<?php include('footer.php')?>
 </html>
