@@ -24,17 +24,39 @@ $result = $conn->query($sql);
 <div class="container">
     <div class="row mb-5">
         <div class="col-1">
-            <div style="background-color: #17a2b8; width: 50px; height: 100%;">a</div>
+            <div style="background-color: #17a2b8; width: 50px; height: 100%;">
+            <button class="btn btn-primary mt-3" style=" padding: 4px; ">Teste</button>  
+            </div>
         </div>
         <div class="col-10">
             <div class="row mt-5">
                 <div class="col mt-3">
-                    <header class="text-white btn-block btn-info" style="padding: 5px; padding-left: 15px;">Entregas:</header>
+                    <header class="text-white btn-block btn-info" style="padding: 5px; padding-left: 15px;">Medicamentos:</header>
                 </div>
             </div>
             <div class="row">
                 <div class="col-2 offset-10">
-                    <input type="submit" value="Teste" class="btn text-white btn-block btn-info mt-5">
+                
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                  Launch static backdrop modal
+                </button>
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        ...
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>      
                 </div>
             </div>
             <div class="row">
