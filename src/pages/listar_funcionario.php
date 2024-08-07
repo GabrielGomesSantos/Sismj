@@ -1,5 +1,6 @@
 <?php
     require_once('C:/xampp/htdocs/Sismj/config/config.php');
+    $perfil = '';
     $sql = "SELECT * FROM funcionarios";
     $result = $conn->query($sql);
 ?>
@@ -41,13 +42,13 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nome</th>
-      <th scope="col">CPF</th>
-      <th scope="col">Matricula</th>
-      <th scope="col">Email</th>
-      <th scope="col">Senha</th>
-      <th scope="col">Perfil</th>
+      <th scope="col">ID:</th>
+      <th scope="col">Nome:</th>
+      <th scope="col">CPF:</th>
+      <th scope="col">Matricula:</th>
+      <th scope="col">Email:</th>
+      <th scope="col">Senha:</th>
+      <th scope="col">Perfil:</th>
       <th scope="col">Ações</th>
     </tr>
   </thead>
@@ -61,8 +62,23 @@
       <td><?php echo $row['matricula'] ?></td>
       <td><?php echo $row['email_funcionario'] ?></td>
       <td><?php echo $row['senha'] ?></td>
-      <td><?php echo $row['perfil'] ?></td>
+      <?php
+      switch ($row['perfil']) {
+        case 1:
+            $perfil = "Gestor";
+            break;
+        case 2:
+            $perfil = "Atendente";
+            break;
+        default:
+            echo "Perfil desconhecido!";
+            break;
+    }
+    
+      ?>
+      <td><?php echo $perfil ?></td>
       <td><a href="remover_funcionario.php?id_funcionario=<?php echo $row['cod_funcionario']?>" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
+      <td><a href="editar_funcionario.php?id_funcionario=<?php echo $row['cod_funcionario']?>" class="btn btn-warning"><i class="bi bi-pencil text-white"></i></a></td>
     </tr>
     <?php endwhile;?>
     <?php endif?>

@@ -77,6 +77,8 @@
                         <td><?php echo htmlspecialchars($row['estado']); ?></td>
                         <td><?php echo htmlspecialchars($row['celular']); ?></td>
                         <td><a href="deletar_pacientes.php?id_paciente=<?php echo urlencode($row['cod_paciente']); ?>" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
+                        <td><a href="editar_pacientes.php?id_paciente=<?php echo urlencode($row['cod_paciente']); ?>" class="btn btn-warning"><i class="bi bi-pencil text-white"></i></a></td>
+
                     </tr>
                 <?php endwhile; ?>
             <?php else: ?>
