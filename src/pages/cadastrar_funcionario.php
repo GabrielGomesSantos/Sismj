@@ -76,8 +76,8 @@
                                         <option value="1">Gestor</option>
                                         <option value="2">Atendente</option>
                                     </select>
-
                                 </div>
+                                
                                 <input type="submit" value="Cadastrar" class="btn text-white btn-block btn-info mt-5">
                             </form>
                         </div>
