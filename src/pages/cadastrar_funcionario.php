@@ -101,7 +101,6 @@
 require_once('C:/xampp/htdocs/Sismj/config/config.php');
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    echo "<pre>";
     $nome_funcionario = $_POST['nome_funcionario'];
     $cpf_funcionario = $_POST['cpf_funcionario'];
     $matricula_funcionario = $_POST['matricula_funcionario'];
@@ -113,8 +112,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sql = "INSERT INTO funcionarios (nome_funcionario, cpf_funcionario, matricula, email_funcionario, senha, perfil) VALUES ('$nome_funcionario', '$cpf_funcionario', '$matricula_funcionario', '$email_funcionario', '$senha_funcionario', '$perfil_funcionario')";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: listar_funcionario.php");
-        exit(); 
+        echo "<script>
+        alert('Funcionario Cadastrado');
+        window.location.href='listar_funcionario.php'
+      
+        </script>";
     } else {
         echo "Erro ao cadastrar funcionario: " . $conn->error;
     }
