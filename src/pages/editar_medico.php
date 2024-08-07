@@ -1,10 +1,10 @@
 <?php
 require_once('C:/xampp/htdocs/Sismj/config/config.php');
 
-if (isset($_GET['id_funcionario'])) {
-    $id_funcionario = intval($_GET['id_funcionario']);  
+if (isset($_GET['id_medico'])) {
+    $id_medico = intval($_GET['id_medico']);  
 
-    $sql = "SELECT * FROM funcionarios WHERE cod_funcionario = '$id_funcionario'";
+    $sql = "SELECT * FROM medicos WHERE cod_medico = '$id_medico'";
 
     $result = $conn->query($sql);
     if($result->num_rows > 0){
@@ -39,7 +39,7 @@ if (isset($_GET['id_funcionario'])) {
     
     <!-- Titulo Lembrar de mudar! -->
     <link rel="shortcut icon" href="../../assets/images/favico.ico">
-    <title>Edição de Funcionario</title>
+    <title>Edição de medico</title>
 </head>
 
 <?php include('navbar.php')?>
@@ -53,50 +53,38 @@ if (isset($_GET['id_funcionario'])) {
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="mb-4">
-                                <h3>Edição de <strong>Funcionarios</strong></h3>
-                                <p class="mb-4">Formulario para editar Funcionarios</p>
+                                <h3>Edição de <strong>medicos</strong></h3>
+                                <p class="mb-4">Formulario para editar medicos</p>
                             </div>
-                            <form action="process_funcionario.php" method="post">
+                            <form action="process_medico.php" method="post">
                                 <div class="form-group first mb-4">
-                                    <input type="hidden" class="form-control" id="cod_funcionario"
-                                        name="cod_funcionario" value="<?php echo $row['cod_funcionario'] ?>">
+                                    <input type="hidden" class="form-control" id="cod_medico"
+                                        name="cod_medico" value="<?php echo $row['cod_medico'] ?>">
                                 </div>
                                 <div class="form-group first mb-4">
-                                    <label for="nome_funcionario">Nome:</label>
-                                    <input type="text" class="form-control" id="nome_funcionario"
-                                        name="nome_funcionario" required value="<?php echo $row['nome_funcionario'] ?>">
+                                    <label for="nome_medico">Nome:</label>
+                                    <input type="text" class="form-control" id="nome_medico"
+                                        name="nome_medico" required value="<?php echo $row['nome_medico'] ?>">
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="cpf_funcionario">Cpf:</label>
-                                    <input type="text" class="form-control" id="cpf_funcionario" name="cpf_funcionario"
-                                        required value="<?php echo $row['cpf_funcionario'] ?>">
+                                    <label for="cpf_medico">Cpf:</label>
+                                    <input type="text" class="form-control" id="cpf_medico" name="cpf_medico"
+                                        required value="<?php echo $row['cpf_medico'] ?>">
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="matricula_funcionario">Matricula:</label>
-                                    <input type="text" class="form-control" id="matricula_funcionario"
-                                        name="matricula_funcionario" required value="<?php echo $row['matricula'] ?>">
+                                    <label for="crm">CRM:</label>
+                                    <input type="text" class="form-control" id="crm"
+                                        name="crm" required value="<?php echo $row['crm'] ?>">
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="email_funcionario">Email:</label>
-                                    <input type="email" class="form-control" id="email_funcionario"
-                                        name="email_funcionario" required value="<?php echo $row['email_funcionario'] ?>">
+                                    <label for="especialidade">Especialidade:</label>
+                                    <input type="text" class="form-control" id="especialidade"
+                                        name="especialidade" required value="<?php echo $row['especialidade'] ?>">
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="senha_funcionario">Senha:</label>
-                                    <input type="password" class="form-control" id="senha_funcionario"
-                                        name="senha_funcionario" required value="<?php echo $row['senha'] ?>">
-                                </div>
-
-                                <div class="form-group form-floating-label mt-2">
-
-                                    <label for="perfil_funcionario">Perfil</label>
-                                    <select class="form-select form-control" id="perfil_funcionario"
-                                        name="perfil_funcionario" required>
-                                        <option value="" selected disabled></option>
-                                        <option value="1">Gestor</option>
-                                        <option value="2">Atendente</option>
-                                    </select>
-
+                                    <label for="celular">Celular:</label>
+                                    <input type="password" class="form-control" id="celular"
+                                        name="celular" required value="<?php echo $row['celular'] ?>">
                                 </div>
                                 <input type="submit" value="Editar" class="btn text-white btn-block btn-info mt-5">
                             </form>
