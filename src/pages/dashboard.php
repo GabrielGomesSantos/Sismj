@@ -1,5 +1,3 @@
-<!doctype html>
-<html lang="pt-br">
 
 <head>
     <!-- Required meta tags -->
@@ -28,9 +26,18 @@
 
 </head>
 
+<style>
+    .col {
+         margin: 0px;
+    }
+    .row {
+         margin: 0px;
+    }
+</style>
+
 <?php include('navbar.php')?>
 
-<body>
+<body style="position: relative;">
      <!<?php 
         
         include("dashboard_atendente.php");

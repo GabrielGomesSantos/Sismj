@@ -21,7 +21,9 @@ $sql = "SELECT * FROM `medicamentos` LIMIT $items_per_page OFFSET $offset";
 $result = $conn->query($sql);
 ?>
 
-<div class="container">
+
+
+<div style="overflow-x: hidden;  " class="container">
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"    aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -40,14 +42,14 @@ $result = $conn->query($sql);
         </div>
       </div>
     </div>
-    <div class="row">
-        <div class="col-1">
+    <div class="row " style=" position: relative; height: 100%; ">
+        <div class="col-1" style=" left: -15px;">
             <div style="background-color: #17a2b8; width: 50px; height: 100%;">
             <button class="btn btn-primary mt-3" style=" padding: 4px; ">Teste</button>  
             </div>
         </div>
-        <div class="col-10">
-            <div class="row mt-5">
+        <div class="col-10" style=" margin: 0px; ">
+            <div class="row mt-5">  
                 <div class="col mt-3">
                     <header class="text-white btn-block btn-info" style="padding: 5px; padding-left: 15px;">Medicamentos:</header>
                 </div>
