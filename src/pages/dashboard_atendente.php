@@ -96,14 +96,11 @@ $result = $conn->query($sql);
             </div>       
         </div>
     </div>
-</div>
-
-
-    <div class="row">
-        <div class="col-1">
-            <div style="background-color: #17a2b8; width: 50px; height: 100%;">
-                <button class="btn btn-primary mt-3" style="padding: 4px;">Teste</button>  
-     
+    <!-- fim do modal  -->
+    <div class="row" style=" height: 100%; ">
+        <div class="col-1" style=" left: -15px;" >
+            <div style="background-color: #17a2b8; width: 50px; height: 100%; left: -15%;">
+            <button class="btn mt-3" style="background-color: #17a2b8; padding: 4px; ">Teste</button>  
             </div>
         </div>
         <div class="col-10">
