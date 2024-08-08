@@ -29,31 +29,57 @@ $result = $conn->query($sql);
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Cadastrar entrega</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Understood</button>
-          </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form action="" method="">
+
+                        <h4>Paciente</h4>
+                        <div class="paciente border-top border-info p-2">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" class="form-control" name="nome" id="nome">
+                            <label for="codprocesso" class="codprocesso">Cod. processo</label>
+                            <input type="text" class="form-control" name="codprocesso" id="">
+                        </div>
+
+                        <h4>Medicamentos:</h4>
+                        <div class="bg-light border-top border-info p-2">
+                            <!-- Colocar codigo php aqui para os medicamentos -->
+                            <input class="form-control text-secondary " type="text" name="medicamento" id="medicamento" value="<?php echo "medicamento"?>" disabled ">
+
+                            
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="submit" value="Enviar" class="btn btn-primary" data-bs-dismiss="modal">
+                        </div>
+                    </form>
+                </div>
+            </div>       
         </div>
       </div>
     </div>
-    <div class="row " style=" position: relative; height: 100%; ">
-        <div class="col-1" style=" left: -15px;">
+    <!-- fim do modal  -->
+    <div class="row">
+        <div class="col-1">
             <div style="background-color: #17a2b8; width: 50px; height: 100%;">
             <button class="btn btn-primary mt-3" style=" padding: 4px; ">Teste</button>  
             </div>
         </div>
-        <div class="col-10" style=" margin: 0px; ">
-            <div class="row mt-5">  
+        <div class="col-10">
+            
+            <div class="row mt-5">
+
                 <div class="col mt-3">
-                    <header class="text-white btn-block btn-info" style="padding: 5px; padding-left: 15px;">Medicamentos:</header>
+                    <header class="bg-info text-white" style="padding: 5px 15px;">
+                        Medicamentos:
+                    </header>
                 </div>
+
             </div>
+
             <div class="row">
                 <div class="col-2 offset-10">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -123,6 +149,7 @@ $result = $conn->query($sql);
         </div>
     </div>
 </div>
+
 
 <script src="../../assets/js/jquery-3.3.1.min.js"></script>
 <script src="../../assets/js/popper.min.js"></script>
