@@ -13,7 +13,7 @@
     print_r($cpf);
 
     //Consulta sql a partir do cpf
-    $sql_login = "SELECT * FROM `funcionarios` WHERE cpf_funcionario = $cpf";
+    $sql_login = "SELECT * FROM `funcionarios` WHERE cpf_funcionario = '$cpf'";
     $result = mysqli_query($conn, $sql_login);
 
     if (mysqli_num_rows($result) > 0) {
