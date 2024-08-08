@@ -43,7 +43,9 @@ $result = $conn->query($sql);
                             <label for="codprocesso" class="codprocesso">Cod. processo</label>
                             <input type="text" class="form-control" name="codprocesso" id="">
                         </div>
-
+                        <select class=" form-select " name="" id="">=</select>
+                        
+                        
                         <h4>Medicamentos:</h4>
                         <div class="bg-light border-top border-info p-2">
                             <!-- Colocar codigo php aqui para os medicamentos -->
@@ -62,10 +64,10 @@ $result = $conn->query($sql);
       </div>
     </div>
     <!-- fim do modal  -->
-    <div class="row">
-        <div class="col-1">
-            <div style="background-color: #17a2b8; width: 50px; height: 100%;">
-            <button class="btn btn-primary mt-3" style=" padding: 4px; ">Teste</button>  
+    <div class="row" style=" height: 100%; ">
+        <div class="col-1" style=" left: -15px;" >
+            <div style="background-color: #17a2b8; width: 50px; height: 100%; left: -15%;">
+            <button class="btn mt-3" style="background-color: #17a2b8; padding: 4px; ">Teste</button>  
             </div>
         </div>
         <div class="col-10">
@@ -82,7 +84,7 @@ $result = $conn->query($sql);
 
             <div class="row">
                 <div class="col-2 offset-10">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" style="background-color: #17a2b8;" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                   Launch static backdrop modal
                 </button>
                 </div>

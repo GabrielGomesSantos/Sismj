@@ -1,5 +1,5 @@
     <!-- Footer -->
-    <footer class="bg-dark text-center text-white mt-auto">
+    <footer style=" position:absolute; bottom: 0; width:100%; " class="bg-dark text-center text-white mt-auto">
       <div class="container p-4 pb-0">
         <!-- Section: Social media -->
         <section class="mb-2">
