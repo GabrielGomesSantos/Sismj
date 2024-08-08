@@ -47,11 +47,17 @@ $result = $conn->query($sql);
             </div>
         </div>
         <div class="col-10">
+            
             <div class="row mt-5">
+
                 <div class="col mt-3">
-                    <header class="text-white btn-block btn-info" style="padding: 5px; padding-left: 15px;">Medicamentos:</header>
+                    <header class="bg-info text-white" style="padding: 5px 15px;">
+                        Medicamentos:
+                    </header>
                 </div>
+
             </div>
+
             <div class="row">
                 <div class="col-2 offset-10">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -121,6 +127,7 @@ $result = $conn->query($sql);
         </div>
     </div>
 </div>
+<br><br><br><br><br><br><br><br><br><br>
 
 <script src="../../assets/js/jquery-3.3.1.min.js"></script>
 <script src="../../assets/js/popper.min.js"></script>
