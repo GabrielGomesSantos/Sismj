@@ -1,6 +1,5 @@
 <?php
-require_once('C:/xampp/htdocs/Sismj/config/config.php');
-
+require_once('D:/xampp/htdocs/Sismj/config/config.php');
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $cod_medico = $_POST['cod_medico'];

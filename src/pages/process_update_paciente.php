@@ -1,18 +1,5 @@
 <?php
-// Inclua o arquivo de conexão com o banco de dados
-$servername = "localhost"; // ou o endereço do seu servidor
-$username = "root"; // seu usuário do banco de dados
-$password = ""; // sua senha do banco de dados
-$dbname = "trabalho_final"; // nome do seu banco de dados
-
-// Cria a conexão
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verifica a conexão
-if ($conn->connect_error) {
-    die("Conexão falhou: " . $conn->connect_error);
-}
-
+require_once('D:/xampp/htdocs/Sismj/config/config.php');
 // Verifica se os dados do formulário foram enviados
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_paciente = intval($_POST['cod_paciente']);
