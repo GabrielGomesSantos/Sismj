@@ -9,7 +9,7 @@ $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($current_page - 1) * $items_per_page;
 
 // Obter o número total de registros
-$sql_total = "SELECT COUNT(*) FROM `entregas`";
+$sql_total = "SELECT COUNT(*) FROM `medicamentos`";
 $total_result = $conn->query($sql_total);
 $total_rows = $total_result->fetch_row()[0];
 
@@ -17,7 +17,7 @@ $total_rows = $total_result->fetch_row()[0];
 $total_pages = ceil($total_rows / $items_per_page);
 
 // Consultar registros para a página atual
-$sql = "SELECT * FROM `entregas` LIMIT $items_per_page OFFSET $offset";
+$sql = "SELECT * FROM `medicamentos` LIMIT $items_per_page OFFSET $offset";
 $result = $conn->query($sql);
 ?>
 
@@ -75,12 +75,12 @@ $result = $conn->query($sql);
 
                     ?>
 
-                    <!-- Seção entregas -->
-                    <h4 class="text-secondary mt-4">Entregas:</h4>
+                    <!-- Seção Medicamentos -->
+                    <h4 class="text-secondary mt-4">Medicamentos:</h4>
                     <div class="bg-light border-top border-secondary p-2">
-                        <!-- Colocar código PHP aqui para os entregas -->
-                        <select class="form-control text-secondary" name="entregas" id="entregas">
-                            <option disabled selected>Selecione o entregas</option>
+                        <!-- Colocar código PHP aqui para os medicamentos -->
+                        <select class="form-control text-secondary" name="medicamento" id="medicamento">
+                            <option disabled selected>Selecione o Medicamento</option>
                             <option>Paracetamol</option>
                             <option>Amoxicilina</option>
                             <!-- Adicionar mais opções conforme necessário -->
@@ -109,12 +109,11 @@ $result = $conn->query($sql);
             <div class="row mt-5">
                 <div class="col mt-3">
                     <header class="bg-info text-white" style="padding: 5px 15px;">
-                        Entregas:
+                        Medicamentos:
                     </header>
                 </div>
             </div>
-            
-            <!--botao que ativa o modal-->
+
             <div class="row">
                 <div class="col-2 ">
                 <button type="button" style="background-color: #17a2b8;  color: FFF;"" class="btn mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -122,26 +121,33 @@ $result = $conn->query($sql);
                 </button>
                 </div>
             </div>
-            <!-- fim do botao -->
 
-
-            <!--botao que ativa o modal-->
             <div class="row">
                 <div class="col-10 offset-1">
                     <table class="table mt-5">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">N°</th>
-                                <th scope="col">Data</th>
-                               
+                                <th scope="col">Medicamento</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Laboratório</th>
+                                <th scope="col">Lote</th>
+                                <th scope="col">Validade</th>
+                                <th scope="col">Quantidade</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($result as $row): ?>
-                                <!-- Consulta sql para os itens ta table-->
                                 <tr>
-                                    <th scope="row"><?= $row['cod_entrega']; ?></th>
-                                    <td><?= $row['data_entrega']; ?></td>
+                                    <th scope="row"><?= $row['cod_medicamento']; ?></th>
+                                    <td><?= $row['nome_medicamento']; ?></td>
+                                    <td><?= $row['tipo_medicamento']; ?></td>
+                                    <td><?= $row['categoria']; ?></td>
+                                    <td><?= $row['laboratorio']; ?></td>
+                                    <td><?= $row['lote']; ?></td>
+                                    <td><?= $row['validade']; ?></td>
+                                    <td><?= $row['quantidade']; ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
