@@ -27,12 +27,58 @@
 </head>
 
 <style>
+     *{
+
+          list-style: none;
+          margin: 0; 
+          padding: 0;
+     }
+     body{
+
+          min-height: 100vh;
+
+     }
+
     .col {
          margin: 0px;
     }
     .row {
          margin: 0px;
     }
+    .sidebar{
+
+          position: absolute;
+          width: 60px;
+          height: 100vh;
+          transition: 0.4s;
+          background-color: #17a2b8;
+          overflow: hidden;
+          
+          
+    }
+    .sidebar ul li a{
+
+     display: flex;
+     white-space: nowrap;
+     text-decoration: none;
+
+    }
+    .sidebar ul li .icone{
+
+     display: flex;
+     justify-content: center;
+     align-itens: center;
+
+     min-width: 60px;
+     height: 60px;
+
+    }
+    .sidebar:hover{
+
+          width: 200px;
+
+    }
+
 </style>
 
 <?php include('navbar.php')?>

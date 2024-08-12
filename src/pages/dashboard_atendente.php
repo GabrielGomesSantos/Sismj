@@ -114,11 +114,23 @@ $result = $conn->query($sql);
     </div>
 </div>
     <!-- fim do modal  -->
-    <div class="row" style=" height: 100%; ">
-        <div class="col-1" style=" left: -15px;" >
-            <div style="background-color: #17a2b8; width: 50px; height: 100%; left: -15%;">
-            <button class="btn mt-2 mb-2 " style="background-color: #13899c; padding: 4px; ">botao1</button> 
-            <button class="btn mt-2 mb-2 " style="background-color: #13899c; padding: 4px; ">botao1</button> 
+    <div class="row ">
+        <div class="col-1 "style="margin: 0; padding: 0; "  >
+            <div class="sidebar" >
+            <ul>
+                <li>
+                    <a href="">
+                        <span class="icone"><img src="..\..\assets\images\pill.png" alt=""></span>
+                        <span class="titulo">Botao 1</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="icone"></span>
+                        <span class="titulo">Botao 2</span>
+                    </a>
+                </li>
+            </ul> 
             </div>
         </div>
         <div class="col-10">
