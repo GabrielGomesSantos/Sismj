@@ -1,5 +1,5 @@
 <?php
-    require_once('D:/xampp/htdocs/Sismj/config/config.php');
+    require_once('C:/xampp/htdocs/Sismj/config/config.php');
     $sql = "SELECT * FROM `processos`";
     $result = $conn->query($sql);
 

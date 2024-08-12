@@ -1,5 +1,5 @@
 <?php
-require_once('D:/xampp/htdocs/Sismj/config/config.php');
+require_once('C:/xampp/htdocs/Sismj/config/config.php');
 // Verifica se os dados do formulário foram enviados
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_paciente = intval($_POST['cod_paciente']);

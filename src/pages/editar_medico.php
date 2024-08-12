@@ -1,5 +1,5 @@
 <?php
-require_once('D:/xampp/htdocs/Sismj/config/config.php');
+require_once('C:/xampp/htdocs/Sismj/config/config.php');
 if (isset($_GET['id_medico'])) {
     $id_medico = intval($_GET['id_medico']);  
 

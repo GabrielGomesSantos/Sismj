@@ -86,7 +86,7 @@
 </html>
 
 <?php
-require_once('D:/xampp/htdocs/Sismj/config/config.php');
+require_once('C:/xampp/htdocs/Sismj/config/config.php');
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome_medico = $_POST['nome_medico'];
     $cpf_medico = $_POST['cpf_medico'];

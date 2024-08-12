@@ -1,5 +1,5 @@
 <?php
-    require_once('D:/xampp/htdocs/Sismj/config/config.php');
+    require_once('C:/xampp/htdocs/Sismj/config/config.php');
     // Verifica se o formulário foi enviado
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Obtém os dados do formulário
