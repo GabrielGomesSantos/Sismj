@@ -132,8 +132,10 @@ $result = $conn->query($sql);
                 <ul>
                     <li>
                         <a href="">
-                            <span class="icone"><img src="..\..\assets\images\pill.png" alt=""></span>
-                            <span class="titulo">Botao 1</span>
+                           <div class="centralizar">
+                                <span class="icone"><img src="..\..\assets\images\pill.png" alt=""></span>
+                                <span class="titulo">Botao 1</span>
+                           </div>
                         </a>
                     </li>
                     <li>

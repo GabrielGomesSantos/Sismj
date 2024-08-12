@@ -49,7 +49,7 @@
 
           position: absolute;
           width: 60px;
-          height: 100vh;
+          height: calc(100vh - 80px);
           transition: 0.4s;
           background-color: #17a2b8;
           overflow: hidden;
@@ -67,17 +67,43 @@
 
      display: flex;
      justify-content: center;
-     align-itens: center;
+     
 
      min-width: 60px;
      height: 60px;
 
     }
+    
     .sidebar:hover{
 
-          width: 200px;
+          width: 165px;
 
     }
+
+    .sidebar ul li .titulo{
+
+          display: flex;
+          width: 100%;
+          height: 20px;
+          text-align: center;
+          color: white;
+          transition: 0.2s;
+     }
+
+     .sidebar ul li .titulo:hover{
+
+          color: #ccc;
+
+     }
+     
+     .centralizar{
+
+          display: flex;
+          align-items: center;
+          text-align: center;
+          margin-bottom: 30px;
+
+     }
 
 </style>
 
