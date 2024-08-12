@@ -17,7 +17,23 @@ $total_rows = $total_result->fetch_row()[0];
 $total_pages = ceil($total_rows / $items_per_page);
 
 // Consultar registros para a página atual
-$sql = "SELECT * FROM `entregas` LIMIT $items_per_page OFFSET $offset";
+$sql = "
+    (SELECT e.*, p.nome_paciente, p.cpf_paciente
+    FROM entregas e
+    LEFT JOIN pacientes p
+    ON e.cod_paciente = p.cod_paciente)
+
+    UNION
+
+    (SELECT e.*, p.nome_paciente, p.cpf_paciente
+    FROM entregas e
+    RIGHT JOIN pacientes p
+    ON e.cod_paciente = p.cod_paciente)
+
+    LIMIT $items_per_page OFFSET $offset;
+";
+
+
 $result = $conn->query($sql);
 ?>
 
@@ -132,6 +148,9 @@ $result = $conn->query($sql);
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">N°</th>
+                                <th scope="col">Nome do Paciente</th>
+                                <th scope="col">Cpf</th>
+                                <th scope="col">Cod. Processo</th>
                                 <th scope="col">Data</th>
                                
                             </tr>
@@ -141,6 +160,9 @@ $result = $conn->query($sql);
                                 <!-- Consulta sql para os itens ta table-->
                                 <tr>
                                     <th scope="row"><?= $row['cod_entrega']; ?></th>
+                                    <td><?= $row['nome_paciente']; ?></td>
+                                    <td><?= $row['cpf_paciente']; ?></td>
+                                    <td><?= $row['cod_processo']; ?></td>
                                     <td><?= $row['data_entrega']; ?></td>
                                 </tr>
                             <?php endforeach; ?>
