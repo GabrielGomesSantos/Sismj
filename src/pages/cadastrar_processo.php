@@ -13,6 +13,11 @@ $result_medico = $conn->query($sql_medico);
 if ($result_medico === FALSE) {
     echo "Error executing query for medicos: " . $conn->error;
 }
+$sql_medicamentos = "SELECT * FROM medicamentos";
+$result_medicamentos = $conn->query($sql_medicamentos);
+if ($result_medicamentos === FALSE) {
+    echo "Error executing query for medicos: " . $conn->error;
+}
 ?>
 
 
@@ -25,8 +30,8 @@ if ($result_medico === FALSE) {
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="mb-4">
-                                <h3>Cadastro de <strong>medicos</strong></h3>
-                                <p class="mb-4">Formulario para cadastrar medicos</p>
+                                <h3>Cadastro de <strong>Processo</strong></h3>
+                                <p class="mb-4">Formulario para cadastrar processos</p>
                             </div>
                             <form action="cadastrar_processo.php" method="post">
                                 <div class="form-group first mb-4">
@@ -35,11 +40,11 @@ if ($result_medico === FALSE) {
                                 </div>
                                 <div class="form-group first mb-4">
                                     <label for="nome_medico">Cópia do Processo:</label>
-                                    <input type="text" class="form-control" id="num_processo" name="copia_processo" required>
+                                    <input type="file" class="form-control" id="num_processo" name="copia_processo" required>
                                 </div>
                                 <div class="form-group first mb-4">
                                     <label for="nome_medico">Receita do Processo:</label>
-                                    <input type="text" class="form-control" id="num_processo" name="receita_processo" required>
+                                    <input type="file" class="form-control" id="num_processo" name="receita_processo" required>
                                 </div>
                                 <div class="form-group form-floating-label mt-2">
                                     <label for="">Selecione o Paciente</label>
@@ -67,6 +72,21 @@ if ($result_medico === FALSE) {
                                         <?php endif; ?>
                                     </select>
                                 </div>
+                                <div class="form-group form-floating-label mt-2">
+                                    <label for="medicamentos">Selecione o Medicamento</label>
+                                    <div id="medicamentos" class="form-check">
+                                        <?php if($result_medicamentos->num_rows > 0): ?>
+                                            <?php while($row = $result_medicamentos->fetch_assoc()): ?>
+                                                <input class="form-check-input" type="checkbox" value="<?php echo $row['cod_medicamento'] ?>" id="medicamento">
+                                                <label class="form-check-label" for="medicamento">
+                                                    <?php echo $row['nome_medicamento'] ?>
+                                                </label>    
+                                            <?php endwhile; ?>
+                                        <?php else: ?>
+                                            <p>Nenhum medicamento encontrado</p>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                                 <input type="submit" value="Cadastrar" class="btn text-white btn-block btn-info mt-5">
                             </form>
                         </div>
@@ -75,6 +95,18 @@ if ($result_medico === FALSE) {
             </div>
         </div>
     </div>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectElement = document.getElementById('medicamentos');
+            const resultElement = document.getElementById('resultado');
+
+            selectElement.addEventListener('change', () => {
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+                resultElement.textContent = selectedOption.textContent;
+            });
+        });
+    </script>
 
 
 <?php
