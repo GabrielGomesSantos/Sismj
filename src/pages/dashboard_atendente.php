@@ -138,10 +138,9 @@ $result = $conn->query($sql);
                 </button>
                 </div>
             </div>
-            <!-- fim do botao -->
+            <!--botao que ativa o modal Fim-->
 
 
-            <!--botao que ativa o modal-->
             <div class="row">
                 <div class="col-10 offset-1">
                     <table class="table mt-5">
@@ -158,7 +157,7 @@ $result = $conn->query($sql);
                         <tbody>
                             <?php foreach ($result as $row): ?>
                                 <!-- Consulta sql para os itens ta table-->
-                                <tr>
+                                <tr onclick="openModal('<?= $row['cod_entrega']; ?>')">
                                     <th scope="row"><?= $row['cod_entrega']; ?></th>
                                     <td><?= $row['nome_paciente']; ?></td>
                                     <td><?= $row['cpf_paciente']; ?></td>
@@ -202,6 +201,30 @@ $result = $conn->query($sql);
     </div>
 </div>
 </div>
+
+<!-- Modal Entrega Infos Inicio-->
+<!-- Modal -->
+<div class="modal fade" id="EntregaModal" tabindex="-1" aria-labelledby="EntregaModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="EntregaModalLabel">Detalhes da Entrega</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="modalContent">
+        <!-- O conteúdo dinâmico será inserido aqui -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Entrega Infos Fim -->
+
+
+
 <!-- Scripts -->
 <script src="../../assets/js/jquery-3.3.1.min.js"></script>
 <script src="../../assets/js/popper.min.js"></script>
@@ -213,7 +236,24 @@ $result = $conn->query($sql);
     function showSelectedValue() {
         var dropdown = document.getElementById('myDropdown');
         var selectedValue = dropdown.value;
-        var variaveljs - "yan_corno"
-        alert('Valor selecionado: ' + selectedValue);
-    }
+
+    };
+
+    function openModal(codEntrega) {
+    const url = 'entregasQuery.php?cod_entrega=' + codEntrega + '.php';
+    console.log('Fetching URL:', url); // Adicione isto para depuração
+    
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('modalContent').innerHTML = data;
+
+            var modal = new bootstrap.Modal(document.getElementById('EntregaModal'));
+            modal.show();
+        })
+        .catch(error => {
+            console.error('Erro ao carregar os detalhes da entrega:', error);
+        });
+}
+
 </script>
