@@ -67,7 +67,7 @@ $result = $conn->query($sql);
     <div class="row" style=" height: 100%; ">
         <div class="col-1" style=" left: -15px;" >
             <div style="background-color: #17a2b8; width: 50px; height: 100%; left: -15%;">
-            <button class="btn mt-3" style="background-color: #17a2b8; padding: 4px; ">Teste</button>  
+            <button class="btn mt-2 mb-2 " style="background-color: #13899c; padding: 4px; ">Teste</button>  
             </div>
         </div>
         <div class="col-10">
@@ -84,8 +84,8 @@ $result = $conn->query($sql);
 
             <div class="row">
                 <div class="col-2 offset-10">
-                <button type="button" style="background-color: #17a2b8;" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  Launch static backdrop modal
+                <button type="button" style="background-color: #17a2b8;  color: FFF;"" class="btn mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                  Cadastrar
                 </button>
                 </div>
             </div>
@@ -123,23 +123,23 @@ $result = $conn->query($sql);
             </div>
             <div class="row">
                 <div class="col-12">
-                    <nav aria-label="Page navigation">
+                    <nav  aria-label="Page navigation">
                         <ul class="pagination justify-content-center">
                             <?php if ($current_page > 1): ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="?page=<?= $current_page - 1; ?>" aria-label="Previous">
+                                    <a style="background-color: #13899c; color: FFF;" class="page-link" href="?page=<?= $current_page - 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
                             <?php endif; ?>
                             <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                                <li class="page-item <?= ($i == $current_page) ? 'active' : ''; ?>">
-                                    <a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                                <li  class="page-item <?= ($i == $current_page) ? 'active' : ''; ?>">
+                                    <a style="background-color: #17a2b8; color: FFF;" class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
                                 </li>
                             <?php endfor; ?>
                             <?php if ($current_page < $total_pages): ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="?page=<?= $current_page + 1; ?>" aria-label="Next">
+                                    <a style="background-color: #13899c; color: FFF;" class="page-link" href="?page=<?= $current_page + 1; ?>" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
