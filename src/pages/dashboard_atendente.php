@@ -45,7 +45,7 @@ $result = $conn->query($sql);
                 <!-- Cabeçalho do Modal -->
                 <div class="modal-header bg-info text-white">
                     <div class="d-flex align-items-center">
-                        <h1 class="modal-title fs-5 mb-0" id="staticBackdropLabel">Cadastrar Entrega</h1>
+                        <h1 class="modal-title fs-5 mb-0" id="cadastrarModal">Cadastrar Entrega</h1>
                     </div>
                     <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
                         <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
@@ -57,7 +57,7 @@ $result = $conn->query($sql);
                     <form action="" method="">
                         <!-- Seção Paciente -->
                         <h4 class="text-secondary">PACIENTE</h4>
-                        <div class="border-top border-secondary p-2">
+                        <div class="border-top border-secondary p-2 ">
                             <label for="nome" class="form-label">Nome:</label>
                             <select class="form-control rounded-4" name="nome" id="myDropdown">
                                 <option value="" disabled selected>Selecione o nome do paciente</option>
@@ -66,7 +66,7 @@ $result = $conn->query($sql);
                                     $pacientes = $conn->query($sql_pacientes);
 
                                     while ($row = $pacientes->fetch_assoc()): ?>
-                                        <option value="<?php echo $row['cod_paciente']?>"><?php echo $row['nome_paciente']?></option>
+                                        <option onclick="updateModalContent(<?php echo $row['cod_paciente']?>)" value="<?php echo $row['cod_paciente']?>"><?php echo $row['nome_paciente']?></option>
                                     <?php endwhile; ?>
                             </select>
 
@@ -78,41 +78,7 @@ $result = $conn->query($sql);
                             </select>
                         </div>
 
-                        <!-- Seção entregas -->
-                        <h4 class="text-secondary mt-4">Medicamentos:</h4>
-                        <div class="bg-light border-top border-secondary p-2">
-                            <table class="table mt-5">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">N°</th>
-                                        <th scope="col">Medicamentos</th>
-                                        <th scope="col">Tipo</th>
-                                        <th scope="col">Categoria</th>
-                                        <th scope="col">Laboratorio</th>
-                                        <th scope="col">Qnts</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php 
-                                        // Certifique-se de que a consulta está correta
-                                        $sql_medicamentos = "SELECT * FROM medicamentos_processo";
-                                        $medicamentos = $conn->query($sql_medicamentos);
 
-                                        while ($row = $medicamentos->fetch_assoc()): ?>
-                                            <!-- Consulta sql para os itens da tabela -->
-                                            <tr>
-                                                <th scope="row"><?= $row['cod_medicamento_processo']; ?></th>
-                                                <td><?= $row['nome_medicamento']; ?></td>
-                                                <td><?= $row['tipo_medicamento']; ?></td>
-                                                <td><?= $row['categoria_medicamento']; ?></td>
-                                                <td><?= $row['laboratorio']; ?></td>
-                                                <td><?= $row['quantidade']; ?></td>
-                                                <!-- Adicione outras colunas conforme necessário -->
-                                            </tr>
-                                    <?php endwhile; ?>
-                                </tbody>
-                            </table>
-                        </div>
 
                         <!-- Rodapé do Modal -->
                         <button class="btn btn-primary mt-3" onclick="showSelectedValue()">Mostrar Valor Selecionado</button>
@@ -252,22 +218,37 @@ $result = $conn->query($sql);
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
 <script>
-    function showSelectedValue() {
-        var dropdown = document.getElementById('myDropdown');
-        var selectedValue = dropdown.value;
-        console.log('Valor Selecionado:', selectedValue);
-    }
+function updateModalContent(cod_paciente) {
+    const url = 'ajax.php?cod_paciente=' + cod_paciente;
+    console.log('Fetching URL for patient details:', url); // Adicione isto para depuração
+
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('modalContent').innerHTML = data;
+
+            // Mostrar o modal se não estiver visível
+            var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('cadastrarModal'));
+            modal.show();
+        })
+        .catch(error => {
+            console.error('Erro ao carregar os detalhes do paciente:', error);
+        });
+}
+
 
     function openModal(codEntrega) {
+        // URL para buscar detalhes da entrega
         const url = 'entregasQuery.php?cod_entrega=' + codEntrega;
-        console.log('Fetching URL:', url); // Adicione isto para depuração
+        console.log('Fetching URL for delivery details:', url); // Adicione isto para depuração
 
         fetch(url)
             .then(response => response.text())
             .then(data => {
                 document.getElementById('modalContent').innerHTML = data;
 
-                var modal = new bootstrap.Modal(document.getElementById('EntregaModal'));
+                // Mostrar o modal se não estiver visível
+                var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('EntregaModal'));
                 modal.show();
             })
             .catch(error => {
