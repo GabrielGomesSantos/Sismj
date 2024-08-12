@@ -33,104 +33,116 @@ $sql = "
     LIMIT $items_per_page OFFSET $offset;
 ";
 
-
+// Executar a consulta
 $result = $conn->query($sql);
 ?>
 
 <div class="container">
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Cabeçalho do Modal -->
-            <div class="modal-header bg-info text-white">
-                <div class="d-flex align-items-center">
-                    <h1 class="modal-title fs-5 mb-0" id="staticBackdropLabel">Cadastrar Entrega</h1>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Cabeçalho do Modal -->
+                <div class="modal-header bg-info text-white">
+                    <div class="d-flex align-items-center">
+                        <h1 class="modal-title fs-5 mb-0" id="staticBackdropLabel">Cadastrar Entrega</h1>
+                    </div>
+                    <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
+                        <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
+                    </button>
                 </div>
-                <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
-                    <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
-                </button>
+
+                <!-- Corpo do Modal -->
+                <div class="modal-body">
+                    <form action="" method="">
+                        <!-- Seção Paciente -->
+                        <h4 class="text-secondary">PACIENTE</h4>
+                        <div class="border-top border-secondary p-2">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <select class="form-control rounded-4" name="nome" id="myDropdown">
+                                <option value="" disabled selected>Selecione o nome do paciente</option>
+                                <?php 
+                                    $sql_pacientes = "SELECT nome_paciente, cod_paciente FROM pacientes";
+                                    $pacientes = $conn->query($sql_pacientes);
+
+                                    while ($row = $pacientes->fetch_assoc()): ?>
+                                        <option value="<?php echo $row['cod_paciente']?>"><?php echo $row['nome_paciente']?></option>
+                                    <?php endwhile; ?>
+                            </select>
+
+                            <label for="codprocesso" class="form-label">Código do Processo:</label>
+                            <select class="form-control" name="codprocesso" id="codprocesso">
+                                <option value="" disabled selected>Selecione o código do processo</option>
+                                <option value="codigo1">Código 1</option>
+                                <!-- Adicione mais opções conforme necessário -->
+                            </select>
+                        </div>
+
+                        <!-- Seção entregas -->
+                        <h4 class="text-secondary mt-4">Medicamentos:</h4>
+                        <div class="bg-light border-top border-secondary p-2">
+                            <table class="table mt-5">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">N°</th>
+                                        <th scope="col">Medicamentos</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Categoria</th>
+                                        <th scope="col">Laboratorio</th>
+                                        <th scope="col">Qnts</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                        // Certifique-se de que a consulta está correta
+                                        $sql_medicamentos = "SELECT * FROM medicamentos_processo";
+                                        $medicamentos = $conn->query($sql_medicamentos);
+
+                                        while ($row = $medicamentos->fetch_assoc()): ?>
+                                            <!-- Consulta sql para os itens da tabela -->
+                                            <tr>
+                                                <th scope="row"><?= $row['cod_medicamento_processo']; ?></th>
+                                                <td><?= $row['nome_medicamento']; ?></td>
+                                                <td><?= $row['tipo_medicamento']; ?></td>
+                                                <td><?= $row['categoria_medicamento']; ?></td>
+                                                <td><?= $row['laboratorio']; ?></td>
+                                                <td><?= $row['quantidade']; ?></td>
+                                                <!-- Adicione outras colunas conforme necessário -->
+                                            </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Rodapé do Modal -->
+                        <button class="btn btn-primary mt-3" onclick="showSelectedValue()">Mostrar Valor Selecionado</button>
+                        <div class="modal-footer">
+                            <input type="submit" value="Salvar" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>       
             </div>
-
-            <!-- Corpo do Modal -->
-            <div class="modal-body">
-                <form action="" method="">
-                    <!-- Seção Paciente -->
-                    <h4 class="text-secondary">PACIENTE</h4>
-                    <div class="border-top border-secondary p-2">
-                    <label for="nome" class="form-label">Nome:</label>
-                    <select class="form-control rounded-4" name="nome" id="myDropdown">
-                        <option value="" disabled selected>Selecione o nome do paciente</option>
-                    
-                        <?php 
-                            $sql_pacientes = "SELECT nome_paciente,cod_paciente FROM pacientes";
-                            $pacientes = $conn->query($sql_pacientes);
-
-                            foreach ($pacientes as $row): ?>
-                                <option value="<?php echo $row['cod_paciente']?>"><?php echo $row['nome_paciente']?></option>
-                            <?php endforeach; ?>
-                        
-                    </select>
-                        
-                    <label for="codprocesso" class="form-label">Código do Processo:</label>
-                    <select class="form-control" name="codprocesso" id="codprocesso">
-                        <option value="" disabled selected>Selecione o código do processo</option>
-
-                        <option value="codigo1">Código 1</option>
-
-                        <!-- Adicione mais opções conforme necessário -->
-                    </select>
-
-                    </div>
-
-                    <?php
-
-                        $variavel = "<script> document.write(variaveljs)</script>";
-
-                        echo $variavel;
-
-                    ?>
-
-                    <!-- Seção entregas -->
-                    <h4 class="text-secondary mt-4">Entregas:</h4>
-                    <div class="bg-light border-top border-secondary p-2">
-                        <!-- Colocar código PHP aqui para os entregas -->
-                        <select class="form-control text-secondary" name="entregas" id="entregas">
-                            <option disabled selected>Selecione o entregas</option>
-                            <option>Paracetamol</option>
-                            <option>Amoxicilina</option>
-                            <!-- Adicionar mais opções conforme necessário -->
-                        </select>
-                    </div>
-
-                    <!-- Rodapé do Modal -->
-                    <button class="btn btn-primary mt-3" onclick="showSelectedValue()">Mostrar Valor Selecionado</button>
-                    <div class="modal-footer">
-                        <input type="submit" value="Salvar" class="btn btn-primary">
-                    </div>
-                </form>
-            </div>       
         </div>
     </div>
-</div>
-    <!-- fim do modal  -->
-    <div class="row ">
-        <div class="col-1 "style="margin: 0; padding: 0; "  >
-            <div class="sidebar" >
-            <ul>
-                <li>
-                    <a href="">
-                        <span class="icone"><img src="..\..\assets\images\pill.png" alt=""></span>
-                        <span class="titulo">Botao 1</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span class="icone"></span>
-                        <span class="titulo">Botao 2</span>
-                    </a>
-                </li>
-            </ul> 
+    <!-- Fim do modal  -->
+
+    <div class="row">
+        <div class="col-1" style="margin: 0; padding: 0;">
+            <div class="sidebar">
+                <ul>
+                    <li>
+                        <a href="">
+                            <span class="icone"><img src="..\..\assets\images\pill.png" alt=""></span>
+                            <span class="titulo">Botao 1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="icone"></span>
+                            <span class="titulo">Botao 2</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="col-10">
@@ -141,17 +153,16 @@ $result = $conn->query($sql);
                     </header>
                 </div>
             </div>
-            
-            <!--botao que ativa o modal-->
+
+            <!-- Botão que ativa o modal -->
             <div class="row">
-                <div class="col-2 ">
-                <button type="button" style="background-color: #17a2b8;  color: FFF;"" class="btn mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  Cadastrar
-                </button>
+                <div class="col-2">
+                    <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Cadastrar
+                    </button>
                 </div>
             </div>
-            <!--botao que ativa o modal Fim-->
-
+            <!-- Fim do botão que ativa o modal -->
 
             <div class="row">
                 <div class="col-10 offset-1">
@@ -163,12 +174,10 @@ $result = $conn->query($sql);
                                 <th scope="col">Cpf</th>
                                 <th scope="col">Cod. Processo</th>
                                 <th scope="col">Data</th>
-                               
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($result as $row): ?>
-                                <!-- Consulta sql para os itens ta table-->
+                            <?php while ($row = $result->fetch_assoc()): ?>
                                 <tr onclick="openModal('<?= $row['cod_entrega']; ?>')">
                                     <th scope="row"><?= $row['cod_entrega']; ?></th>
                                     <td><?= $row['nome_paciente']; ?></td>
@@ -176,7 +185,7 @@ $result = $conn->query($sql);
                                     <td><?= $row['cod_processo']; ?></td>
                                     <td><?= $row['data_entrega']; ?></td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endwhile; ?>
                         </tbody>
                     </table>
                 </div>
@@ -184,23 +193,23 @@ $result = $conn->query($sql);
 
             <div class="row">
                 <div class="col-12">
-                    <nav  aria-label="Page navigation">
+                    <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center">
                             <?php if ($current_page > 1): ?>
                                 <li class="page-item">
-                                    <a style="background-color: #13899c; color: FFF;" class="page-link" href="?page=<?= $current_page - 1; ?>" aria-label="Previous">
+                                    <a style="background-color: #13899c; color: #FFF;" class="page-link" href="?page=<?= $current_page - 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
                             <?php endif; ?>
                             <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                                <li  class="page-item <?= ($i == $current_page) ? 'active' : ''; ?>">
-                                    <a style="background-color: #17a2b8; color: FFF;" class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                                <li class="page-item <?= ($i == $current_page) ? 'active' : ''; ?>">
+                                    <a style="background-color: #17a2b8; color: #FFF;" class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
                                 </li>
                             <?php endfor; ?>
                             <?php if ($current_page < $total_pages): ?>
                                 <li class="page-item">
-                                    <a style="background-color: #13899c; color: FFF;" class="page-link" href="?page=<?= $current_page + 1; ?>" aria-label="Next">
+                                    <a style="background-color: #13899c; color: #FFF;" class="page-link" href="?page=<?= $current_page + 1; ?>" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -212,30 +221,26 @@ $result = $conn->query($sql);
         </div>
     </div>
 </div>
-</div>
 
 <!-- Modal Entrega Infos Inicio-->
 <!-- Modal -->
 <div class="modal fade" id="EntregaModal" tabindex="-1" aria-labelledby="EntregaModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="EntregaModalLabel">Detalhes da Entrega</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="modalContent">
-        <!-- O conteúdo dinâmico será inserido aqui -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EntregaModalLabel">Detalhes da Entrega</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalContent">
+                <!-- O conteúdo dinâmico será inserido aqui -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-
 <!-- Modal Entrega Infos Fim -->
-
-
 
 <!-- Scripts -->
 <script src="../../assets/js/jquery-3.3.1.min.js"></script>
@@ -248,24 +253,23 @@ $result = $conn->query($sql);
     function showSelectedValue() {
         var dropdown = document.getElementById('myDropdown');
         var selectedValue = dropdown.value;
-
-    };
+        console.log('Valor Selecionado:', selectedValue);
+    }
 
     function openModal(codEntrega) {
-    const url = 'entregasQuery.php?cod_entrega=' + codEntrega + '.php';
-    console.log('Fetching URL:', url); // Adicione isto para depuração
-    
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('modalContent').innerHTML = data;
+        const url = 'entregasQuery.php?cod_entrega=' + codEntrega;
+        console.log('Fetching URL:', url); // Adicione isto para depuração
 
-            var modal = new bootstrap.Modal(document.getElementById('EntregaModal'));
-            modal.show();
-        })
-        .catch(error => {
-            console.error('Erro ao carregar os detalhes da entrega:', error);
-        });
-}
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('modalContent').innerHTML = data;
 
+                var modal = new bootstrap.Modal(document.getElementById('EntregaModal'));
+                modal.show();
+            })
+            .catch(error => {
+                console.error('Erro ao carregar os detalhes da entrega:', error);
+            });
+    }
 </script>
