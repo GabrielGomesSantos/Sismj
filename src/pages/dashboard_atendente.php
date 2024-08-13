@@ -99,15 +99,17 @@ $result = $conn->query($sql);
                     <li>
                         <a href="">
                            <div class="centralizar">
-                                <span class="icone"><img src="..\..\assets\images\pill.png" alt=""></span>
-                                <span class="titulo">Botao 1</span>
+                                <span class="icone"><img src="..\..\assets\images\truck.png" alt=""></span>
+                                <span style=" margin-left: 5px; " class="titulo">Entregas</span>
                            </div>
                         </a>
                     </li>
                     <li>
                         <a href="">
-                            <span class="icone"></span>
-                            <span class="titulo">Botao 2</span>
+                            <div class="centralizar">
+                                <span class="icone"><img src="..\..\assets\images\pill.png" alt=""></span>
+                                <span  class="titulo">Medicamentos</span>
+                            </div>
                         </a>
                     </li>
                 </ul>
