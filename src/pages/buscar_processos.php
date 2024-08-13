@@ -8,8 +8,11 @@ if (isset($_POST['id'])) {
     include('../../config/config.php');
 
     // Busca os processos do paciente
-    $query = "SELECT numero_processo FROM processos WHERE cod_paciente = ?";
-    $stmt = $conn->prepare($query);  // Use a variável $conn, conforme o arquivo de configuração
+    $query = "SELECT numero_processo, cod_processo
+              FROM processos
+              WHERE cod_paciente = ?";
+
+    $stmt = $conn->prepare($query);  // Usa a variável $conn, conforme o arquivo de configuração
     $stmt->bind_param("i", $pacienteId);
     $stmt->execute();
     $resultado = $stmt->get_result();
@@ -17,13 +20,15 @@ if (isset($_POST['id'])) {
     $processos = [];
 
     while ($row = $resultado->fetch_assoc()) {
-        $processos[] = $row['numero_processo'];
+        $processos[] = [
+            'numero_processo' => $row['numero_processo'],
+            'cod_processo' => $row['cod_processo']
+        ];
     }
 
     // Retorna os dados em formato JSON
     echo json_encode([
-        'processos' => $processos,  // Aqui, o array de processos é retornado corretamente
-        'dadosTabela' => [] // Mantendo o array vazio, caso precise ser preenchido posteriormente
+        'processos' => $processos
     ]);
 
     $stmt->close();
