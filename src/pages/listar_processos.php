@@ -41,6 +41,7 @@
 <?php include('navbar.php')?>
 
 <body>
+  <a href="cadastrar_processo.php" class='btn btn-success'>Cadastrar Processo</a>
 <table class="table">
   <thead>
     <tr>
@@ -59,33 +60,12 @@
             <td><?php echo $row['numero_processo'] ?></td>
             <td><?php echo $row['copia_processo'] ?></td>
             <td><?php echo $row['receita'] ?></td>
-            <td>
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <i class="bi bi-pencil-square"></i>
-            </button>
-            </td>
             <td><a href="remover_processo.php?id_processo=<?php echo $row['cod_processo']?>" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
             <td><a href="editar_processo.php?id_processo=<?php echo $row['cod_processo']?>" class="btn btn-warning"><i class="bi bi-pencil text-white"></i></a></td>
             </tr>   
         <?php endwhile;?>
     <?php endif?>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastrar Processo</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <?php include('cadastrar_processo.php');?>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
   </tbody>
 </table>
 
