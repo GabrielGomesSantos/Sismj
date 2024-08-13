@@ -104,6 +104,17 @@
           margin-bottom: 30px;
 
      }
+     .row_paciente{
+          transition: 0.2s;
+          cursor: pointer; 
+         
+          
+     }
+     .row_paciente:hover{
+          background-color: #e7e6e5;
+            
+          
+     }
 
 </style>
 

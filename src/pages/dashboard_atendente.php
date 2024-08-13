@@ -146,7 +146,7 @@ $result = $conn->query($sql);
                         </thead>
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()): ?>
-                                <tr onclick="openModal('<?= $row['cod_entrega']; ?>')">
+                                <tr class="row_paciente" onclick="openModal('<?= $row['cod_entrega']; ?>')">
                                     <th scope="row"><?= $row['cod_entrega']; ?></th>
                                     <td><?= $row['nome_paciente']; ?></td>
                                     <td><?= $row['cpf_paciente']; ?></td>
