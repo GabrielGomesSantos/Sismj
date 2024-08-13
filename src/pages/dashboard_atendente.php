@@ -77,8 +77,30 @@ $result = $conn->query($sql);
                         </select>
                     </div>
 
-                    <!-- Rodapé do Modal -->
-                    <button class="btn btn-primary mt-3" onclick="showSelectedValue()">Mostrar Valor Selecionado</button>
+                    
+                    <!-- Tabela dos medicamentos -->
+                    <h4 class="text-secondary mt-4">MEDICAMENTOS</h4>
+                    <div class="border-top border-secondary p-2">
+                    <div>
+                        <table class="table mt-4" id="TabelaMedicamentos">
+
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Medicamento</th>
+                                    <th scope="col">tipo</th>
+                                    <th scope="col">Laboratorio</th>
+                                    <th scope="col">Qnts</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                    <th></th>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <!-- Tabela dos medicamentos Fim-->
+                        <!-- Rodapé do Modal -->
                     <div class="modal-footer">
                         <input type="submit" value="Salvar" class="btn btn-primary">
                     </div>
@@ -219,44 +241,26 @@ $result = $conn->query($sql);
 
 <script>
 $(document).ready(function() {
-    console.log('Documento carregado. Associando o evento de mudança...');
-
     $('#DropDownNome').on('change', function() {
         var pacienteId = $(this).val();
         
-        console.log('ID do paciente selecionado:', pacienteId);
-
         if (pacienteId) {
             $.ajax({
                 url: 'buscar_processos.php',
                 type: 'POST',
                 data: { id: pacienteId },
                 success: function(response) {
-                    console.log('Resposta do servidor:', response);
-                    
                     try {
                         var dados = JSON.parse(response);
 
-                        // Verificando se os dados estão sendo recebidos corretamente
-                        console.log('Dados processados:', dados);
+                        // Limpa o dropdown e adiciona a opção padrão
+                        var $dropdown = $('#codprocesso');
+                        $dropdown.empty().append('<option value="" disabled selected>Selecione o código do processo</option>');
 
-                        // Acessa a lista de processos
-                        var processos = dados.processos;
-
-                        // Verificando os processos recebidos
-                        console.log('Processos recebidos:', processos);
-
-                        // Limpa o dropdown de processos
-                        $('#codprocesso').empty();
-
-                        // Adiciona uma opção de seleção padrão
-                        $('#codprocesso').append('<option value="" disabled selected>Selecione o código do processo</option>');
-
-                        // Preenche o dropdown com os processos recebidos
-                        processos.forEach(function(processo) {
-                            $('#codprocesso').append('<option value="' + processo + '">' + processo + '</option>');
+                        // Adiciona as opções ao dropdown
+                        dados.processos.forEach(function(processo) {
+                            $dropdown.append(`<option value="${processo['cod_processo']}">${processo['numero_processo']}</option>`);
                         });
-
                     } catch (e) {
                         console.error('Erro ao processar JSON:', e);
                     }
@@ -269,6 +273,52 @@ $(document).ready(function() {
         }
     });
 });
+
+$(document).ready(function() {
+    $('#codprocesso').on('change', function() {
+        var codProcesso = $(this).val();
+        
+        console.log(codProcesso);
+
+        if (codProcesso) {
+            $.ajax({
+                url: 'buscar_medicamentos.php',
+                type: 'POST',
+                data: { id: codProcesso },
+                success: function(response) {
+                    try {
+                        var dados = JSON.parse(response);
+
+                        // Verificando se os dados da tabela estão sendo recebidos corretamente
+                        console.log('Dados da tabela recebidos:', dados.dadosTabela);
+
+                        // Limpa a tabela antes de adicionar os novos dados
+                        var tabelaCorpo = $('#TabelaMedicamentos tbody');
+                        tabelaCorpo.empty();
+
+                        // Adiciona as linhas na tabela
+                        dados.dadosTabela.forEach(function(item) {
+                            var novaLinha = '<tr>' +
+                                '<td>' + item.nome_medicamento + '</td>' +
+                                '<td>' + item.tipo_medicamento + '</td>' +
+                                '<td>' + item.laboratorio + '</td>' +
+                                '<td>' + item.quantidade + '</td>' +
+                            '</tr>';
+                            tabelaCorpo.append(novaLinha);
+                        });
+                    } catch (e) {
+                        console.error('Erro ao processar JSON:', e);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erro na requisição AJAX:', status, error);
+                    console.log('Detalhes do erro:', xhr.responseText);
+                }
+            });
+        }
+    });
+});
+
 
 function openModal(codEntrega) {
     // URL para buscar detalhes da entrega
