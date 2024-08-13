@@ -95,7 +95,8 @@ $result = $conn->query($sql);
                 <ul>
                     <li>
                         <a href="">
-                           <div class="centralizar">
+                           <div 
+                            class="centralizar">
                                 <span class="icone"><img src="..\..\assets\images\truck.png" alt=""></span>
                                 <span style=" margin-left: 5px; " class="titulo">Entregas</span>
                            </div>
@@ -194,12 +195,18 @@ $result = $conn->query($sql);
 <div class="modal fade" id="EntregaModal" tabindex="-1" aria-labelledby="EntregaModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="EntregaModalLabel">Detalhes da Entrega</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+             <div class="modal-header bg-info text-white">
+                <div class="d-flex align-items-center">
+                    <h1 class="modal-title fs-5 mb-0" id="cadastrarModal">Detalhes da entrega</h1>
+                </div>
+                <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
+                </button>
             </div>
             <div class="modal-body" id="modalContent">
                 <!-- O conteúdo dinâmico será inserido aqui -->
+                 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>

@@ -24,10 +24,42 @@ if (isset($_GET['cod_entrega'])) {
 
         if ($entrega) {
             // Retornar os dados da entrega em HTML
-            echo "<h5>Entrega Código: " . htmlspecialchars($entrega['cod_entrega']) . "</h5>";
-            echo "<p>Cod Paciente: " . htmlspecialchars($entrega['cod_paciente']) . "</p>";
-            echo "<p>Data Entrega: " . htmlspecialchars($entrega['data_entrega']) . "</p>";
-            echo "<p>Cod Processo: " . htmlspecialchars($entrega['cod_processo']) . "</p>";
+            echo " <h4 class='text-secondary'>PACIENTE</h4>
+                    <div class='border-top border-secondary p-2'> 
+                    <label for='codigo-entrega' class='form-label'> Código da Entrega:</label> 
+                    <input type='text' name='codigo-entrega' class='form-control ' disabled value=" . htmlspecialchars($entrega['cod_entrega']). ">
+                    <label for='nome-paciente'> Nome do paciente: </label>
+                    <input type='text' name='nome-paciente' class='form-control' disabled value='codigo-nome-do-paciente-aqui'>
+                    <label for='cpf-paciente'>CPF:</label>
+                    <input type='text' name='cpf-paciente' class='form-control' disabled value='codigo-cpf-aqui'>
+                    <label for='processo-paciente'>Processo:</label>
+                    <input type='text' name='processo-paciente' class='form-control' disabled value='processo-aqui'>
+                    </div>
+                    <h4 class='text-secondary'> Medicamentos </h4>
+                    <div class='border-top border-secondary'>
+                    <table class='table mt-5 '>
+                    <thead class='thead-light'>
+                 
+                    <th>Medicamento</th>
+                    <th>Tipo</th>
+                    <th>Categoria</th>
+                    <th>Laboratorio</th>
+                    <th>Qnts</th>
+                 
+                    </thead>
+                    </table>
+                    
+                
+                    </div>
+                    <h4 class='text-secondary'>Entrega</h4>
+                    <div class='border-top border-secondary p-2'> 
+                    <label for='data-entrega' class='form-label'> Data Entrega:</label> 
+                    <input type='text' name='data-entrega' class='form-control ' disabled value='data-entrega-aqui'>
+                    <label for='nome-funcionario'> Nome do paciente: </label>
+                    <input type='text' name='nome-funcionario' class='form-control' disabled value='nome-do-funcionario'>
+                    
+                    </div>
+                    ";
         } else {
             echo "<p>Entrega não encontrada.</p>";
         }
