@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,6 +11,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
     <!-- Bootstrap CSS -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Style -->
     <link rel="stylesheet" href="../../assets/css/style.css">
