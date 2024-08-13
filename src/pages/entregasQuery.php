@@ -83,14 +83,14 @@ if (isset($_GET['cod_entrega'])) {
     if ($paciente) {
         echo "
         <h4 class='text-secondary'>PACIENTE</h4>
-        <div class='border-top border-secondary p-2'> 
-            <label for='nome-paciente'>Nome do paciente:</label>
+        <div class='border-top border-secondary p-2 '> 
+            <label  class='mt-3' for='nome-paciente'>Nome do paciente:</label>
             <input type='text' name='nome-paciente' class='form-control' disabled value='" . htmlspecialchars($paciente['nome_paciente']) . "'>
             
-            <label for='cpf-paciente'>CPF:</label>
+            <label class='mt-3' for='cpf-paciente'>CPF:</label>
             <input type='text' name='cpf-paciente' class='form-control' disabled value='" . htmlspecialchars($paciente['cpf_paciente']) . "'>
             
-            <label for='processo-paciente'>Processo:</label>
+            <label class='mt-3' for='processo-paciente'>Processo:</label>
             <input type='text' name='processo-paciente' class='form-control' disabled value='" . htmlspecialchars($entrega['cod_processo']) . "'>
         </div>";
     } else {
@@ -100,9 +100,9 @@ if (isset($_GET['cod_entrega'])) {
     // Exibir medicamentos
     if (count($medicamentos) > 0) {
         echo "
-        <h4 class='text-secondary'>Medicamentos</h4>
+        <h4 class='text-secondary mt-4'>Medicamentos</h4>
         <div class='border-top border-secondary'>
-            <table class='table mt-5'>
+            <table class='table mt-4'>
                 <thead class='thead-light'>
                     <tr>
                         <th>Medicamento</th>
@@ -133,10 +133,10 @@ if (isset($_GET['cod_entrega'])) {
         echo "
         <h4 class='text-secondary'>Entrega</h4>
         <div class='border-top border-secondary p-2'> 
-            <label for='data-entrega' class='form-label'>Data Entrega:</label>
+            <label class='mt-3' for='data-entrega' class='form-label'>Data Entrega:</label>
             <input type='text' name='data-entrega' class='form-control' disabled value='" . htmlspecialchars($entrega['data_entrega']) . "'>
             
-            <label for='nome-funcionario'>Nome do Funcionário:</label>
+            <label class='mt-3' for='nome-funcionario'>Nome do Funcionário:</label>
             <input type='text' name='nome-funcionario' class='form-control' disabled value='" . htmlspecialchars($entrega['nome_funcionario']) . "'>
         </div>";
     } else {
