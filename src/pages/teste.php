@@ -1,12 +1,3 @@
-<?php 
-
-     if(!isset($_GET['pag'])){
-          $pg = 1;
-     }else{
-          $pg = $_GET['pag'];
-     }
-
-?>
 <!DOCTYPE html>
 <head>
     <!-- Required meta tags -->
@@ -135,17 +126,8 @@
 
 <body style="position: relative;">
      <!<?php 
-          if ($pg == 1){
-
-               include("dashboard_atendente.php");
-
-          }else if ($pg == 2){
-
-               include("estoque.php");
-
-          }
         
-        
+        include("estoque.php");
       ?>
 </body> 
 <?php include('footer.php')?>

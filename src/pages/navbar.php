@@ -6,7 +6,7 @@ session_start();
     <div class="container-fluid d-flex justify-content-between align-items-center" style="padding-left: 0; padding-right: 0;">
         <!-- Logo, Nome e Nome do Funcionário -->
         <div class="d-flex align-items-center" style="margin-left: 0;">
-            <a class="navbar-brand d-flex align-items-center" href="#" style="margin: 0;">
+            <a class="navbar-brand d-flex align-items-center" href="dashboard.php" style="margin: 0;">
                 <img src="../../assets/images/logo.png" alt="Logo" width="46" height="37" class="d-inline-block align-text-top">
                 <span class="ms-2">Sisman</span>
             </a>

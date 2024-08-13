@@ -18,18 +18,7 @@ $total_pages = ceil($total_rows / $items_per_page);
 
 // Consultar registros para a página atual
 $sql = "
-    (SELECT e.*, p.nome_paciente, p.cpf_paciente
-    FROM entregas e
-    LEFT JOIN pacientes p
-    ON e.cod_paciente = p.cod_paciente)
-
-    UNION
-
-    (SELECT e.*, p.nome_paciente, p.cpf_paciente
-    FROM entregas e
-    RIGHT JOIN pacientes p
-    ON e.cod_paciente = p.cod_paciente)
-
+    SELECT * FROM medicamentos
     LIMIT $items_per_page OFFSET $offset;
 ";
 
@@ -91,8 +80,8 @@ $result = $conn->query($sql);
 
     <div class="row">
         <div class="col-1" style="margin: 0; padding: 0;">
-            <div class="sidebar ">
-                <ul class="mt-4">
+            <div class="sidebar">
+                <ul>
                     <li>
                         <a href="dashboard.php?pag=1">
                            <div class="centralizar">
@@ -136,21 +125,29 @@ $result = $conn->query($sql);
                     <table class="table mt-5">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">N°</th>
-                                <th scope="col">Nome do Paciente</th>
-                                <th scope="col">Cpf</th>
-                                <th scope="col">Cod. Processo</th>
-                                <th scope="col">Data</th>
+                                <th scope="col">cod_medicamento</th>
+                                <th scope="col">cod_compra</th>
+                                <th scope="col">nome_medicamento</th>
+                                <th scope="col">tipo_medicamento</th>
+                                <th scope="col">categoria</th>
+                                <th scope="col">laboratorio</th>
+                                <th scope="col">lote</th>
+                                <th scope="col">validade</th>
+                                <th scope="col">quantidade</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()): ?>
-                                <tr class="row_paciente" onclick="openModal('<?= $row['cod_entrega']; ?>')">
-                                    <th scope="row"><?= $row['cod_entrega']; ?></th>
-                                    <td><?= $row['nome_paciente']; ?></td>
-                                    <td><?= $row['cpf_paciente']; ?></td>
-                                    <td><?= $row['cod_processo']; ?></td>
-                                    <td><?= $row['data_entrega']; ?></td>
+                                <tr class="row_paciente" onclick="openModal('<?= $row['cod_medicamento']; ?>')">
+                                    <th scope="row"><?= $row['cod_medicamento']; ?></th>
+                                    <td><?= $row['cod_compra']; ?></td>
+                                    <td><?= $row['nome_medicamento']; ?></td>
+                                    <td><?= $row['tipo_medicamento']; ?></td>
+                                    <td><?= $row['categoria']; ?></td>
+                                    <td><?= $row['laboratorio']; ?></td>
+                                    <td><?= $row['lote']; ?></td>
+                                    <td><?= $row['validade']; ?></td>
+                                    <td><?= $row['quantidade']; ?></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
