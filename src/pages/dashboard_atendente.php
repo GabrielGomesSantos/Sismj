@@ -216,8 +216,7 @@ $result = $conn->query($sql);
 <div class="modal fade" id="EntregaModal" tabindex="-1" aria-labelledby="EntregaModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-
-             <div class="modal-header bg-info text-white">
+            <div class="modal-header bg-info text-white">
                 <div class="d-flex align-items-center">
                     <h1 class="modal-title fs-5 mb-0" id="cadastrarModal">Detalhes da entrega</h1>
                 </div>
@@ -227,23 +226,24 @@ $result = $conn->query($sql);
             </div>
             <div class="modal-body" id="modalContent">
                 <!-- O conteúdo dinâmico será inserido aqui -->
-                 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <div class='modal-footer'>
+                <button onclick="generatePDF()" class='btn btn-info'>Gerar PDF</button>
             </div>
         </div>
     </div>
 </div>
 <!-- Modal Entrega Infos Fim -->
 
+
 <!-- Scripts -->
-<script src="../../assets/js/jquery-3.3.1.min.js"></script>
-<script src="../../assets/js/popper.min.js"></script>
-<script src="../../assets/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<!-- Scripts -->
 
 <script>
 $(document).ready(function() {
@@ -344,4 +344,56 @@ function openModal(codEntrega) {
             console.error('Erro ao carregar os detalhes da entrega:', error);
         });
 }
+</script>
+
+
+</script>
+
+<script>
+
+
+async function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const modalContent = document.getElementById('modalContent');
+
+    try {
+        // Captura o conteúdo do modal
+        const canvas = await html2canvas(modalContent);
+        if (!canvas) {
+            throw new Error('Erro ao criar o canvas.');
+        }
+
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgWidth = 210; // Largura A4 em mm
+        const pageHeight = 295; // Altura A4 em mm
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+
+        let position = 0;
+
+        // Adiciona a imagem ao PDF
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        // Adiciona páginas adicionais se necessário
+        while (heightLeft > 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+
+        // Abre o PDF em uma nova guia
+        const pdfUrl = pdf.output('bloburl');
+        window.open(pdfUrl, '_blank');
+    } catch (err) {
+        console.error('Erro ao gerar PDF:', err);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('html2canvas:', html2canvas);
+});
+
 </script>
