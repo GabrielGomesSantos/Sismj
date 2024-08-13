@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,6 +11,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
     <!-- Bootstrap CSS -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Style -->
     <link rel="stylesheet" href="../../assets/css/style.css">
@@ -68,6 +70,7 @@
      display: flex;
      justify-content: center;
      
+     
 
      min-width: 60px;
      height: 60px;
@@ -76,7 +79,7 @@
     
     .sidebar:hover{
 
-          width: 165px;
+          width: 175px;
 
     }
 
@@ -85,9 +88,10 @@
           display: flex;
           width: 100%;
           height: 20px;
-          text-align: center;
+          text-align: flex-start;
           color: white;
           transition: 0.2s;
+
      }
 
      .sidebar ul li .titulo:hover{
