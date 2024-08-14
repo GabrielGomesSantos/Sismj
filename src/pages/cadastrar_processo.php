@@ -1,5 +1,5 @@
 <?php
-require_once('C:/xampp/htdocs/Sismj/config/config.php');
+require_once('../../config/config.php');
 
 // Função para obter resultados de uma consulta
 function getResults($conn, $sql) {

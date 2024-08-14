@@ -98,7 +98,7 @@
 </html>
 
 <?php
-require_once('C:/xampp/htdocs/Sismj/config/config.php');
+require_once('../../config/config.php');
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome_funcionario = $_POST['nome_funcionario'];
     $cpf_funcionario = $_POST['cpf_funcionario'];

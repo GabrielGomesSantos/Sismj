@@ -1,5 +1,5 @@
 <?php
-    require_once('C:/xampp/htdocs/Sismj/config/config.php');
+    require_once('../../config/config.php');;
     $perfil = '';
     $sql = "SELECT * FROM medicos";
     $result = $conn->query($sql);

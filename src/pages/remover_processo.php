@@ -1,5 +1,5 @@
 <?php
-require_once('C:/xampp/htdocs/Sismj/config/config.php');
+require_once('../../config/config.php');
 if (isset($_GET['id_processo'])) {
     $id_processo = intval($_GET['id_processo']); 
 
