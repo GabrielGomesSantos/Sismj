@@ -101,6 +101,10 @@ $result = $conn->query($sql);
                     </div>
                     <a href="#" id="processar">salvar</a>
                     <!-- <button id="processar" class="btn btn-primary" disabled>Salvar</button> -->
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea1">Observações</label>
+                      <textarea class="form-control" id="observacaomed" placeholder="Observações sobre o(s) medicamento(s)" rows="5"></textarea>
+                    </div>
                     <!-- Tabela dos medicamentos Fim-->
                         <!-- Rodapé do Modal -->
 
@@ -311,7 +315,7 @@ $(document).ready(function() {
                                 '<td>' + item.nome_medicamento + '</td>' +
                                 '<td>' + item.tipo_medicamento + '</td>' +
                                 '<td>' + item.laboratorio + '</td>' +
-                                '<td>' + item.quantidade + '</td>' +
+                                '<td> <input style="border: none;" class"number" type="number" min="1" value="' + item.quantidade + '" max="' + item.quantidade + '"></td>' +
                             '</tr>';
                             tabelaCorpo.append(novaLinha);
                         });

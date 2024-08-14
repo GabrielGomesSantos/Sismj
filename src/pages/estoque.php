@@ -26,7 +26,13 @@ $sql = "
 $result = $conn->query($sql);
 ?>
 
+
 <div class="container">
+<style>
+.row_paciente{
+    cursor: default; 
+}
+</style>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -81,7 +87,7 @@ $result = $conn->query($sql);
     <div class="row">
         <div class="col-1" style="margin: 0; padding: 0;">
             <div class="sidebar">
-                <ul>
+                <ul class="mt-4">
                     <li>
                         <a href="dashboard.php?pag=1">
                            <div class="centralizar">
@@ -105,7 +111,7 @@ $result = $conn->query($sql);
             <div class="row mt-5">
                 <div class="col mt-3">
                     <header class="bg-info text-white" style="padding: 5px 15px;">
-                        Entregas:
+                        Medicamentos:
                     </header>
                 </div>
             </div>
@@ -113,9 +119,10 @@ $result = $conn->query($sql);
             <!-- Botão que ativa o modal -->
             <div class="row">
                 <div class="col-2">
-                    <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        Cadastrar
-                    </button>
+                   <div class="form-floating mb-3">
+                   <input id="input" name="teste" class="truncate" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-controls="matches" aria-expanded="false" aria-live="off" placeholder="Pesquise no Google ou digite um URL">
+                   <label for="teste">teste</label>
+                   </div>
                 </div>
             </div>
             <!-- Fim do botão que ativa o modal -->
@@ -125,10 +132,10 @@ $result = $conn->query($sql);
                     <table class="table mt-5">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">cod_medicamento</th>
-                                <th scope="col">cod_compra</th>
-                                <th scope="col">nome_medicamento</th>
-                                <th scope="col">tipo_medicamento</th>
+                                <th scope="col">cod. medicamento</th>
+                                <th scope="col">cod. compra</th>
+                                <th scope="col">nome medicamento</th>
+                                <th scope="col">tipo medicamento</th>
                                 <th scope="col">categoria</th>
                                 <th scope="col">laboratorio</th>
                                 <th scope="col">lote</th>
@@ -138,7 +145,7 @@ $result = $conn->query($sql);
                         </thead>
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()): ?>
-                                <tr class="row_paciente" onclick="openModal('<?= $row['cod_medicamento']; ?>')">
+                                <tr class="row_paciente" >
                                     <th scope="row"><?= $row['cod_medicamento']; ?></th>
                                     <td><?= $row['cod_compra']; ?></td>
                                     <td><?= $row['nome_medicamento']; ?></td>
@@ -214,75 +221,3 @@ $result = $conn->query($sql);
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
-<script>
-$(document).ready(function() {
-    console.log('Documento carregado. Associando o evento de mudança...');
-
-    $('#DropDownNome').on('change', function() {
-        var pacienteId = $(this).val();
-        
-        console.log('ID do paciente selecionado:', pacienteId);
-
-        if (pacienteId) {
-            $.ajax({
-                url: 'buscar_processos.php',
-                type: 'POST',
-                data: { id: pacienteId },
-                success: function(response) {
-                    console.log('Resposta do servidor:', response);
-                    
-                    try {
-                        var dados = JSON.parse(response);
-
-                        // Verificando se os dados estão sendo recebidos corretamente
-                        console.log('Dados processados:', dados);
-
-                        // Acessa a lista de processos
-                        var processos = dados.processos;
-
-                        // Verificando os processos recebidos
-                        console.log('Processos recebidos:', processos);
-
-                        // Limpa o dropdown de processos
-                        $('#codprocesso').empty();
-
-                        // Adiciona uma opção de seleção padrão
-                        $('#codprocesso').append('<option value="" disabled selected>Selecione o código do processo</option>');
-
-                        // Preenche o dropdown com os processos recebidos
-                        processos.forEach(function(processo) {
-                            $('#codprocesso').append('<option value="' + processo + '">' + processo + '</option>');
-                        });
-
-                    } catch (e) {
-                        console.error('Erro ao processar JSON:', e);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Erro na requisição AJAX:', status, error);
-                    console.log('Detalhes do erro:', xhr.responseText);
-                }
-            });
-        }
-    });
-});
-
-function openModal(codEntrega) {
-    // URL para buscar detalhes da entrega
-    const url = 'entregasQuery.php?cod_entrega=' + codEntrega;
-    console.log('Fetching URL for delivery details:', url); // Adicione isto para depuração
-
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('modalContent').innerHTML = data;
-
-            // Mostrar o modal se não estiver visível
-            var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('EntregaModal'));
-            modal.show();
-        })
-        .catch(error => {
-            console.error('Erro ao carregar os detalhes da entrega:', error);
-        });
-}
-</script>
