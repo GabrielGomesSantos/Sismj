@@ -8,7 +8,7 @@ if (isset($_POST['id'])) {
     include('../../config/config.php');
 
     // Busca os dados dos medicamentos associados ao processo
-    $query = "SELECT nome_medicamento, tipo_medicamento, laboratorio, quantidade
+    $query = "SELECT cod_medicamento_processo, nome_medicamento, tipo_medicamento, laboratorio, quantidade
               FROM medicamentos_processo
               WHERE cod_processo = ?";
 
@@ -21,6 +21,7 @@ if (isset($_POST['id'])) {
 
     while ($row = $resultado->fetch_assoc()) {
         $dadosTabela[] = [
+            'cod_medicamento_processo' => $row['cod_medicamento_processo'],
             'nome_medicamento' => $row['nome_medicamento'],
             'tipo_medicamento' => $row['tipo_medicamento'],
             'laboratorio' => $row['laboratorio'],

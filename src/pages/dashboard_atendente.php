@@ -99,10 +99,12 @@ $result = $conn->query($sql);
                         </table>
                         </div>
                     </div>
+                    <a href="#" id="processar">salvar</a>
+                    <!-- <button id="processar" class="btn btn-primary" disabled>Salvar</button> -->
                     <!-- Tabela dos medicamentos Fim-->
                         <!-- Rodapé do Modal -->
+
                     <div class="modal-footer">
-                        <input type="submit" value="Salvar" class="btn btn-primary">
                     </div>
                 </form>
             </div>       
@@ -294,7 +296,8 @@ $(document).ready(function() {
                 success: function(response) {
                     try {
                         var dados = JSON.parse(response);
-
+                            //salvar(dados);
+                        
                         // Verificando se os dados da tabela estão sendo recebidos corretamente
                         console.log('Dados da tabela recebidos:', dados.dadosTabela);
 
@@ -304,7 +307,7 @@ $(document).ready(function() {
 
                         // Adiciona as linhas na tabela
                         dados.dadosTabela.forEach(function(item) {
-                            var novaLinha = '<tr>' +
+                            var novaLinha = '<tr data_id=' + item.cod_medicamento_processo + '">' +
                                 '<td>' + item.nome_medicamento + '</td>' +
                                 '<td>' + item.tipo_medicamento + '</td>' +
                                 '<td>' + item.laboratorio + '</td>' +
@@ -344,13 +347,6 @@ function openModal(codEntrega) {
             console.error('Erro ao carregar os detalhes da entrega:', error);
         });
 }
-</script>
-
-
-</script>
-
-<script>
-
 
 async function generatePDF() {
     const { jsPDF } = window.jspdf;
@@ -395,5 +391,46 @@ async function generatePDF() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('html2canvas:', html2canvas);
 });
+
+$(document).ready(function() {
+    $('#processar').on('click', function() {
+        var tabelaDados = [];
+
+        // Percorre cada linha da tabela
+        $('#TabelaMedicamentos tbody tr').each(function() {
+            var linha = [];
+            
+            // Percorre cada célula da linha
+            $(this).find('td').each(function() {
+                linha.push($(this).text());
+            });
+
+            // Adiciona a linha ao array de dados da tabela
+            tabelaDados.push(linha);
+        });
+
+
+        // Faz a requisição AJAX com os dados da tabela
+        $.ajax({
+            url: 'processamento.php',
+            type: 'POST',
+            data: { dados: JSON.stringify(tabelaDados) },  // Serializa os dados em JSON
+            success: function(response) {
+                try {
+                    var dados = JSON.parse(response);
+                    console.log('Resposta do servidor:', dados);
+                } catch (e) {
+                    console.error('Erro ao processar JSON:', e);
+                    console.log('Resposta do servidor:', response); // Exibe a resposta para depuração
+                }
+    },
+    error: function(xhr, status, error) {
+        console.error('Erro na requisição AJAX:', status, error);
+        console.log('Detalhes do erro:', xhr.responseText);
+            }
+        });
+    });
+});
+
 
 </script>
