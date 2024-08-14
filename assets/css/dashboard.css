@@ -77,6 +77,13 @@ height: 60px;
     margin-bottom: 30px;
 
 }
+
+input .number {
+
+    border: none;
+
+}
+
 .row_paciente{
     transition: 0.2s;
     cursor: pointer; 
