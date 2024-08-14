@@ -81,7 +81,7 @@ $result = $conn->query($sql);
     <div class="row">
         <div class="col-1" style="margin: 0; padding: 0;">
             <div class="sidebar">
-                <ul>
+                <ul class="mt-4">
                     <li>
                         <a href="dashboard.php?pag=1">
                            <div class="centralizar">
@@ -105,19 +105,13 @@ $result = $conn->query($sql);
             <div class="row mt-5">
                 <div class="col mt-3">
                     <header class="bg-info text-white" style="padding: 5px 15px;">
-                        Entregas:
+                        Medicamentos:
                     </header>
                 </div>
             </div>
 
             <!-- Botão que ativa o modal -->
-            <div class="row">
-                <div class="col-2">
-                    <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        Cadastrar
-                    </button>
-                </div>
-            </div>
+            
             <!-- Fim do botão que ativa o modal -->
 
             <div class="row">
@@ -125,10 +119,10 @@ $result = $conn->query($sql);
                     <table class="table mt-5">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">cod_medicamento</th>
-                                <th scope="col">cod_compra</th>
-                                <th scope="col">nome_medicamento</th>
-                                <th scope="col">tipo_medicamento</th>
+                                <th scope="col">cod. medicamento</th>
+                                <th scope="col">cod. compra</th>
+                                <th scope="col">nome medicamento</th>
+                                <th scope="col">tipo medicamento</th>
                                 <th scope="col">categoria</th>
                                 <th scope="col">laboratorio</th>
                                 <th scope="col">lote</th>
