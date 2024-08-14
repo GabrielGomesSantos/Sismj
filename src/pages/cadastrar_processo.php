@@ -2,7 +2,8 @@
 require_once('../../config/config.php');
 
 // Função para obter resultados de uma consulta
-function getResults($conn, $sql) {
+function getResults($conn, $sql)
+{
     $result = $conn->query($sql);
     if ($result === FALSE) {
         echo "Erro ao executar a consulta: " . $conn->error;
@@ -11,72 +12,68 @@ function getResults($conn, $sql) {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-// Consulta para obter pacientes, médicos e medicamentos
 $pacientes = getResults($conn, "SELECT * FROM pacientes");
 $medicos = getResults($conn, "SELECT * FROM medicos");
 $medicamentos = getResults($conn, "SELECT * FROM medicamentos");
 
-// Processamento do formulário
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $num_processo = $_POST['num_processo'];
     $cod_paciente = $_POST['cod_paciente'];
     $cod_medico = $_POST['cod_medico'];
-    
-    // Processar arquivos
+
     $copia_processo = $_FILES['copia_processo']['name'];
     $receita_processo = $_FILES['receita_processo']['name'];
 
-    $upload_dir = 'uploads/';
-    move_uploaded_file($_FILES['copia_processo']['tmp_name'], $upload_dir . $copia_processo);
-    move_uploaded_file($_FILES['receita_processo']['tmp_name'], $upload_dir . $receita_processo);
-    
-    // Inserir dados no banco de dados
-    $stmt = $conn->prepare("INSERT INTO processos (numero_processo, cod_paciente, copia_processo, receita_processo, cod_medico) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param('sssss', $num_processo, $cod_paciente, $copia_processo, $receita_processo, $cod_medico);
 
-    if ($stmt->execute()) {
-        echo "<script>
-        alert('Processo Cadastrado');
-        window.location.href='listar_processos.php';
-        </script>";
+    $destino_copia = "uploads/" . basename($copia_processo);
+    $destino_receita = "uploads/" . basename($receita_processo);
+
+    
+    move_uploaded_file($_FILES['copia_processo']['tmp_name'], $destino_copia);
+    move_uploaded_file($_FILES['receita_processo']['tmp_name'], $destino_receita);
+    
+    $tipo_med = $_POST['tipo_med'];
+    $categoria_med = $_POST['categoria_med'];
+    $lab = $_POST['lab'];
+    $quant = $_GET['quant'];
+
+    $sql = "INSERT INTO processos (numero_processo, cod_paciente, copia_processo, receita, cod_medico) 
+            VALUES ('$num_processo', '$cod_paciente', '$destino_copia', '$destino_receita', '$cod_medico')";
+
+    // Executando a query
+    if ($conn->query($sql)) {
+        $ultimo_id = $conn->insert_id;
+        $sql_medicamentos = "INSERT INTO  ";
     } else {
-        echo "Erro ao cadastrar processo: " . $stmt->error;
+        echo "Erro na inserção: " . $conn->error;
     }
-    $stmt->close();
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../../assets/images/favico.ico">
     <title>Cadastro de Processo</title>
-    <link rel="stylesheet" href="path/to/bootstrap.css">
     <style>
-       <style>
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-select {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-    }
-
-    .form-check {
-        margin-bottom: 10px;
-    }
-</style>
-
+        /* .form-check {
+            display: flex;
+        } */
     </style>
 </head>
+
 <body>
     <div class="content">
         <div class="container">
@@ -91,16 +88,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label for="num_processo">Número do Processo:</label>
                             <input type="text" class="form-control" id="num_processo" name="num_processo" required>
                         </div>
+                        <label for="copia_processo">Cópia do Processo:</label>
                         <div class="form-group">
-                            <label for="copia_processo">Cópia do Processo:</label>
                             <input type="file" class="form-control" id="copia_processo" name="copia_processo" required>
                         </div>
+                        <label for="receita_processo">Receita do Processo:</label>
                         <div class="form-group">
-                            <label for="receita_processo">Receita do Processo:</label>
-                            <input type="file" class="form-control" id="receita_processo" name="receita_processo" required>
+                            <input type="file" class="form-control" id="receita_processo" name="receita_processo"
+                                required>
                         </div>
+                        <label for="cod_paciente">Selecione o Paciente:</label>
                         <div class="form-group">
-                            <label for="cod_paciente">Selecione o Paciente:</label>
                             <select class="form-select form-control" id="cod_paciente" name="cod_paciente" required>
                                 <option value="" selected disabled>Selecione um paciente</option>
                                 <?php foreach ($pacientes as $paciente): ?>
@@ -110,8 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        <label for="cod_medico">Selecione o Médico:</label>
                         <div class="form-group">
-                            <label for="cod_medico">Selecione o Médico:</label>
                             <select class="form-select form-control" id="cod_medico" name="cod_medico" required>
                                 <option value="" selected disabled>Selecione um médico</option>
                                 <?php foreach ($medicos as $medico): ?>
@@ -121,18 +119,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Selecione os Medicamentos:</label>
-                            <div id="medicamentos">
+                        <label>Selecione os Medicamentos:</label><br>
+                        <div class="form-check mb-3">
+                            <?php if ($medicamentos): ?>
                                 <?php foreach ($medicamentos as $medicamento): ?>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="<?php echo htmlspecialchars($medicamento['cod_medicamento']); ?>" id="medicamento_<?php echo htmlspecialchars($medicamento['cod_medicamento']); ?>" name="medicamentos[]">
-                                        <label class="form-check-label" for="medicamento_<?php echo htmlspecialchars($medicamento['cod_medicamento']); ?>">
-                                            <?php echo htmlspecialchars($medicamento['nome_medicamento']); ?>
-                                        </label>
-                                    </div>
+                                    <input class="form-check-input" type="checkbox"
+                                        value="<?php echo $medicamento['cod_medicamento'] ?>" id="flexCheckChecked">
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        <?php echo $medicamento['nome_medicamento'] ?>
+                                    </label><br>
                                 <?php endforeach; ?>
-                            </div>
+                            <?php endif; ?>
+                        </div>
+                        <label>Selecione os Medicamentos:</label><br>
+                        <div class="form-check mb-3">
+                            <?php if ($medicamentos): ?>
+                                <?php foreach ($medicamentos as $medicamento): ?>
+                                    <input class="form-check-input" type="checkbox"
+                                        value="<?php echo $medicamento['cod_medicamento'] ?>" id="flexCheckChecked">
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        <?php echo $medicamento['nome_medicamento'] ?>
+                                    </label><br>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                         <input type="submit" value="Cadastrar" class="btn text-white btn-block btn-info mt-5">
                     </form>
@@ -140,7 +149,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
-    <script src="path/to/bootstrap.js"></script>
-</body>
-</html>
 
+    <script src="../../assets/js/jquery-3.3.1.min.js"></script>
+    <script src="../../assets/js/popper.min.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/main.js"></script>
+</body>
+
+</html>
