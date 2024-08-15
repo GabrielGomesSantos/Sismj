@@ -30,6 +30,7 @@
 
 <?php include('navbar.php')?>
 
+<<<<<<< Updated upstream
 <body>
     <?php
         if($_SESSION['Perfil'] == 2){
@@ -38,4 +39,22 @@
     ?>
 </body>
 
+=======
+<body style="position: relative;">
+     
+     <!<?php 
+          if ($pg == 1){
+
+               include("dashboard_atendente.php");
+
+          }else if ($pg == 2){
+
+               include("estoque.php");
+
+          }
+        
+      ?>
+</body> 
+<?php include('footer.php')?>
+>>>>>>> Stashed changes
 </html>
