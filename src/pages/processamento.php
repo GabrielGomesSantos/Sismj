@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recebe os dados JSON enviados via POST
     $dados = json_decode($_POST['dados'], true);
 
-    // Verifique o conteúdo de $dados
+    // Verifique o conteúdo de $dados 
     file_put_contents('debug.log', print_r($dados, true)); // Salva o conteúdo no log
 
     // Verifica se os dados foram decodificados corretamente
