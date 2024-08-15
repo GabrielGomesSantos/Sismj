@@ -10,7 +10,7 @@
 <body>
     <!-- GET LAST COD_COMPRA ID FOR UPDATE -->
     <a href="insert.php">Adicionar medicamento</a>
-
+    
     <form action="..\sisman_db.php" method="POST">
         <label for="nota_fiscal">Nota fiscal</label>
         <input type="text" name="nota_fiscal">

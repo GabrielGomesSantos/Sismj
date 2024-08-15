@@ -10,7 +10,7 @@ function postCompra($nota_fiscal, $data, $fornecedor, $conn)
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 }
-
+//POST
 function postMed($cod_compra, $nome, $tipo, $categoria, $laboratorio, $lote, $validade, $quantidade, $conn)
 {
     $sql = "INSERT INTO medicamentos (cod_compra, nome_medicamento, tipo_medicamento, categoria, laboratorio, validade, lote, quantidade) 
