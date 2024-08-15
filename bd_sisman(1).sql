@@ -6,6 +6,8 @@
 -- Tempo de geração: 08-Ago-2024 às 19:30
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
+CREATE DATABASE IF NOT EXISTS `bd_sisman` CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `bd_sisman`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;

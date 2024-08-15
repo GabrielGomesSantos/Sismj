@@ -19,6 +19,9 @@ session_start();
             <li class="nav-item ml-3">
                 <img src="../../assets/images/acount.png" alt="Conta" width="55" height="54" class="ms-3">
             </li>
+
         </ul>
+        <!-- Botão logoff    -->
+         <button type="button" class="btn btn-danger" onclick='window.location="sair.php"'>Logoff</button>
     </div>
 </nav>
