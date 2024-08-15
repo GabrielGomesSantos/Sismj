@@ -5,7 +5,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "usbw";
-$dbname = "sis_mj";
+$dbname = "hospital";
 
 ////////////////////////////////
 
