@@ -4,7 +4,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "usbw";
 $dbname = "sis_mj";
 
 ////////////////////////////////
