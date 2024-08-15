@@ -1,6 +1,8 @@
 <?php
 include('../../config/config.php');
 
+$id_funcionario = $_SESSION['ID'];
+
 // Número de itens por página
 $items_per_page = 6;
 
@@ -20,18 +22,19 @@ $total_pages = ceil($total_rows / $items_per_page);
 $sql = "
     (SELECT e.*, p.nome_paciente, p.cpf_paciente
     FROM entregas e
-    LEFT JOIN pacientes p
-    ON e.cod_paciente = p.cod_paciente)
+    LEFT JOIN pacientes p ON e.cod_paciente = p.cod_paciente
+    WHERE e.cod_funcionario = {$id_funcionario})
 
     UNION
 
     (SELECT e.*, p.nome_paciente, p.cpf_paciente
     FROM entregas e
-    RIGHT JOIN pacientes p
-    ON e.cod_paciente = p.cod_paciente)
+    RIGHT JOIN pacientes p ON e.cod_paciente = p.cod_paciente
+    WHERE e.cod_funcionario = {$id_funcionario})
 
-    LIMIT $items_per_page OFFSET $offset;
+    LIMIT {$items_per_page} OFFSET {$offset};
 ";
+
 
 // Executar a consulta
 $result = $conn->query($sql);
@@ -94,7 +97,9 @@ $result = $conn->query($sql);
                             </thead>
 
                             <tbody>
-                                    <th></th>
+                                    <th>
+
+                                    </th>
                             </tbody>
                         </table>
                         </div>
@@ -245,196 +250,7 @@ $result = $conn->query($sql);
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-<!-- Scripts -->
-
-<script>
-$(document).ready(function() {
-    $('#DropDownNome').on('change', function() {
-        var pacienteId = $(this).val();
-        
-        if (pacienteId) {
-            $.ajax({
-                url: 'buscar_processos.php',
-                type: 'POST',
-                data: { id: pacienteId },
-                success: function(response) {
-                    try {
-                        var dados = JSON.parse(response);
-
-                        // Limpa o dropdown e adiciona a opção padrão
-                        var $dropdown = $('#codprocesso');
-                        $dropdown.empty().append('<option value="" disabled selected>Selecione o código do processo</option>');
-
-                        // Adiciona as opções ao dropdown
-                        dados.processos.forEach(function(processo) {
-                            $dropdown.append(`<option value="${processo['cod_processo']}">${processo['numero_processo']}</option>`);
-                        });
-                    } catch (e) {
-                        console.error('Erro ao processar JSON:', e);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Erro na requisição AJAX:', status, error);
-                    console.log('Detalhes do erro:', xhr.responseText);
-                }
-            });
-        }
-    });
-});
-
-$(document).ready(function() {
-    $('#codprocesso').on('change', function() {
-        var codProcesso = $(this).val();
-        
-        console.log(codProcesso);
-
-        if (codProcesso) {
-            $.ajax({
-                url: 'buscar_medicamentos.php',
-                type: 'POST',
-                data: { id: codProcesso },
-                success: function(response) {
-                    try {
-                        var dados = JSON.parse(response);
-                            //salvar(dados);
-                        
-                        // Verificando se os dados da tabela estão sendo recebidos corretamente
-                        console.log('Dados da tabela recebidos:', dados.dadosTabela);
-
-                        // Limpa a tabela antes de adicionar os novos dados
-                        var tabelaCorpo = $('#TabelaMedicamentos tbody');
-                        tabelaCorpo.empty();
-
-                        // Adiciona as linhas na tabela
-                        dados.dadosTabela.forEach(function(item) {
-                            var novaLinha = '<tr data_id=' + item.cod_medicamento_processo + '">' +
-                                '<td>' + item.nome_medicamento + '</td>' +
-                                '<td>' + item.tipo_medicamento + '</td>' +
-                                '<td>' + item.laboratorio + '</td>' +
-                                '<td> <input style="border: none;" class"number" type="number" min="1" value="' + item.quantidade + '" max="' + item.quantidade + '"></td>' +
-                            '</tr>';
-                            tabelaCorpo.append(novaLinha);
-                        });
-                    } catch (e) {
-                        console.error('Erro ao processar JSON:', e);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Erro na requisição AJAX:', status, error);
-                    console.log('Detalhes do erro:', xhr.responseText);
-                }
-            });
-        }
-    });
-});
-
-
-function openModal(codEntrega) {
-    // URL para buscar detalhes da entrega
-    const url = 'entregasQuery.php?cod_entrega=' + codEntrega;
-    console.log('Fetching URL for delivery details:', url); // Adicione isto para depuração
-
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('modalContent').innerHTML = data;
-
-            // Mostrar o modal se não estiver visível
-            var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('EntregaModal'));
-            modal.show();
-        })
-        .catch(error => {
-            console.error('Erro ao carregar os detalhes da entrega:', error);
-        });
-}
-
-async function generatePDF() {
-    const { jsPDF } = window.jspdf;
-    const modalContent = document.getElementById('modalContent');
-
-    try {
-        // Captura o conteúdo do modal
-        const canvas = await html2canvas(modalContent);
-        if (!canvas) {
-            throw new Error('Erro ao criar o canvas.');
-        }
-
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const imgWidth = 210; // Largura A4 em mm
-        const pageHeight = 295; // Altura A4 em mm
-        const imgHeight = canvas.height * imgWidth / canvas.width;
-        let heightLeft = imgHeight;
-
-        let position = 0;
-
-        // Adiciona a imagem ao PDF
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-
-        // Adiciona páginas adicionais se necessário
-        while (heightLeft > 0) {
-            position = heightLeft - imgHeight;
-            pdf.addPage();
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-        }
-
-        // Abre o PDF em uma nova guia
-        const pdfUrl = pdf.output('bloburl');
-        window.open(pdfUrl, '_blank');
-    } catch (err) {
-        console.error('Erro ao gerar PDF:', err);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('html2canvas:', html2canvas);
-});
-
-$(document).ready(function() {
-    $('#processar').on('click', function() {
-        var tabelaDados = [];
-
-        // Percorre cada linha da tabela
-        $('#TabelaMedicamentos tbody tr').each(function() {
-            var linha = [];
-            
-            // Percorre cada célula da linha
-            $(this).find('td').each(function() {
-                linha.push($(this).text());
-            });
-
-            // Adiciona a linha ao array de dados da tabela
-            tabelaDados.push(linha);
-        });
-
-
-        // Faz a requisição AJAX com os dados da tabela
-        $.ajax({
-            url: 'processamento.php',
-            type: 'POST',
-            data: { dados: JSON.stringify(tabelaDados) },  // Serializa os dados em JSON
-            success: function(response) {
-                try {
-                    var dados = JSON.parse(response);
-                    console.log('Resposta do servidor:', dados);
-                } catch (e) {
-                    console.error('Erro ao processar JSON:', e);
-                    console.log('Resposta do servidor:', response); // Exibe a resposta para depuração
-                }
-    },
-    error: function(xhr, status, error) {
-        console.error('Erro na requisição AJAX:', status, error);
-        console.log('Detalhes do erro:', xhr.responseText);
-            }
-        });
-    });
-});
-
-
-</script>
+<script src="../../assets/js/dashboar.js"></script>
