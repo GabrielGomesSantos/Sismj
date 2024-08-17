@@ -20,7 +20,7 @@ $medicamentos = getResults($conn, "SELECT * FROM medicamentos");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $num_processo = $_POST['num_processo'];
     $cod_paciente = $_POST['cod_paciente'];
-    $cod_medico = $_POST['cod_medico'];
+    $cod_medicamento = $_POST['cod_medicamento'];
 
     $copia_processo = $_FILES['copia_processo']['name'];
     $receita_processo = $_FILES['receita_processo']['name'];
@@ -38,13 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lab = $_POST['lab'];
     $quant = $_GET['quant'];
 
-    $sql = "INSERT INTO processos (numero_processo, cod_paciente, copia_processo, receita, cod_medico) 
-            VALUES ('$num_processo', '$cod_paciente', '$destino_copia', '$destino_receita', '$cod_medico')";
+    $sql = "INSERT INTO processos (numero_processo, cod_paciente, copia_processo, receita, cod_medicamento) 
+            VALUES ('$num_processo', '$cod_paciente', '$destino_copia', '$destino_receita', '$cod_medicamento')";
 
-    // Executando a query
     if ($conn->query($sql)) {
         $ultimo_id = $conn->insert_id;
-        $sql_medicamentos = "INSERT INTO  ";
+        $sql_pacientes = "";
     } else {
         echo "Erro na inserção: " . $conn->error;
     }
@@ -105,44 +104,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <option value="<?php echo htmlspecialchars($paciente['cod_paciente']); ?>">
                                         <?php echo htmlspecialchars($paciente['nome_paciente']); ?>
                                     </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <label for="cod_medico">Selecione o Médico:</label>
-                        <div class="form-group">
-                            <select class="form-select form-control" id="cod_medico" name="cod_medico" required>
-                                <option value="" selected disabled>Selecione um médico</option>
-                                <?php foreach ($medicos as $medico): ?>
-                                    <option value="<?php echo htmlspecialchars($medico['cod_medico']); ?>">
-                                        <?php echo htmlspecialchars($medico['nome_medico']); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
+                                    <?php endforeach; ?>
+                                </select>
                         </div>
                         <label>Selecione os Medicamentos:</label><br>
                         <div class="form-check mb-3">
                             <?php if ($medicamentos): ?>
                                 <?php foreach ($medicamentos as $medicamento): ?>
                                     <input class="form-check-input" type="checkbox"
-                                        value="<?php echo $medicamento['cod_medicamento'] ?>" id="flexCheckChecked">
+                                        value="<?php echo $medicamento['cod_medicamento'] ?>" name="cod_medicamento" id="flexCheckChecked">
                                     <label class="form-check-label" for="flexCheckChecked">
                                         <?php echo $medicamento['nome_medicamento'] ?>
                                     </label><br>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
-                        <label>Selecione os Medicamentos:</label><br>
-                        <div class="form-check mb-3">
-                            <?php if ($medicamentos): ?>
-                                <?php foreach ($medicamentos as $medicamento): ?>
-                                    <input class="form-check-input" type="checkbox"
-                                        value="<?php echo $medicamento['cod_medicamento'] ?>" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        <?php echo $medicamento['nome_medicamento'] ?>
-                                    </label><br>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </div>
+
                         <input type="submit" value="Cadastrar" class="btn text-white btn-block btn-info mt-5">
                     </form>
                 </div>
