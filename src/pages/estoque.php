@@ -132,15 +132,15 @@ $result = $conn->query($sql);
                     <table class="table mt-5">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">cod. medicamento</th>
-                                <th scope="col">cod. compra</th>
-                                <th scope="col">nome medicamento</th>
-                                <th scope="col">tipo medicamento</th>
-                                <th scope="col">categoria</th>
-                                <th scope="col">laboratorio</th>
-                                <th scope="col">lote</th>
-                                <th scope="col">validade</th>
-                                <th scope="col">quantidade</th>
+                                <th scope="col">Codigo</th>
+                                <th scope="col">Cod. de compra</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Laboratorio</th>
+                                <th scope="col">Lote</th>
+                                <th scope="col">Validade</th>
+                                <th scope="col">Quantidade</th>
                             </tr>
                         </thead>
                         <tbody>

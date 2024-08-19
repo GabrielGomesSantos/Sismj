@@ -98,19 +98,26 @@ $result = $conn->query($sql);
                         </div>
                     </div>
                     <a href="#" id="processar">salvar</a>
+                                    
                     <div class="form-group">
-                      <label for="exampleFormControlTextarea1">Observações</label>
+                    <h4 class="text-secondary mt-4">OBSERVAÇÕES</h4>
+                    <div class="border-top border-secondary p-2"></div>
                       <textarea class="form-control" id="observacaomed" placeholder="Observações sobre o(s) medicamento(s)" rows="3"></textarea>
                     </div>
+                    <input type="hidden" value=" <?php echo $_SESSION['ID'] ?>" name="id" id="cod_funcionario">
                     <!-- Tabela dos medicamentos Fim-->
                         <!-- Rodapé do Modal -->
                                     
                     <div class="modal-footer">
                     </div>
                 </form>
-                <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn">
-                 Salvar
-                </button>
+                <div class="row">
+                    <div class="col-2 offset-9">
+                        <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn">
+                            Salvar
+                        </button>
+                    </div>
+                </div>
             </div>       
         </div>
     </div>

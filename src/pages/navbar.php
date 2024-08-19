@@ -34,4 +34,5 @@ if(!isset($_SESSION['ID'])){
         </div>
 
     </div>
+    
 </nav>
