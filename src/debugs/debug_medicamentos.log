@@ -1,11 +1,11 @@
-    Array
+Array
 (
     [0] => Array
         (
             [0] => Paracetamol
             [1] => Comprimido
             [2] => Laboratório X
-            [3] => 5
+            [3] => 10
         )
 
     [1] => Array

@@ -117,18 +117,32 @@ $(document).ready(function() {
                 
                     } else {
                         var pacienteId = $('#DropDownNome').val();
-                        var FuncionarioId = $('#codFuncionario').val();;
+                        var FuncionarioId = $('#cod_funcionario').val();;
                         var codProcesso = $('#codprocesso').val();
                         var observacao = $('#observacaomed').val(); // Use .val() para pegar o valor de um input ou textarea
 
-                        var medicamentos = $('#medicamentos').val(); // Supondo que você tenha um seletor válido
+                        var tabelaDados = [];
+    
+                        $('#TabelaMedicamentos tbody tr').each(function() {
+                            var linha = [];
+                            
+                            $(this).find('td').each(function(index) {
+                                if (index === 3) {
+                                    linha.push($(this).find('input').val());
+                                } else {
+                                    linha.push($(this).text().trim());
+                                }
+                            });
+                    
+                            tabelaDados.push(linha);
+                        });
 
                         var DadosEntrega = {
                             pacienteId: pacienteId,
                             funcionarioId: FuncionarioId,
                             codProcesso: codProcesso,
                             observacao: observacao, // Adicione observacao se for necessário
-                            medicamentos: medicamentos // Inclua medicamentos se for necessário
+                            medicamentos: tabelaDados // Inclua medicamentos se for necessário
 };
 
                         console.log('Status não há erro. Status recebido:', dados.status);
