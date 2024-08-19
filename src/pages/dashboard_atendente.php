@@ -108,9 +108,13 @@ $result = $conn->query($sql);
                     <div class="modal-footer">
                     </div>
                 </form>
-                <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn">
-                 Salvar
-                </button>
+                <div class="row">
+                    <div class="col-2 offset-9">
+                        <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn">
+                            Salvar
+                        </button>
+                    </div>
+                </div>
             </div>       
         </div>
     </div>
