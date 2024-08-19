@@ -1,0 +1,7 @@
+Array
+(
+    [pacienteId] => 1
+    [funcionarioId] => <?php echo $_SESSION['ID']; ?>
+    [codProcesso] => 1
+    [observacao] => 
+)
