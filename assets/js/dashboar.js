@@ -139,7 +139,45 @@ $(document).ready(function() {
                         });
                 
                     } else {
-                        console.log('Status não é erro. Status recebido:', dados.status);
+                        var pacienteId = $('#DropDownNome').val();
+                        var FuncionarioId = $('#cod_funcionario').val();;
+                        var codProcesso = $('#codprocesso').val();
+                        var observacao = $('#observacaomed').val(); // Use .val() para pegar o valor de um input ou textarea
+
+                        var tabelaDados = [];
+    
+                        $('#TabelaMedicamentos tbody tr').each(function() {
+                            var linha = [];
+                            
+                            $(this).find('td').each(function(index) {
+                                if (index === 3) {
+                                    linha.push($(this).find('input').val());
+                                } else {
+                                    linha.push($(this).text().trim());
+                                }
+                            });
+                    
+                            tabelaDados.push(linha);
+                        });
+
+                        var DadosEntrega = {
+                            pacienteId: pacienteId,
+                            funcionarioId: FuncionarioId,
+                            codProcesso: codProcesso,
+                            observacao: observacao, // Adicione observacao se for necessário
+                            medicamentos: tabelaDados // Inclua medicamentos se for necessário
+};
+
+                        console.log('Status não há erro. Status recebido:', dados.status);
+                        $.ajax({
+                            url: 'salvar_entrega.php',
+                            type: 'POST',
+                            data: {dados: JSON.stringify(DadosEntrega)},
+                            success: function(response) {
+                                console.log('Resposta bruta do servidor (processamento):', response);
+
+                            }
+                        })
                     }
                 
                 } catch (e) {

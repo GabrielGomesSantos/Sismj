@@ -54,7 +54,7 @@ $result = $conn->query($sql);
                     <!-- Seção Paciente -->
                     <h4 class="text-secondary">PACIENTE</h4>
                     <div class="border-top border-secondary p-2">
-                        <label for="nome" class="form-label">Nome:</label>
+                        <label for="nome" class="form-label" Required>Nome:</label>
                         <select class="form-control rounded-4" name="nome" id="DropDownNome">
                             <option value="" disabled selected>Selecione o nome do paciente</option>
                             <?php 
@@ -66,7 +66,7 @@ $result = $conn->query($sql);
                                 <?php endwhile; ?>
                         </select>
 
-                        <label for="codprocesso" class="form-label mt-3">Código do Processo:</label>
+                        <label for="codprocesso" class="form-label mt-3" Required>Código do Processo:</label>
                         <select class="form-control" name="codprocesso" id="codprocesso">
                             <option value="" disabled selected>Selecione o o paciente primeiro</option>
                             <!-- As opções serão adicionadas dinamicamente via JavaScript -->
