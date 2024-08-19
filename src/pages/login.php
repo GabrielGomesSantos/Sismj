@@ -10,7 +10,7 @@
     $cpf = $_POST['cpf'];
     $senha = $_POST['senha'];
 
-    print_r($cpf);
+   
 
     //Consulta sql a partir do cpf
     $sql_login = "SELECT * FROM `funcionarios` WHERE cpf_funcionario = '$cpf'";
@@ -24,6 +24,7 @@
             $_SESSION["Perfil"] = $row["perfil"];
             $_SESSION["login_erro"]=false;
             header('location: dashboard.php');
+          print_r($_SESSION);
         }else{
             $_SESSION["login_erro"]=true;
             header('location: ../../public/index.php');
