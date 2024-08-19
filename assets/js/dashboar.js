@@ -70,6 +70,29 @@ $(document).ready(function() {
         }
     });
 
+    $('#del').on('click', function() {
+        var tabelaDados = [];
+    
+        $('#TabelaEntregas tbody').each(function() {
+            var linha = [];
+            
+            $(this).find('td').each(function(index) {
+                if (index === 3) {
+                    linha.push($(this).find('input').val());
+                } else {
+                    linha.push($(this).text().trim());
+                }
+            });
+    
+            tabelaDados.push(linha);
+            $.ajax({
+                url: 'teste.php',
+                type: 'POST',
+                data: { dado: tabelaDados },
+
+            });
+        });
+
     $('#processar').on('click', function() {
         var tabelaDados = [];
     
@@ -132,3 +155,4 @@ $(document).ready(function() {
         });
     });
 });
+})
