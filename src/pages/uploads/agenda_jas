@@ -1,0 +1,8 @@
+agenda = [
+   ["Nathaly","4456-9912"]
+   ["Jullia","5555-4334"]
+]
+ 
+print(agenda[0])
+print(agenda[0][0])
+print(agenda[0][1])

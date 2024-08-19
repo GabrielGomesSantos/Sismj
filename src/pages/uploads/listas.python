@@ -1,0 +1,12 @@
+#lista de Compras
+import os
+
+tarefas[]
+
+while(True)
+
+os.system("cls")
+tarefas.append(input("DIGITE A DESCRIÇÃO DA TAREFA:"))
+print('------------------------------------------------------')
+input("Pressione qualquer tecla para continuar...")
+

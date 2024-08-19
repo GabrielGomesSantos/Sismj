@@ -14,13 +14,13 @@ function getResults($conn, $sql)
 
 $pacientes = getResults($conn, "SELECT * FROM pacientes");
 $medicos = getResults($conn, "SELECT * FROM medicos");
-$medicamentos = getResults($conn, "SELECT * FROM medicamentos");
+
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $num_processo = $_POST['num_processo'];
     $cod_paciente = $_POST['cod_paciente'];
-    $cod_medicamento = $_POST['cod_medicamento'];
+    $cod_medico = $_POST['cod_medico'];
 
     $copia_processo = $_FILES['copia_processo']['name'];
     $receita_processo = $_FILES['receita_processo']['name'];
@@ -33,17 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     move_uploaded_file($_FILES['copia_processo']['tmp_name'], $destino_copia);
     move_uploaded_file($_FILES['receita_processo']['tmp_name'], $destino_receita);
     
-    $tipo_med = $_POST['tipo_med'];
-    $categoria_med = $_POST['categoria_med'];
-    $lab = $_POST['lab'];
-    $quant = $_GET['quant'];
-
-    $sql = "INSERT INTO processos (numero_processo, cod_paciente, copia_processo, receita, cod_medicamento) 
-            VALUES ('$num_processo', '$cod_paciente', '$destino_copia', '$destino_receita', '$cod_medicamento')";
+    $sql = "INSERT INTO processos (numero_processo, cod_paciente, copia_processo, receita, cod_medico) 
+            VALUES ('$num_processo', '$cod_paciente', '$destino_copia', '$destino_receita', '$cod_medico')";
 
     if ($conn->query($sql)) {
-        $ultimo_id = $conn->insert_id;
-        $sql_pacientes = "";
+       echo '<script>
+                alert("Processo Cadastrado");
+                window.location.href="listar_processos.php"
+            </script>';
     } else {
         echo "Erro na inserção: " . $conn->error;
     }
@@ -107,18 +104,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <?php endforeach; ?>
                                 </select>
                         </div>
-                        <label>Selecione os Medicamentos:</label><br>
-                        <div class="form-check mb-3">
-                            <?php if ($medicamentos): ?>
-                                <?php foreach ($medicamentos as $medicamento): ?>
-                                    <input class="form-check-input" type="checkbox"
-                                        value="<?php echo $medicamento['cod_medicamento'] ?>" name="cod_medicamento" id="flexCheckChecked">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        <?php echo $medicamento['nome_medicamento'] ?>
-                                    </label><br>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
+                        <div class="form-group">
+                            <select class="form-select form-control" id="cod_paciente" name="cod_medico" required>
+                                <option value="" selected disabled>Selecione um médico</option>
+                                <?php foreach ($medicos as $medico): ?>
+                                    <option value="<?php echo htmlspecialchars($medico['cod_medico']); ?>">
+                                        <?php echo htmlspecialchars($medico['nome_medico']); ?>
+                                    </option>
+                                    <?php endforeach; ?>
+                                </select>
                         </div>
+        
 
                         <input type="submit" value="Cadastrar" class="btn text-white btn-block btn-info mt-5">
                     </form>
