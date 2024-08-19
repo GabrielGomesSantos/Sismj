@@ -115,19 +115,22 @@ $result = $conn->query($sql);
                     </header>
                 </div>
             </div>
-
-            <!-- Botão que ativa o modal -->
+            <!-- Barra de pesquisa -->
             <div class="row">
-                <div class="col-2">
-                   <div class="form-floating mb-3">
-                   <input id="input" name="teste" class="truncate" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-controls="matches" aria-expanded="false" aria-live="off" placeholder="Pesquise no Google ou digite um URL">
-                   <label for="teste">teste</label>
-                   </div>
-                </div>
+            <div class="col-4  offset-7">
+              
+              <div class="input-group rounded mt-2">
+              <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+              <span class="input-group-text border-0" id="search-addon">
+                  <i class="fas fa-search"></i>
+              </span>
+      
+              </div>
+            <!-- fim da barra de pesquisa -->
+      </div>
             </div>
-            <!-- Fim do botão que ativa o modal -->
-
             <div class="row">
+                
                 <div class="col-10 offset-1">
                     <table class="table mt-5">
                         <thead class="thead-light">
