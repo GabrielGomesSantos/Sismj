@@ -11,7 +11,8 @@ session_start();
                 <span class="ms-2">Sisman</span>
             </a>
         </div>
-
+        <!-- barra de acoes -->
+        
         <ul class="navbar-nav mb-2 mr-3 mb-lg-0 d-flex align-items-center">
             <?php
                 echo "<span class='me-4 text-white'>Olá, {$_SESSION['Nome']}</span>";
@@ -21,7 +22,8 @@ session_start();
             </li>
 
         </ul>
-        <!-- Botão logoff    -->
-         <button type="button" class="btn btn-danger" onclick='window.location="sair.php"'>Logoff</button>
+        <button type="button" class="btn btn-danger" onclick='window.location="sair.php"'>Logoff</button>
+        
     </div>
+    
 </nav>

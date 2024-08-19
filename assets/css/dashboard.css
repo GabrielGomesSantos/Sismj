@@ -95,3 +95,14 @@ input .number {
       
     
 }
+.barraacoes{
+    background-color: red;
+    transition: 0.2s;
+    
+    overflow: hidden;
+}
+.barraacoes:hover{
+    height: 500px;
+}
+
+

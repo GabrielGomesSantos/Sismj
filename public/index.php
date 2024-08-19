@@ -1,3 +1,10 @@
+<?php session_start();
+  if (isset($_SESSION['login_erro'])){
+  $login_erro = $_SESSION['login_erro'];
+  } else {
+    $login_erro="";
+  }
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -65,14 +72,23 @@
                 <input type="password" class="form-control" name="senha" id="password" required>
                 
               </div>
-
-              <input type="submit" value="Log In" class="btn text-white btn-block btn-info">
+              <?php if ($login_erro==true){
+                echo"<div class=' justify-content-center'>
+              <div class='alert alert-danger text-center p-2 d-flex shadow-sm rounded'> Cpf ou senha incorretos
+              </div>
+              </div>";
+              }
+          
+              ?>
               
+              <input type="submit" value="Log In" class="btn text-white btn-block btn-info">
+             
               </div>
             </form>
 
 
             </div>
+            
           </div>
           
         </div>

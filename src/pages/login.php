@@ -22,11 +22,14 @@
             $_SESSION["Nome"] = $row["nome_funcionario"];
             $_SESSION["ID"] = $row["cod_funcionario"];
             $_SESSION["Perfil"] = $row["perfil"];
+            $_SESSION["login_erro"]=false;
             header('location: dashboard.php');
         }else{
-            header('location: error_login.php');
+            $_SESSION["login_erro"]=true;
+            header('location: ../../public/index.php');
         }        
     } else {
-        header('location: error_login.php');
+        $_SESSION["login_erro"]=true;
+        header('location: ../../public/index.php');
     }
 ?>
