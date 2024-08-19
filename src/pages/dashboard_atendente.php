@@ -108,7 +108,7 @@ $result = $conn->query($sql);
                     <!-- <button id="processar" class="btn btn-primary" disabled>Salvar</button> -->
                     <div class="form-group">
                       <label for="exampleFormControlTextarea1">Observações</label>
-                      <textarea class="form-control" id="observacaomed" placeholder="Observações sobre o(s) medicamento(s)" rows="5"></textarea>
+                      <textarea class="form-control" id="observacaomed" placeholder="Observações sobre o(s) medicamento(s)" rows="3"></textarea>
                     </div>
                     <!-- Tabela dos medicamentos Fim-->
                         <!-- Rodapé do Modal -->

@@ -168,19 +168,19 @@ $result = $conn->query($sql);
                         <ul class="pagination justify-content-center">
                             <?php if ($current_page > 1): ?>
                                 <li class="page-item">
-                                    <a style="background-color: #13899c; color: #FFF;" class="page-link" href="?page=<?= $current_page - 1; ?>" aria-label="Previous">
+                                    <a style="background-color: #13899c; color: #FFF;" class="page-link" href="?pag=2&page=<?= $current_page - 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
                             <?php endif; ?>
                             <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                                 <li class="page-item <?= ($i == $current_page) ? 'active' : ''; ?>">
-                                    <a style="background-color: #17a2b8; color: #FFF;" class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
+                                    <a style="background-color: #17a2b8; color: #FFF;" class="page-link" href="?pag=2&page=<?= $i; ?>"><?= $i; ?></a>
                                 </li>
                             <?php endfor; ?>
                             <?php if ($current_page < $total_pages): ?>
                                 <li class="page-item">
-                                    <a style="background-color: #13899c; color: #FFF;" class="page-link" href="?page=<?= $current_page + 1; ?>" aria-label="Next">
+                                    <a style="background-color: #13899c; color: #FFF;" class="page-link" href="?pag=2&page=<?= $current_page + 1; ?>" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>

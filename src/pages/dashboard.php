@@ -1,4 +1,14 @@
 <?php 
+     session_start();
+     
+     if(!isset($_SESSION["Perfil"])){
+          header('Location: ../../public/index.php');
+     }else{
+
+          $perfil = $_SESSION["Perfil"];
+
+     }
+
 
      if(!isset($_GET['pag'])){
           $pg = 1;
@@ -46,13 +56,21 @@
 
 <body style="position: relative;">
      <!<?php 
-          if ($pg == 1){
+          if($perfil == 1){
 
-               include("dashboard_atendente.php");
+               if ($pg == 1){
 
-          }else if ($pg == 2){
+                    include("dashboard_atendente.php");
+     
+               }else if ($pg == 2){
+     
+                    include("estoque.php");
+     
+               }
 
-               include("estoque.php");
+          }else if($perfil== 2){
+
+
 
           }
         
