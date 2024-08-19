@@ -20,17 +20,10 @@ $total_pages = ceil($total_rows / $items_per_page);
 
 // Consultar registros para a página atual
 $sql = "
-    (SELECT e.*, p.nome_paciente, p.cpf_paciente
+    SELECT e.*, p.nome_paciente, p.cpf_paciente
     FROM entregas e
     LEFT JOIN pacientes p ON e.cod_paciente = p.cod_paciente
-    WHERE e.cod_funcionario = {$id_funcionario})
-
-    UNION
-
-    (SELECT e.*, p.nome_paciente, p.cpf_paciente
-    FROM entregas e
-    RIGHT JOIN pacientes p ON e.cod_paciente = p.cod_paciente
-    WHERE e.cod_funcionario = {$id_funcionario})
+    WHERE e.cod_funcionario = {$id_funcionario}
 
     LIMIT {$items_per_page} OFFSET {$offset};
 ";
@@ -105,17 +98,19 @@ $result = $conn->query($sql);
                         </div>
                     </div>
                     <a href="#" id="processar">salvar</a>
-                    <!-- <button id="processar" class="btn btn-primary" disabled>Salvar</button> -->
                     <div class="form-group">
                       <label for="exampleFormControlTextarea1">Observações</label>
                       <textarea class="form-control" id="observacaomed" placeholder="Observações sobre o(s) medicamento(s)" rows="3"></textarea>
                     </div>
                     <!-- Tabela dos medicamentos Fim-->
                         <!-- Rodapé do Modal -->
-
+                                    
                     <div class="modal-footer">
                     </div>
                 </form>
+                <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn">
+                 Salvar
+                </button>
             </div>       
         </div>
     </div>
