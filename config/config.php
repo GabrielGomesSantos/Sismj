@@ -5,7 +5,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "bd_sismj";
+$dbname = "bd_sisman";
 
 ////////////////////////////////
 
