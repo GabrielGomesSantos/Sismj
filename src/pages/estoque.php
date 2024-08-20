@@ -178,9 +178,9 @@ $result = $conn->query($sql);
                                     <td><?= $row['validade']; ?></td>
                                     <td><?= $row['quantidade']; ?></td>
                                     <td>
-                                        <div style="width: 130px; color: #13899c;" >
-                                            <button type="button"  onclick="editar.php" class="btn btn-custom-edit btn-sm btn btn-warning">Editar</button>
-                                            <button type="button" onclick="excluir.php" class="btn btn-custom-delete btn-sm btn btn-danger">Excluir</button>
+                                        <div style="width: 130px; color: #13899c;">
+                                            <button type="button" class="btn btn-custom-edit btn-sm btn btn-warning btn-editar" data-bs-toggle="modal" data-bs-target="#editarMedicamentoModal">Editar</button>
+                                            <button type="button" class="btn btn-custom-delete btn-sm btn btn-danger btn-excluir" data-bs-toggle="modal" data-bs-target="#excluirMedicamentoModal">Excluir</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -239,7 +239,80 @@ $result = $conn->query($sql);
         </div>
     </div>
 </div>
-<!-- Modal Entrega Infos Fim -->
+<!-- Modal Editar Medicamento -->
+<div class="modal fade" id="editarMedicamentoModal" tabindex="-1" aria-labelledby="editarMedicamentoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="editarMedicamentoModalLabel">Editar Medicamento</h5>
+                <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editarMedicamentoForm" method="POST" action="editar.php">
+                    <input type="hidden" name="cod_medicamento" id="editarCodMedicamento">
+                    <div class="mb-3">
+                        <label for="editarNomeMedicamento" class="form-label">Nome Medicamento</label>
+                        <input type="text" class="form-control" id="editarNomeMedicamento" name="nome_medicamento" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editarTipoMedicamento" class="form-label">Tipo Medicamento</label>
+                        <input type="text" class="form-control" id="editarTipoMedicamento" name="tipo_medicamento" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editarCategoria" class="form-label">Categoria</label>
+                        <input type="text" class="form-control" id="editarCategoria" name="categoria" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editarLaboratorio" class="form-label">Laboratório</label>
+                        <input type="text" class="form-control" id="editarLaboratorio" name="laboratorio" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editarLote" class="form-label">Lote</label>
+                        <input type="text" class="form-control" id="editarLote" name="lote" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editarValidade" class="form-label">Validade</label>
+                        <input type="date" class="form-control" id="editarValidade" name="validade" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editarQuantidade" class="form-label">Quantidade</label>
+                        <input type="number" class="form-control" id="editarQuantidade" name="quantidade" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Excluir Medicamento -->
+<div class="modal fade" id="excluirMedicamentoModal" tabindex="-1" aria-labelledby="excluirMedicamentoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="excluirMedicamentoModalLabel">Excluir Medicamento</h5>
+                <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Você tem certeza de que deseja excluir o medicamento <strong id="excluirNomeMedicamento"></strong>? Esta ação não pode ser desfeita.</p>
+            </div>
+            <div class="modal-footer">
+                <form id="excluirMedicamentoForm" method="POST" action="excluir.php">
+                    <input type="hidden" name="cod_medicamento" id="excluirCodMedicamento">
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Scripts -->
 <script src="../../assets/js/jquery-3.3.1.min.js"></script>
@@ -248,4 +321,31 @@ $result = $conn->query($sql);
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<script>
+    // Configurar o modal de edição
+    document.querySelectorAll('.btn-editar').forEach(button => {
+        button.addEventListener('click', function() {
+            const row = this.closest('tr');
+            document.getElementById('editarCodMedicamento').value = row.querySelector('th').innerText;
+            document.getElementById('editarNomeMedicamento').value = row.querySelector('td:nth-child(3)').innerText;
+            document.getElementById('editarTipoMedicamento').value = row.querySelector('td:nth-child(4)').innerText;
+            document.getElementById('editarCategoria').value = row.querySelector('td:nth-child(5)').innerText;
+            document.getElementById('editarLaboratorio').value = row.querySelector('td:nth-child(6)').innerText;
+            document.getElementById('editarLote').value = row.querySelector('td:nth-child(7)').innerText;
+            document.getElementById('editarValidade').value = row.querySelector('td:nth-child(8)').innerText;
+            document.getElementById('editarQuantidade').value = row.querySelector('td:nth-child(9)').innerText;
+        });
+    });
+
+    // Configurar o modal de exclusão
+    document.querySelectorAll('.btn-excluir').forEach(button => {
+        button.addEventListener('click', function() {
+            const row = this.closest('tr');
+            const codMedicamento = row.querySelector('th').innerText;
+            const nomeMedicamento = row.querySelector('td:nth-child(3)').innerText;
+            document.getElementById('excluirCodMedicamento').value = codMedicamento;
+            document.getElementById('excluirNomeMedicamento').innerText = nomeMedicamento;
+        });
+    });
+</script>
 
