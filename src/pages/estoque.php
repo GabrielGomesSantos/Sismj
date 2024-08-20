@@ -32,6 +32,29 @@ $result = $conn->query($sql);
 .row_paciente{
     cursor: default; 
 }
+
+.container {
+    padding: 20px;
+}
+
+.search-and-button {
+    display: flex;
+    align-items: center; 
+    gap: 70%;
+}
+
+.search-and-button .btn {
+    padding: 5px 10px; 
+}
+
+.search-and-button .truncate {
+    flex-grow: 1; 
+    max-width: 400px; 
+    padding: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
 </style>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -113,18 +136,16 @@ $result = $conn->query($sql);
                     <header class="bg-info text-white" style="padding: 5px 15px;">
                         Medicamentos:
                     </header>
+                    <br>
+                    <div class="container">
+                        <div class="search-and-button">
+                            <button style="background-color: #17a2b8; color: #FFF;" class="btn btn-custom-edit btn-sm" type="button" onclick="location.href='cadastrar.php'">Cadastrar Medicamentos</button>
+                            <input id="input" name="teste" class="truncate" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-controls="matches" aria-expanded="false" aria-live="off" placeholder="Pesquise no Google ou digite um URL">
+                        </div>
+                    </div>
                 </div>
             </div>
-
             <!-- Botão que ativa o modal -->
-            <div class="row">
-                <div class="col-2">
-                   <div class="form-floating mb-3">
-                   <input id="input" name="teste" class="truncate" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-controls="matches" aria-expanded="false" aria-live="off" placeholder="Pesquise no Google ou digite um URL">
-                   <label for="teste">teste</label>
-                   </div>
-                </div>
-            </div>
             <!-- Fim do botão que ativa o modal -->
 
             <div class="row">
@@ -141,6 +162,7 @@ $result = $conn->query($sql);
                                 <th scope="col">lote</th>
                                 <th scope="col">validade</th>
                                 <th scope="col">quantidade</th>
+                                <th scope="col">ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -155,6 +177,12 @@ $result = $conn->query($sql);
                                     <td><?= $row['lote']; ?></td>
                                     <td><?= $row['validade']; ?></td>
                                     <td><?= $row['quantidade']; ?></td>
+                                    <td>
+                                        <div style="width: 130px; color: #13899c;" >
+                                            <button type="button"  onclick="editar.php" class="btn btn-custom-edit btn-sm btn btn-warning">Editar</button>
+                                            <button type="button" onclick="excluir.php" class="btn btn-custom-delete btn-sm btn btn-danger">Excluir</button>
+                                        </div>
+                                    </td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
