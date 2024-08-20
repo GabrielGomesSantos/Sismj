@@ -1,6 +1,23 @@
-<!doctype html>
-<html lang="pt-br">
+<?php 
+     session_start();
+     
+     if(!isset($_SESSION["Perfil"])){
+          header('Location: ../../public/index.php');
+     }else{
 
+          $perfil = $_SESSION["Perfil"];
+
+     }
+
+
+     if(!isset($_GET['pag'])){
+          $pg = 1;
+     }else{
+          $pg = $_GET['pag'];
+     }
+
+?>
+<!DOCTYPE html>
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -13,9 +30,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
     <!-- Bootstrap CSS -->
+  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <!-- Style -->
     <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
     <!-- Style -->
 
     <!-- Fonte Awesome -->
@@ -25,27 +47,35 @@
     <!-- Titulo Lembrar de mudar! -->
     <link rel="shortcut icon" href="../../assets/images/favico.ico">
     <title>Sisman - Dashboard</title>
+
 </head>
+
+
 
 <?php include('navbar.php')?>
 
-<body>
+<body style="position: relative;">
+     <!<?php 
+          if($perfil == 1){
 
-    <div class="content">
-        <div class="container">
-            <div class="card" style="width: 18rem;">
-                
-            </div>
-        </div>
-    </div>
+               if ($pg == 1){
 
+                    include("dashboard_atendente.php");
+     
+               }else if ($pg == 2){
+     
+                    include("estoque.php");
+     
+               }
 
-    <script src="../../assets/js/jquery-3.3.1.min.js"></script>
-    <script src="../../assets/js/popper.min.js"></script>
-    <script src="../../assets/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/main.js"></script>
-    <?php include('footer.php')?>
-</body>
+          }else if($perfil== 2){
 
 
+
+          }
+        
+        
+      ?>
+</body> 
+<?php include('footer.php')?>
 </html>
