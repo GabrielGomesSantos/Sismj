@@ -28,9 +28,6 @@ if (isset($_GET['id_processo'])) {
         if (!empty($copia) && file_exists($copia)) {
             if (unlink($copia)) {
                 echo "Arquivo '$copia' excluído com sucesso.<br>";
-            } else {
-                header("Location: listar_processos.php");
-                exit();
             }
         } else {
             echo "Arquivo '$copia' não encontrado ou não especificado.<br>";
@@ -39,14 +36,16 @@ if (isset($_GET['id_processo'])) {
         if (!empty($receita) && file_exists($receita)) {
             if (unlink($receita)) {
                 echo "Arquivo '$receita' excluído com sucesso.<br>";
-            } else {
-                header("Location: listar_processos.php");
-                exit();
             }
     
         } else {
             echo "Arquivo '$receita' não encontrado ou não especificado.<br>";
         }
+
+        echo "<script>
+                alert('Processo removido);
+                window.location.href='listar_processos.php';
+            </script>";
     }else {
         echo "Erro!! $conn->error";
     }
