@@ -52,7 +52,7 @@
 
 
 
-<?php include('navbar.php')?>
+<?php include('index')?>
 
 <body style="position: relative;">
      <!<?php 
