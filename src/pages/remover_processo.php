@@ -29,7 +29,8 @@ if (isset($_GET['id_processo'])) {
             if (unlink($copia)) {
                 echo "Arquivo '$copia' excluído com sucesso.<br>";
             } else {
-                echo "Erro ao excluir o arquivo '$copia'.<br>";
+                header("Location: listar_processos.php");
+                exit();
             }
         } else {
             echo "Arquivo '$copia' não encontrado ou não especificado.<br>";
@@ -39,8 +40,10 @@ if (isset($_GET['id_processo'])) {
             if (unlink($receita)) {
                 echo "Arquivo '$receita' excluído com sucesso.<br>";
             } else {
-                echo "Erro ao excluir o arquivo '$receita'.<br>";
+                header("Location: listar_processos.php");
+                exit();
             }
+    
         } else {
             echo "Arquivo '$receita' não encontrado ou não especificado.<br>";
         }

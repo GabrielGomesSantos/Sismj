@@ -64,9 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="shortcut icon" href="../../assets/images/favico.ico">
     <title>Cadastro de Processo</title>
     <style>
-        /* .form-check {
-            display: flex;
-        } */
+        
     </style>
 </head>
 
@@ -104,6 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <?php endforeach; ?>
                                 </select>
                         </div>
+                        <label for="cod_paciente">Selecione o Paciente:</label>
                         <div class="form-group">
                             <select class="form-select form-control" id="cod_paciente" name="cod_medico" required>
                                 <option value="" selected disabled>Selecione um médico</option>
