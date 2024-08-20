@@ -60,7 +60,7 @@
 
                if ($pg == 1){
 
-                    include("dashboard_atendente.php");
+                    include("listar_processos.php");
      
                }else if ($pg == 2){
      

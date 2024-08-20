@@ -1,5 +1,15 @@
 <?php
 require_once('../../config/config.php');
+
+$id_funcionario = $_SESSION['ID'];
+
+
+$items_per_page = 6;
+
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($current_page - 1) * $items_per_page;
+
+
 $sql = "SELECT * FROM `processos`";
 $result = $conn->query($sql);
 
@@ -40,7 +50,6 @@ if ($result === FALSE) {
   <title>Remover Funcionario</title>
 </head>
 
-<?php include('navbar.php') ?>
 
 <body>
   <a href="cadastrar_processo.php" class='btn btn-success m-3'>Cadastrar Processo</a>
@@ -85,7 +94,7 @@ if ($result === FALSE) {
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 
-  <?php include('footer.php') ?>
+
 </body>
 
 
