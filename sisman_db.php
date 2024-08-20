@@ -45,7 +45,7 @@ function deleteMed($id, $conn)
     } else {
         echo "Erro ao deletar registro: " . mysqli_error($conn);
     }
-    header("Location: dashboard(teste)/index.php");
+    header("Location: /sismj/src/pages/dashboard.php?pag=2");
 }
 
 function updateMed($id, $nome, $tipo, $categoria, $lab, $lote, $validade, $quant, $conn) {
@@ -81,7 +81,7 @@ function updateMed($id, $nome, $tipo, $categoria, $lab, $lote, $validade, $quant
     }
 
     // Redireciona para o dashboard (descomente se necessário)
-    header("Location: dashboard(teste)/index.php"); 
+    header("Location: /sismj/src/pages/dashboard.php?pag=2"); 
 }
 
 
