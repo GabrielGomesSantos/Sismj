@@ -97,7 +97,6 @@ $result = $conn->query($sql);
                         </table>
                         </div>
                     </div>
-                    <a href="#" id="processar">salvar</a>
                                     
                     <div class="form-group">
                     <h4 class="text-secondary mt-4">OBSERVAÇÕES</h4>
@@ -113,7 +112,7 @@ $result = $conn->query($sql);
                 </form>
                 <div class="row">
                     <div class="col-2 offset-9">
-                        <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn">
+                        <button type="button" id="processar" style="background-color: #17a2b8; color: #FFF;" class="btn">
                             Salvar
                         </button>
                     </div>
@@ -162,14 +161,17 @@ $result = $conn->query($sql);
                     <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Cadastrar
                     </button>
+                    <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5"  data-toggle="tooltip" data-placement="top" title=" ">
+                        del
+                    </button>
                 </div>
             </div>
             <!-- Fim do botão que ativa o modal -->
 
             <div class="row">
                 <div class="col-10 offset-1">
-                    <table class="table mt-5">
-                        <thead class="thead-light">
+                    <table class="table mt-5" id="TabelaEntregas">
+                        <thead class="thead-light" >
                             <tr>
                                 <th scope="col">N°</th>
                                 <th scope="col">Nome do Paciente</th>

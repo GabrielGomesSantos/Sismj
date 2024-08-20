@@ -127,3 +127,36 @@ input .number {
     border-radius: 7px;
 
 }
+
+/* Estilo da linha com erro */
+.table-danger {
+    position: relative; /* Necessário para o posicionamento do tooltip */
+    background-color: #f8d7da; /* Cor de fundo vermelho claro */
+    color: #721c24; /* Cor do texto */
+    border: 1px solid #f5c6cb; /* Borda vermelha clara */
+  }
+  
+  /* Estilo do tooltip personalizado */
+  .table-danger::after {
+    content: attr(data-title); /* Usa o atributo data-title como conteúdo do tooltip */
+    position: absolute;
+    bottom: 100%; /* Posiciona o tooltip acima do elemento */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #721c24; /* Cor de fundo do tooltip */
+    color: #fff; /* Cor do texto do tooltip */
+    padding: 5px 10px;
+    border-radius: 4px; /* Bordas arredondadas */
+    white-space: nowrap; /* Evita quebra de linha do texto */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 10; /* Garante que o tooltip fique acima dos outros elementos */
+    font-size: 12px; /* Tamanho da fonte do tooltip */
+  }
+  
+  /* Exibe o tooltip ao passar o mouse sobre o elemento */
+  .table-danger:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }

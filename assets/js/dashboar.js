@@ -1,3 +1,7 @@
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+
 $(document).ready(function() {
     $('#DropDownNome').on('change', function() {
         var pacienteId = $(this).val();
@@ -48,7 +52,7 @@ $(document).ready(function() {
                         tabelaCorpo.empty();
 
                         dados.dadosTabela.forEach(function(item) {
-                            var novaLinha = '<tr data-id="' + item.cod_medicamento_processo + '">' +
+                            var novaLinha = '<tr   data-toggle="tooltip" data-placement="top"    id="' + item.cod_medicamento_processo + '" >' +
                                 '<td>' + item.nome_medicamento + '</td>' +
                                 '<td>' + item.tipo_medicamento + '</td>' +
                                 '<td>' + item.laboratorio + '</td>' +
@@ -72,10 +76,14 @@ $(document).ready(function() {
 
     $('#processar').on('click', function() {
         var tabelaDados = [];
-    
+        var id = 0;
         $('#TabelaMedicamentos tbody tr').each(function() {
             var linha = [];
             
+            // Obtém o valor do data-id do tr
+            var id = $(this).attr('id');
+            linha.push(id);
+    
             $(this).find('td').each(function(index) {
                 if (index === 3) {
                     linha.push($(this).find('input').val());
@@ -86,13 +94,14 @@ $(document).ready(function() {
     
             tabelaDados.push(linha);
         });
+        
+        console.log(tabelaDados);
     
         $.ajax({
             url: 'processamento.php',
             type: 'POST',
             data: { dados: JSON.stringify(tabelaDados) },
             success: function(response) {
-                console.log('Resposta bruta do servidor (processamento):', response);
                 try {
                     var dados = JSON.parse(response);
                     console.log('Dados processados:', dados);
@@ -100,22 +109,24 @@ $(document).ready(function() {
                     // Limpar classes de erro e mensagens anteriores
                     $('#TabelaMedicamentos tbody tr').removeClass('table-danger').find('td.text-danger').remove();
                 
-                    if (dados.status === 'erro') {
+                    if (dados.status === 'erro' || dados.status === 'Faltando dados') {
                         console.log('Erros encontrados:', dados.erros);
                 
                         dados.erros.forEach(function(erro) {
                             var linhaComErro = $('#TabelaMedicamentos tbody tr').filter(function() {
-                                return $(this).data('id') == erro.cod_medicamento;
+                                return $(this).attr('id') == erro.cod_medicamento;
                             });
                             
                             if (linhaComErro.length) {
                                 linhaComErro.addClass('table-danger'); // Adiciona a classe de erro
+                                linhaComErro.attr('data-title', erro.mensagem); // Define o atributo title                            
                             } else {
                                 console.warn('Linha com erro não encontrada:', erro.cod_medicamento);
                             }
                         });
                 
                     } else {
+                        console.log("Salvando...");
                         var pacienteId = $('#DropDownNome').val();
                         var FuncionarioId = $('#cod_funcionario').val();;
                         var codProcesso = $('#codprocesso').val();

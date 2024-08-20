@@ -42,12 +42,8 @@ mysqli_begin_transaction($conn);
 
 try {
     // Primeiro insert
-    $insert1 = "INSERT INTO tabela1 (coluna1, coluna2) VALUES ('valor1A', 'valor2A')";
+    $insert1 = "INSERT INTO `entregas`(`cod_paciente`, `cod_processo`, `cod_funcionario`) VALUES ('{$dados["pacienteId"]}','{$dados["codProcesso"]};','{$dados["funcionarioId"]}')";
     mysqli_query($conn, $insert1);
-
-    // Segundo insert
-    $insert2 = "INSERT INTO tabela2 (coluna1, coluna2) VALUES ('valor1B', 'valor2B')";
-    mysqli_query($conn, $insert2);
 
     // Se ambos os inserts forem bem-sucedidos, confirma a transação
     mysqli_commit($conn);
