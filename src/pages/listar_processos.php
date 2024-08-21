@@ -1,7 +1,7 @@
 <?php
 require_once('../../config/config.php');
 
-// $id_funcionario = $_SESSION['ID'];
+$id_funcionario = $_SESSION['ID'];
 
 
 $items_per_page = 6;
@@ -32,7 +32,7 @@ if ($result === FALSE) {
   <!-- Required meta tags -->
 
   <!-- Bootstrap CSS -->
-  <!-- <link rel="stylesheet" href="../../assets/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
   <!-- Bootstrap CSS -->
 
   <!-- Style -->
@@ -52,7 +52,7 @@ if ($result === FALSE) {
 
 
 <body>
-<?php include('sidebar.html')?>
+<?php include('navbar.php')?>
   <div class="container d-flex align-items-center">
     <div class="row">
       <div class="col">

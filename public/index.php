@@ -1,3 +1,11 @@
+<?php session_start();
+  if (isset($_SESSION['login_erro'])){
+  $login_erro = $_SESSION['login_erro'];
+  } else {
+    $login_erro="";
+  }
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
