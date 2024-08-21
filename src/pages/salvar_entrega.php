@@ -33,26 +33,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             file_put_contents('../debugs/debug_entrega.log', "Erro: " . mysqli_error($conn) . "\n", FILE_APPEND);
         }
     }
+    
+    //Salvandi entrega 
+    
+    //Inicia uma transação 
+    mysqli_begin_transaction($conn);
+    
+    try {
+        // Insert na tabela `entregas`
+        $insert1 = "INSERT INTO `entregas`(`cod_paciente`, `cod_processo`, `cod_funcionario`) VALUES ('{$dados["pacienteId"]}','{$dados["codProcesso"]}','{$dados["funcionarioId"]}')";
+        mysqli_query($conn, $insert1);
+        
+        $entragaid = "SELECT MAX(cod_entrega) AS lastId FROM entregas";
+        $result = mysqli_query($conn, $entragaid);
+        $lastIdEntrega = mysqli_fetch_assoc($result)['lastId'];
+        file_put_contents('../debugs/debug_sql.log', print_r($lastIdEntrega, true));
+        
+        foreach ($medicamentos as $row) {
+            $medicamentoSql = "SELECT cod_medicamento FROM `medicamentos` WHERE `nome_medicamento` = '{$row[0]}' AND `tipo_medicamento` = '{$row[1]}' AND `laboratorio` = '{$row[2]}'";
+            $result = mysqli_query($conn, $medicamentoSql);
+            $idMedicamento = mysqli_fetch_assoc($result)['cod_medicamento'];
+            
+            $insert2 = "INSERT INTO `itens_entrega`(`cod_entrega`, `cod_medicamento`, `qtde_medicamento`) VALUES ('{$lastIdEntrega}','{$idMedicamento}','{$row[3]}')";
+            mysqli_query($conn, $insert2);
+            
+            // Atualiza a quantidade do medicamento
+            $updateSql = "UPDATE `medicamentos` SET `quantidade` = `quantidade` - {$row[3]} WHERE `nome_medicamento` = '{$row[0]}' AND `tipo_medicamento` = '{$row[1]}' AND `laboratorio` = '{$row[2]}'";
+            if (!mysqli_query($conn, $updateSql)) {
+                file_put_contents('../debugs/debug_entrega.log', "Erro: " . mysqli_error($conn) . "\n", FILE_APPEND);
+            }
+        }
+        $response = [
+            'status' => 'sucesso',
+        ];
+        
+        mysqli_commit($conn);
+    } catch (Exception $e) {
+        mysqli_rollback($conn);
+        file_put_contents('error_log.txt', $e->getMessage(), FILE_APPEND);
+    }
+    
 }
-
-//Salvandi entrega 
-
-// Inicia uma transação
-mysqli_begin_transaction($conn);
-
-try {
-    // Primeiro insert
-    $insert1 = "INSERT INTO `entregas`(`cod_paciente`, `cod_processo`, `cod_funcionario`) VALUES ('{$dados["pacienteId"]}','{$dados["codProcesso"]};','{$dados["funcionarioId"]}')";
-    mysqli_query($conn, $insert1);
-
-    // Se ambos os inserts forem bem-sucedidos, confirma a transação
-    mysqli_commit($conn);
-} catch (Exception $e) {
-    // Em caso de erro, desfaz todas as operações realizadas na transação
-    mysqli_rollback($conn);
-
-    // Lida com o erro (por exemplo, log ou exibe uma mensagem)
-    file_put_contents('error_log.txt', $e->getMessage(), FILE_APPEND);
-}
-$valor = mysqli_id()
-?>
+    echo json_encode($response);
+    
+    ?>

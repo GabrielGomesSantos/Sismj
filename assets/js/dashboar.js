@@ -163,7 +163,7 @@ $(document).ready(function() {
                             data: {dados: JSON.stringify(DadosEntrega)},
                             success: function(response) {
                                 console.log('Resposta bruta do servidor (processamento):', response);
-
+                                OpenModal()
                             }
                         })
                     }
