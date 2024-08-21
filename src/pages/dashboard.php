@@ -48,11 +48,11 @@
      <!<?php 
           if ($pg == 1){
 
-               include("dashboard_atendente.php");
+               include("medicamentos.php");
 
           }else if ($pg == 2){
 
-               include("estoque.php");
+               include("compras.php");
 
           }
         
