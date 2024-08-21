@@ -35,7 +35,7 @@ $result = $conn->query($sql);
 
 <div class="container">
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="cadastromodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Cabeçalho do Modal -->
@@ -158,7 +158,7 @@ $result = $conn->query($sql);
             <!-- Botão que ativa o modal -->
             <div class="row">
                 <div class="col-2">
-                    <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5" data-bs-toggle="modal" data-bs-target="#cadastromodal">
                         Cadastrar
                     </button>
                     <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5"  data-toggle="tooltip" data-placement="top" title=" ">
@@ -249,6 +249,25 @@ $result = $conn->query($sql);
     </div>
 </div>
 <!-- Modal Entrega Infos Fim -->
+
+
+<!-- Modal confirmacao-->
+<div class="modal fade" id="confirmacaoModal" tabindex="-1" aria-labelledby="EntregaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <div class="d-flex align-items-center">
+                    <h1 class="modal-title fs-5 mb-0" id="cadastrarModal">Confirmação de Entrega</h1>
+                </div>
+                <div>
+                    <p>
+                        Entrega realizada com sucesso
+                    </p>
+                </div>
+        </div>
+    </div>
+</div>
+<!-- Modal confirmacao Fim -->
 
 
 <!-- Scripts -->

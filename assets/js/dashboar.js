@@ -1,3 +1,36 @@
+
+function openModal(codEntrega) {
+    // URL para buscar detalhes da entrega
+    const url = 'entregasQuery.php?cod_entrega=' + codEntrega;
+    console.log('Fetching URL for delivery details:', url); // Adicione isto para depuração
+
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('modalContent').innerHTML = data;
+
+            // Mostrar o modal se não estiver visível
+            var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('EntregaModal'));
+            modal.show();
+        })
+        .catch(error => {
+            console.error('Erro ao carregar os detalhes da entrega:', error);
+        });
+}
+
+function fecharModal() {
+    var modal = bootstrap.Modal.getInstance(document.getElementById('cadastromodal'));
+    if (modal) {
+        modal.hide();
+    }
+}
+
+
+function confirmacao(){
+    var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('confirmacaoModal'));
+    modal.show();
+}
+
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
@@ -163,7 +196,9 @@ $(document).ready(function() {
                             data: {dados: JSON.stringify(DadosEntrega)},
                             success: function(response) {
                                 console.log('Resposta bruta do servidor (processamento):', response);
-                                OpenModal()
+
+                                fecharModal();
+                                confirmacao();
                             }
                         })
                     }
