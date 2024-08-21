@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     try {
         // Insert na tabela `entregas`
-        $insert1 = "INSERT INTO `entregas`(`cod_paciente`, `cod_processo`, `cod_funcionario`) VALUES ('{$dados["pacienteId"]}','{$dados["codProcesso"]}','{$dados["funcionarioId"]}')";
+        $insert1 = "INSERT INTO `entregas`(`cod_paciente`, `cod_processo`, `cod_funcionario`, `observacao`) VALUES ('{$dados["pacienteId"]}','{$dados["codProcesso"]}','{$dados["funcionarioId"]}','{$dados["observacao"]}')";
         mysqli_query($conn, $insert1);
         
         $entragaid = "SELECT MAX(cod_entrega) AS lastId FROM entregas";

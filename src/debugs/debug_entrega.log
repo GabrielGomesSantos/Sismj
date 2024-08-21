@@ -3,7 +3,7 @@ Array
     [pacienteId] => 1
     [funcionarioId] =>  1
     [codProcesso] => 1
-    [observacao] => 
+    [observacao] => Testando campo de observações
     [medicamentos] => Array
         (
             [0] => Array
