@@ -54,6 +54,7 @@ if(isset($_GET['id_processo'])) {
                 <th scope="col">Categoria Medicamento:</th>
                 <th scope="col">Laboratorio</th>
                 <th scope="col">Quantidade</th>
+                <th scope="col">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -66,7 +67,7 @@ if(isset($_GET['id_processo'])) {
                 <td><?php echo $row['categoria_medicamento']?></td>
                 <td><?php echo $row['laboratorio']?></td>
                 <td><?php echo $row['quantidade']?></td>
-
+                <td><a href="editar_medicamento_processo.php?id_medicamento_processo=<?php echo $row['cod_medicamento_processo']?>" class="btn btn-warning">Editar</a></td>
             </tr>
             <?php endwhile;?>
             <?php endif?>
