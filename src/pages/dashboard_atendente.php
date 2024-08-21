@@ -130,7 +130,7 @@ $result = $conn->query($sql);
                     <li>
                         <a href="dashboard.php?pag=1">
                            <div class="centralizar">
-                                <span class="icone"><img src="..\..\assets\images\truck.png" alt=""></span>
+                                <span class="icone"><img src="..\..\assets\images\entrega.png" alt=""></span>
                                 <span style=" margin-left: 5px; " class="titulo">Entregas</span>
                            </div>
                         </a>
@@ -138,8 +138,8 @@ $result = $conn->query($sql);
                     <li>
                         <a href="dashboard.php?pag=2">
                             <div class="centralizar">
-                                <span class="icone"><img src="..\..\assets\images\pill.png" alt=""></span>
-                                <span  class="titulo">Medicamentos</span>
+                                <span class="icone"><img src="..\..\assets\images\estoque.png" alt=""></span>
+                                <span  class="titulo">Estoque</span>
                             </div>
                         </a>
                     </li>

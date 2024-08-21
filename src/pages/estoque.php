@@ -86,12 +86,12 @@ $result = $conn->query($sql);
 
     <div class="row">
         <div class="col-1" style="margin: 0; padding: 0;">
-            <div class="sidebar">
+            <div class="sidebar ">
                 <ul class="mt-4">
                     <li>
                         <a href="dashboard.php?pag=1">
                            <div class="centralizar">
-                                <span class="icone"><img src="..\..\assets\images\truck.png" alt=""></span>
+                                <span class="icone"><img src="..\..\assets\images\entrega.png" alt=""></span>
                                 <span style=" margin-left: 5px; " class="titulo">Entregas</span>
                            </div>
                         </a>
@@ -99,8 +99,8 @@ $result = $conn->query($sql);
                     <li>
                         <a href="dashboard.php?pag=2">
                             <div class="centralizar">
-                                <span class="icone"><img src="..\..\assets\images\pill.png" alt=""></span>
-                                <span  class="titulo">Medicamentos</span>
+                                <span class="icone"><img src="..\..\assets\images\estoque.png" alt=""></span>
+                                <span  class="titulo">Estoque</span>
                             </div>
                         </a>
                     </li>
