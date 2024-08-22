@@ -23,13 +23,59 @@ $sql = "
 ";
 
 $result = $conn->query($sql);
+
+include('../../config/config.php');
+
+// Número de itens por página
+$items_per_page = 6;
+
+// Página atual
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($current_page - 1) * $items_per_page;
+
+// Obter o número total de registros
+$sql_total = "SELECT COUNT(*) FROM `compras`";
+$total_result = $conn->query($sql_total);
+$total_rows = $total_result->fetch_row()[0];
+
+// Calcular o número total de páginas
+$total_pages = ceil($total_rows / $items_per_page);
+
+// Consultar registros para a página atual
+$sql = "
+    SELECT * FROM medicamentos
+    LIMIT $items_per_page OFFSET $offset;
+";
+
+// Consultar registros para a página atual
+$sql = "
+    SELECT * FROM compras
+    LIMIT $items_per_page OFFSET $offset;
+";
+
+// Executar a consulta
+$result = $conn->query($sql);
+
+function getStatus($validade, $quantidade) {
+    $validade_date = new DateTime($validade);
+    $current_date = new DateTime();
+    $interval = $current_date->diff($validade_date);
+    $months_left = $interval->y * 12 + $interval->m;
+
+    if ($months_left < 5 || $quantidade < 50) {
+        return ['color' => '#ff0000', 'status' => 'Estoque baixo']; // Vermelho
+    } elseif ($months_left < 6 || $quantidade < 100) {
+        return ['color' => '#ffff00', 'status' => 'Estoque médio']; // Amarelo
+    } else {
+        return ['color' => '#00ff00', 'status' => 'Estoque suficiente'];; // Verde
+    }
+}
 ?>
+
+
 <div class="container">
 
     <style>
-        
-        }
-
         .search-and-button .truncate {
             flex-grow: 1;
             max-width: 400px;
@@ -240,20 +286,13 @@ $result = $conn->query($sql);
                     </header>
                     <br>
 
-                    <div class="row mb-3">
-                        <div class="col">
-                            <div class="btn-group" role="group" aria-label="Compras Status">
-                                <button type="button" class="btn btn-light" id="pendentes" onclick="setActive('pendentes')">Pendentes</button>
-                                <button type="button" class="btn btn-light" id="processados" onclick="setActive('processados')">Processados</button>
-                                <button type="button" class="btn btn-light" id="cancelados" onclick="setActive('cancelados')">Cancelados</button>
-                            </div>
-                            <hr id="status-line" style="border: 2px solid #01AEF0; width: 100%; margin-top: 5px;">
-                        </div>
-                    </div>
-
                     <div class="container">
                         <div class="search-and-button">
                             <button style="background-color: #17a2b8; color: #FFF;" class="btn btn-custom-edit btn-sm" type="button" onclick="location.href='cadastrarCompras.php'">Cadastrar Compras</button>
+                            <label for="data">Período</label>
+                            <input type="date" name="data">
+                            <label for="data">até</label>
+                            <input type="date" name="data">
                             <input id="input" name="teste" class="truncate" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-controls="matches" aria-expanded="false" aria-live="off" placeholder="Pesquise no Google ou digite um URL">
                         </div>
                     </div>
@@ -265,11 +304,15 @@ $result = $conn->query($sql);
                     <table class="table mt-5">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">N°</th>
+                                <th scope="col">Cod.Compra</th>
                                 <th scope="col">Nota Fiscal</th>
-                                <th scope="col">Data</th>
                                 <th scope="col">Fornecedor</th>
-                                <th scope="col">Ações</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Laboratório</th>
+                                <th scope="col">Lote</th>
+                                <th scope="col">Validade</th>
+                                <th scope="col">Quantidade</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -279,12 +322,11 @@ $result = $conn->query($sql);
                                     <td><?= $row['nota_fiscal']; ?></td>
                                     <td><?= $row['data']; ?></td>
                                     <td><?= $row['fornecedor']; ?></td>
-                                    <td>
-                                        <div style="width: 130px; color: #13899c;">
-                                            <button type="button" onclick="location.href='editar.php?id=<?= $row['cod_compra']; ?>'" class="btn btn-custom-edit btn-sm btn btn-warning">Editar</button>
-                                            <button type="button" onclick="location.href='excluir.php?id=<?= $row['cod_compra']; ?>'" class="btn btn-custom-delete btn-sm btn btn-danger">Excluir</button>
-                                        </div>
-                                    </td>
+                                    <td><?= $row['nome_medicamento']; ?> - <?= $row['tipo_medicamento']; ?> - <?= $row['categoria']; ?></td>
+                                    <td><?= $row['laboratorio']; ?></td>
+                                    <td><?= $row['lote']; ?></td>
+                                    <td><?= $row['validade']; ?></td>
+                                    <td><?= $row['quantidade']; ?></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>

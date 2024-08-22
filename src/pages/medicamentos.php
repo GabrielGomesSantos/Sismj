@@ -191,7 +191,7 @@ function getStatus($validade, $quantidade) {
                                     <th class="btn"
                                         title="<?php echo htmlspecialchars($status_info['status']); ?>"
                                         type="button"
-                                        style="background-color: <?php echo htmlspecialchars($status_info['color']); ?>;" disable>
+                                        style="height:80px; background-color: <?php echo htmlspecialchars($status_info['color']); ?>;" disable>
                                     </th>
                                     <th scope="row"><?= $row['cod_medicamento']; ?></th>
                                     <td><?= $row['cod_compra']; ?></td>
