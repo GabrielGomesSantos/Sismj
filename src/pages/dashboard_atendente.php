@@ -100,7 +100,7 @@ $result = $conn->query($sql);
                             </div>
                         </div>
                         <a href="#" id="processar">salvar</a>
-                        <!-- <button id="processar" class="btn btn-primary" disabled>Salvar</button> -->
+                        <!-- <button id="processar" class="btn btn-prim'ary" disabled>Salvar</button> -->
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Observações</label>
                             <textarea class="form-control" id="observacaomed" placeholder="Observações sobre o(s) medicamento(s)" rows="5"></textarea>
@@ -119,7 +119,7 @@ $result = $conn->query($sql);
 
     <div class="row">
         <div class="col-1" style="margin: 0; padding: 0;">
-            <div class="sidebar ">
+            <div class="sidebar">
                 <ul class="mt-4">
                     <li>
                         <a href="dashboard.php?pag=1">
