@@ -128,20 +128,58 @@ $(document).ready(function() {
 
 // PARTE DA SEARCH BAR INICIO 
 
-async function pesquisar(valor) {
+// Função de pesquisa
+function pesquisar(valor) {
     if (valor.length >= 3) {
-        const dados = await fetch(`../../src/pages/pesquisar_estoque.php?valor=${encodeURIComponent(valor)}`);
-        const texto = await dados.text(); // Recebe como texto para inspeção
-        console.log(texto); // Veja o que é retornado
-        try {
-            const resposta = JSON.parse(texto); // Tenta converter para JSON
-            console.log(resposta);
-        } catch (error) {
-            console.error("Erro ao analisar JSON:", error);
-        }
+        $.ajax({
+            url: `../../src/pages/pesquisar_estoque.php`,
+            type: 'GET',
+            data: { valor: valor },
+            dataType: 'json',
+            success: function(dados) {
+                let resultado = "<ul class='list-group position-fixed'>";
+
+                if (dados.status) {
+                    dados.dados.forEach(function(item) {
+                        resultado += `<li onclick="listar_medicamentos('${item.nome}')" class='list-group-item list-group-item-action'>${item.nome}</li>`;
+                    });
+                } else {
+                    resultado += `<li class='list-group-item disabled'>${dados.msg}</li>`;
+                }
+
+                resultado += "</ul>";
+
+                // Atualize a interface com os resultados
+                $('#search-addon').html(resultado);
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro na pesquisa:', status, error);
+            }
+        });
+    } else {
+        // Limpa a lista se a pesquisa for menor que 3 caracteres
+        $('#search-addon').html('');
     }
 }
 
+// Função para listar medicamentos
+function listar_medicamentos(nome) {
+    $('#search_bar').val(nome);
+    $('#search-addon').html(''); // Limpa a lista de sugestões ao selecionar um item
+}
 
+$(document).ready(function() {
+    // Manipulador de eventos para o botão de pesquisa
+    $('#search_button').on('click', function(e) {
+        e.preventDefault(); // Evita o comportamento padrão do botão de envio
+        var nome = $('#search_bar').val(); // Obtém o valor do campo de entrada
+        listar_medicamentos(nome); // Chama a função de pesquisa com o valor do campo
+    });
 
-// PARTE DA SEARCH BAR FIM
+    // Limpar a lista de sugestões ao clicar fora da área de pesquisa
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#search_bar, #search-addon').length) {
+            $('#search-addon').html('');
+        }
+    });
+});

@@ -120,11 +120,9 @@ $result = $conn->query($sql);
                 <div class="col-4  offset-7">
 
                     <div class="input-group rounded mt-2">
-                        <input type="search" class="form-control rounded" id="search_bar" placeholder="Search" aria-label="Search" onkeyup="pesquisar(this.value)" aria-describedby="search-addon" />
-                        <span class="input-group-text border-0" id="search-addon">
-                            <i class="fas fa-search"></i>
-                        </span>
-
+                        <input type="search" class="form-control rounded" id="search_bar" placeholder="Search the name of medicaments" aria-label="Search" onkeyup="pesquisar(this.value)" aria-describedby="search-addon" />
+                        <span id="search-addon"></span>
+                        <button type="submit" id="search_button"><i class="fas fa-search"></i></button>
                     </div>
                     <!-- fim da barra de pesquisa -->
                 </div>

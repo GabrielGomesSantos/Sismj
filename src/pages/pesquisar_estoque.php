@@ -11,7 +11,7 @@ if (!empty($valor)) {
     $sql_search = "SELECT nome_medicamento, cod_medicamento 
                    FROM medicamentos
                    WHERE nome_medicamento LIKE ?
-                   LIMIT 4";
+                   LIMIT 5";
     
     $stmt = mysqli_prepare($conn, $sql_search);
     
