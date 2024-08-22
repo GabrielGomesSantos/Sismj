@@ -166,6 +166,7 @@ $result = $conn->query($sql);
                         del
                     </button>
                 </div>
+                
             </div>
             <!-- Fim do botão que ativa o modal -->
 

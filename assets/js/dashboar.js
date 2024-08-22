@@ -124,3 +124,24 @@ $(document).ready(function() {
         });
     });
 });
+
+
+// PARTE DA SEARCH BAR INICIO 
+
+async function pesquisar(valor) {
+    if (valor.length >= 3) {
+        const dados = await fetch(`../../src/pages/pesquisar_estoque.php?valor=${encodeURIComponent(valor)}`);
+        const texto = await dados.text(); // Recebe como texto para inspeção
+        console.log(texto); // Veja o que é retornado
+        try {
+            const resposta = JSON.parse(texto); // Tenta converter para JSON
+            console.log(resposta);
+        } catch (error) {
+            console.error("Erro ao analisar JSON:", error);
+        }
+    }
+}
+
+
+
+// PARTE DA SEARCH BAR FIM
