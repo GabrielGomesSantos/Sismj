@@ -24,6 +24,21 @@ $sql = "
 
 // Executar a consulta
 $result = $conn->query($sql);
+
+function getStatus($validade, $quantidade) {
+    $validade_date = new DateTime($validade);
+    $current_date = new DateTime();
+    $interval = $current_date->diff($validade_date);
+    $months_left = $interval->y * 12 + $interval->m;
+
+    if ($months_left < 5 || $quantidade < 50) {
+        return ['color' => '#ff0000', 'status' => 'Estoque baixo']; // Vermelho
+    } elseif ($months_left < 6 || $quantidade < 100) {
+        return ['color' => '#ffff00', 'status' => 'Estoque médio']; // Amarelo
+    } else {
+        return ['color' => '#00ff00', 'status' => 'Estoque suficiente'];; // Verde
+    }
+}
 ?>
 
 
@@ -153,6 +168,7 @@ $result = $conn->query($sql);
                     <table class="table mt-5">
                         <thead class="thead-light">
                             <tr>
+                                <th scope="col">Status</th>
                                 <th scope="col">cod. medicamento</th>
                                 <th scope="col">cod. compra</th>
                                 <th scope="col">nome medicamento</th>
@@ -168,6 +184,15 @@ $result = $conn->query($sql);
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()): ?>
                                 <tr class="row_paciente" >
+                                    <?php
+                                        $status_info = getStatus($row['validade'], $row['quantidade']);
+                                    ?>
+                                    <span class="tooltip status-th d-inline-block" tabindex="0" data-toggle="tooltip">
+                                    <th class="btn"
+                                        title="<?php echo htmlspecialchars($status_info['status']); ?>"
+                                        type="button"
+                                        style="background-color: <?php echo htmlspecialchars($status_info['color']); ?>;" disable>
+                                    </th>
                                     <th scope="row"><?= $row['cod_medicamento']; ?></th>
                                     <td><?= $row['cod_compra']; ?></td>
                                     <td><?= $row['nome_medicamento']; ?></td>
@@ -242,6 +267,12 @@ $result = $conn->query($sql);
 <!-- Modal Entrega Infos Fim -->
 
 <!-- Scripts -->
+ <!-- Inicializa os tooltips -->
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
 <script src="../../assets/js/jquery-3.3.1.min.js"></script>
 <script src="../../assets/js/popper.min.js"></script>
 <script src="../../assets/js/bootstrap.min.js"></script>

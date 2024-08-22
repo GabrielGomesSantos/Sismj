@@ -9,7 +9,7 @@ $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($current_page - 1) * $items_per_page;
 
 // Obter o número total de registros
-$sql_total = "SELECT COUNT(*) FROM `compras`";
+$sql_total = "SELECT COUNT(*) FROM `medicamentos`";
 $total_result = $conn->query($sql_total);
 $total_rows = $total_result->fetch_row()[0];
 
@@ -17,44 +17,103 @@ $total_rows = $total_result->fetch_row()[0];
 $total_pages = ceil($total_rows / $items_per_page);
 
 // Consultar registros para a página atual
-$sql = "SELECT * FROM `compras` LIMIT $items_per_page OFFSET $offset";
+$sql = "SELECT * FROM `medicamentos` LIMIT $items_per_page OFFSET $offset";
 $result = $conn->query($sql);
 
+function getStatus($validade, $quantidade) {
+    $validade_date = new DateTime($validade);
+    $current_date = new DateTime();
+    $interval = $current_date->diff($validade_date);
+    $months_left = $interval->y * 12 + $interval->m;
+
+    if ($months_left < 5 || $quantidade < 50) {
+        return ['color' => '#ff0000', 'status' => 'Estoque baixo']; // Vermelho
+    } elseif ($months_left < 6 || $quantidade < 100) {
+        return ['color' => '#ffff00', 'status' => 'Estoque médio']; // Amarelo
+    } else {
+        return ['color' => '#00ff00', 'status' => 'Estoque suficiente'];; // Verde
+    }
+}
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
+<div class="container">
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Cabeçalho do Modal -->
+            <div class="modal-header bg-info text-white">
+                <div class="d-flex align-items-center">
+                    <h1 class="modal-title fs-5 mb-0" id="staticBackdropLabel">Cadastrar Entrega</h1>
+                </div>
+                <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
+                </button>
+            </div>
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Required meta tags -->
+            <!-- Corpo do Modal -->
+            <div class="modal-body">
+                <form action="" method="">
+                    <!-- Seção Paciente -->
+                    <h4 class="text-secondary">PACIENTE</h4>
+                    <div class="border-top border-secondary p-2">
+                    <label for="nome" class="form-label">Nome:</label>
+                    <select class="form-control rounded-4" name="nome" id="myDropdown">
+                        <option value="" disabled selected>Selecione o nome do paciente</option>
+                    
+                        <?php 
+                            $sql_pacientes = "SELECT nome_paciente,cod_paciente FROM pacientes";
+                            $pacientes = $conn->query($sql_pacientes);
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-    <!-- Bootstrap CSS -->
+                            foreach ($pacientes as $row): ?>
+                                <option value="<?php echo $row['cod_paciente']?>"><?php echo $row['nome_paciente']?></option>
+                            <?php endforeach; ?>
+                        
+                    </select>
+                        
+                    <label for="codprocesso" class="form-label">Código do Processo:</label>
+                    <select class="form-control" name="codprocesso" id="codprocesso">
+                        <option value="" disabled selected>Selecione o código do processo</option>
 
-    <!-- Style -->
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <!-- Style -->
+                        <option value="codigo1">Código 1</option>
 
-    <!-- Fonte Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Fonte Awesome -->
-    
-    <!-- Titulo -->
-    <link rel="shortcut icon" href="../../assets/images/favico.ico">
-    <title>Compras</title>
-</head>
+                        <!-- Adicione mais opções conforme necessário -->
+                    </select>
 
-<?php include('navbar.php')?>
-<body>
+                    </div>
 
+                    <?php
+
+                        $variavel = "<script> document.write(variaveljs)</script>";
+
+                        echo $variavel;
+
+                    ?>
+
+                    <!-- Seção Medicamentos -->
+                    <h4 class="text-secondary mt-4">Medicamentos:</h4>
+                    <div class="bg-light border-top border-secondary p-2">
+                        <!-- Colocar código PHP aqui para os medicamentos -->
+                        <select class="form-control text-secondary" name="medicamento" id="medicamento">
+                            <option disabled selected>Selecione o Medicamento</option>
+                            <option>Paracetamol</option>
+                            <option>Amoxicilina</option>
+                            <!-- Adicionar mais opções conforme necessário -->
+                        </select>
+                    </div>
+
+                    <!-- Rodapé do Modal -->
+                    <button class="btn btn-primary mt-3" onclick="showSelectedValue()">Mostrar Valor Selecionado</button>
+                    <div class="modal-footer">
+                        <input type="submit" value="Salvar" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>       
+        </div>
+    </div>
+</div>
+    <!-- fim do modal  -->
+     
     <div class="row" style=" height: 100%; ">
         <div class="col-1" style=" left: -15px;" >
             <div style="background-color: #17a2b8; width: 50px; height: 100%; left: -15%;">
@@ -98,7 +157,16 @@ $result = $conn->query($sql);
                         <tbody>
                             <?php foreach ($result as $row): ?>
                                 <tr>
-                                    <th class="status-bar" style="background-color: <?php echo getStatus($row['validade'], $row['quantidade']); ?>;" title="validade: <?php echo $row['validade'];?>, quantidade: <?php echo $row['quantidade'];?>"></th>
+                                <?php
+                                    $status_info = getStatus($row['validade'], $row['quantidade']);
+                                ?>
+                                    <span class="tooltip status-th d-inline-block" tabindex="0" data-toggle="tooltip">
+                                    <th class="btn"
+                                        title="<?php echo htmlspecialchars($status_info['status']); ?>"
+                                        type="button"
+                                        style="background-color: <?php echo htmlspecialchars($status_info['color']); ?>;" disable>
+                                    </th>
+                                    </span>
                                     <th scope="row"><?= $row['cod_medicamento']; ?></th>
                                     <td><?= $row['nome_medicamento']; ?></td>
                                     <td><?= $row['tipo_medicamento']; ?></td>
@@ -145,7 +213,14 @@ $result = $conn->query($sql);
     </div>
 </div>
 </div>
-<!-- Scripts -->
+
+<!-- Inicializa os tooltips -->
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
+
 <script src="../../assets/js/jquery-3.3.1.min.js"></script>
 <script src="../../assets/js/popper.min.js"></script>
 <script src="../../assets/js/bootstrap.min.js"></script>
