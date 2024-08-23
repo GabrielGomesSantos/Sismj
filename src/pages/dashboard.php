@@ -52,7 +52,6 @@
 
 
 
-<?php include('index')?>
 
 <body style="position: relative;">
      <!<?php 
@@ -60,7 +59,7 @@
 
                if ($pg == 1){
 
-                    include("listar_processos.php");
+                    include("dashboard_processo.php");
      
                }else if ($pg == 2){
      
