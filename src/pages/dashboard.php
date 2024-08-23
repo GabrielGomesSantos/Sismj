@@ -52,7 +52,7 @@
 
 
 
-
+<?php include('navbar.php')?>
 <body style="position: relative;">
      <!<?php 
           if($perfil == 1){

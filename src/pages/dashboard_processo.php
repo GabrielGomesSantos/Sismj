@@ -52,10 +52,7 @@ $result = $conn->query($sql);
                     </header>
                 </div>
             </div>
-        
     </div>
-
-
             <div class="row">
                 <div class="col-10 offset-1">
                     <?php include("listar_processos.php")?>
