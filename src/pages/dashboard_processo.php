@@ -40,6 +40,10 @@ $result = $conn->query($sql);
                         <i class="bi bi-person-bounding-box"></i>
                         <span class="tooltip">Médicos</span>
                     </a>
+                    <a href="#compras">
+                        <i class="bi bi-person-bounding-box"></i>
+                        <span class="tooltip">Pacientes</span>
+                    </a>
                 </li>
             </ul>
         </div>
