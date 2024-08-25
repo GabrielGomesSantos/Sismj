@@ -17,10 +17,6 @@ if ($result === FALSE) {
   echo "Erro em o buscar os dados " . $conn->error;
 }
 ?>
-
-  <div class="container d-flex align-items-center">
-    <div class="row">
-      <div class="col">
         <a href="cadastrar_processo.php" class='btn btn-success m-3'>Cadastrar Processo</a>
         <table class="table">
           <thead>
@@ -54,6 +50,3 @@ if ($result === FALSE) {
           </tbody>
         </table>
 
-      </div>
-    </div>
-  </div>
