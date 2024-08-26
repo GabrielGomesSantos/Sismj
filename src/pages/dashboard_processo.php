@@ -37,8 +37,8 @@ $result = $conn->query($sql);
         </li>
         <li>
             <a href="#compras">
-                <i class="bi bi-person-bounding-box"></i>
-                <span class="tooltip">Médicos</span>
+                <span class="icone"><i class="bi bi-person-bounding-box"></i></span>
+                <span class="titulo"><span class="tooltip">Médicos</span></span>
             </a>
             <a href="#compras">
                 <i class="bi bi-person-bounding-box"></i>
@@ -53,12 +53,32 @@ $result = $conn->query($sql);
             <header class="bg-info text-white" style="padding: 5px 15px;">
                 Processos:
             </header>
+            <button type="button" class="btn btn-primary  mt-5 mb-5 text-white" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                Cadastrar Processo
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastar Processo</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <?php include("cadastrar_processo.php") ?>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-10 offset-1">
-        <a href="cadastrar_processo.php" class='btn btn-success m-3'>Cadastrar Processo</a>
         <table class="table">
             <thead>
                 <tr>
@@ -79,13 +99,37 @@ $result = $conn->query($sql);
                             <td><?php echo $row['receita'] ?></td>
                             <td>
                                 <a href="listar_medicamentos_processos.php?id_processo=<?php echo $row['cod_processo'] ?>"
-                                    class='btn btn-success'>Medicamentos</a>
+                                    class='btn btn-primary text-white'>Medicamentos</a>
                             </td>
-                            <td><a href="remover_processo.php?id_processo=<?php echo $row['cod_processo'] ?>"
-                                    class="btn btn-danger"><i class="bi bi-trash-fill"> Excluir</i></a></td>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#excluirModal" onclick="getID(<?php echo $row['cod_processo'] ?>)">
+                                    <i class="bi bi-trash-fill"></i> Excluir
+                                </button>
+                            </td>
                             <td><a href="editar_processo.php?id_processo=<?php echo $row['cod_processo'] ?>"
-                                    class="btn btn-warning"><i class="bi bi-pencil text-white"> Editar</i></a></td>
+                                    class="btn btn-warning"><i class="bi bi-pencil"></i> Editar</a></td>
                         </tr>
+                        <div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir Processo</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Deseja excluir o processo <?php echo $row['numero_processo']?>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-danger" onclick="excluirProcesso()">Excluir</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <?php endwhile; ?>
                 <?php endif ?>
 
@@ -138,6 +182,22 @@ $result = $conn->query($sql);
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous">
     </script>
+
+<script>
+
+    var idSelecionado = null
+
+    function getID(id) {
+        idSelecionado = id
+        console.log(idSelecionado);
+    }
+
+    function excluirProcesso() {
+        window.location.href="remover_processo.php?id_processo=" + idSelecionado
+    }
+
+</script>
+
 <script>
     $(function () {
         $("#datepicker").datepicker({

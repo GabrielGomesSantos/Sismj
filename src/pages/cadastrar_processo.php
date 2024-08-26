@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($conn->query($sql)) {
        echo '<script>
                 alert("Processo Cadastrado");
-                window.location.href="listar_processos.php"
+                window.location.href="dashboard.php"
             </script>';
     } else {
         echo "Erro na inserção: " . $conn->error;

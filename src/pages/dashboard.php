@@ -64,10 +64,10 @@ if (!isset($_GET['pag'])) {
           case 1:
                switch ($pg) {
                     case 1:
-                         include("dashboard_funcionarios.php");
+                         include("dashboard_processo.php");
                          break;
                     case 2:
-                         include("dashboard_processo.php");
+                         include("dashboard_funcionarios.php");
                          break;
                     case 3:
                          include("dashboard_medicos.php");
@@ -76,7 +76,6 @@ if (!isset($_GET['pag'])) {
                          include("dashboard_pacientes.php");
                          break;
                     default:
-                         // Página não encontrada ou valor inesperado de $pg
                          echo "Página não encontrada.";
                          break;
                }
@@ -85,7 +84,6 @@ if (!isset($_GET['pag'])) {
           case 2:
 
           default:
-               // Perfil não reconhecido ou valor inesperado de $perfil
                echo "Perfil não reconhecido.";
                break;
      }

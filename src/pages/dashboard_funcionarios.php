@@ -53,12 +53,12 @@ $result = $conn->query($sql);
             <header class="bg-info text-white" style="padding: 5px 15px;">
                 Processos:
             </header>
+            <a href="cadastrar_funcionario.php" class="btn btn-primary mt-5 mb-5 text-white">Cadastrar Funcionario</a>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-10 offset-1">
-        <a href="cadastrar_funcionario.php" class="btn btn-primary mt-5 mb-5 text-white">Cadastrar Funcionario</a>
         <table class="table">
             <thead>
                 <tr>

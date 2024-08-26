@@ -25,27 +25,18 @@ if (isset($_GET['id_processo'])) {
     $sql = "DELETE FROM processos WHERE cod_processo = $id_processo";
 
     if($conn->query($sql) === true) {
-        if (!empty($copia) && file_exists($copia)) {
-            if (unlink($copia)) {
-                echo "Arquivo '$copia' excluído com sucesso.<br>";
-            }
-        } else {
-            echo "Arquivo '$copia' não encontrado ou não especificado.<br>";
-        }
-
-        if (!empty($receita) && file_exists($receita)) {
-            if (unlink($receita)) {
-                echo "Arquivo '$receita' excluído com sucesso.<br>";
-            }
-    
-        } else {
-            echo "Arquivo '$receita' não encontrado ou não especificado.<br>";
-        }
-
-        echo "<script>
-                alert('Processo removido);
-                window.location.href='listar_processos.php';
+        if (unlink($copia) && unlink($receita)) {
+            echo "<script>
+                alert('Processo excluído');
+                window.location.href='dashboard.php';
             </script>";
+        } else {
+            echo "<script>
+                alert('Falha ao excluir o processo');
+                window.location.href='dashboard.php';
+            </script>";
+        }
+        
     }else {
         echo "Erro!! $conn->error";
     }
