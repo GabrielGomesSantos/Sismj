@@ -1,5 +1,5 @@
 <?php
-include ("config/config.php");
+include ("../../config/config.php");
 
 ////////////////FUNÇÕES DE CRUD///////////////////////
 function postCompra($nota_fiscal, $data, $fornecedor, $conn)
