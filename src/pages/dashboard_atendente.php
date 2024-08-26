@@ -162,14 +162,18 @@ $result = $conn->query($sql);
                     <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Cadastrar
                     </button>
+                    <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5" id="del">
+                        del
+                    </button>
                 </div>
+                
             </div>
             <!-- Fim do botão que ativa o modal -->
 
             <div class="row">
                 <div class="col-10 offset-1">
-                    <table class="table mt-5">
-                        <thead class="thead-light">
+                    <table class="table mt-5" id="TabelaEntregas">
+                        <thead class="thead-light" >
                             <tr>
                                 <th scope="col">N°</th>
                                 <th scope="col">Nome do Paciente</th>

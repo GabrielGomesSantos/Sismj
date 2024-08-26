@@ -28,60 +28,60 @@ $result = $conn->query($sql);
 
 
 <div class="container">
-<style>
-.row_paciente{
-    cursor: default; 
-}
-</style>
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Cabeçalho do Modal -->
-            <div class="modal-header bg-info text-white">
-                <div class="d-flex align-items-center">
-                    <h1 class="modal-title fs-5 mb-0" id="cadastrarModal">Cadastrar Entrega</h1>
+    <style>
+        .row_paciente {
+            cursor: default;
+        }
+    </style>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Cabeçalho do Modal -->
+                <div class="modal-header bg-info text-white">
+                    <div class="d-flex align-items-center">
+                        <h1 class="modal-title fs-5 mb-0" id="cadastrarModal">Cadastrar Entrega</h1>
+                    </div>
+                    <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
+                        <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
+                    </button>
                 </div>
-                <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
-                    <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
-                </button>
-            </div>
 
-            <!-- Corpo do Modal -->
-            <div class="modal-body">
-                <form action="" method="">
-                    <!-- Seção Paciente -->
-                    <h4 class="text-secondary">PACIENTE</h4>
-                    <div class="border-top border-secondary p-2">
-                        <label for="nome" class="form-label">Nome:</label>
-                        <select class="form-control rounded-4" name="nome" id="DropDownNome">
-                            <option value="" disabled selected>Selecione o nome do paciente</option>
-                            <?php 
+                <!-- Corpo do Modal -->
+                <div class="modal-body">
+                    <form action="" method="">
+                        <!-- Seção Paciente -->
+                        <h4 class="text-secondary">PACIENTE</h4>
+                        <div class="border-top border-secondary p-2">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <select class="form-control rounded-4" name="nome" id="DropDownNome">
+                                <option value="" disabled selected>Selecione o nome do paciente</option>
+                                <?php
                                 $sql_pacientes = "SELECT nome_paciente, cod_paciente FROM pacientes";
                                 $pacientes = $conn->query($sql_pacientes);
 
                                 while ($row = $pacientes->fetch_assoc()): ?>
-                                    <option value="<?php echo $row['cod_paciente']?>"><?php echo $row['nome_paciente']?></option>
+                                    <option value="<?php echo $row['cod_paciente'] ?>"><?php echo $row['nome_paciente'] ?></option>
                                 <?php endwhile; ?>
-                        </select>
+                            </select>
 
-                        <label for="codprocesso" class="form-label mt-3">Código do Processo:</label>
-                        <select class="form-control" name="codprocesso" id="codprocesso">
-                            <option value="" disabled selected>Selecione o o paciente primeiro</option>
-                            <!-- As opções serão adicionadas dinamicamente via JavaScript -->
-                        </select>
-                    </div>
+                            <label for="codprocesso" class="form-label mt-3">Código do Processo:</label>
+                            <select class="form-control" name="codprocesso" id="codprocesso">
+                                <option value="" disabled selected>Selecione o o paciente primeiro</option>
+                                <!-- As opções serão adicionadas dinamicamente via JavaScript -->
+                            </select>
+                        </div>
 
-                    <!-- Rodapé do Modal -->
-                    <button class="btn btn-primary mt-3" onclick="showSelectedValue()">Mostrar Valor Selecionado</button>
-                    <div class="modal-footer">
-                        <input type="submit" value="Salvar" class="btn btn-primary">
-                    </div>
-                </form>
-            </div>       
+                        <!-- Rodapé do Modal -->
+                        <button class="btn btn-primary mt-3" onclick="showSelectedValue()">Mostrar Valor Selecionado</button>
+                        <div class="modal-footer">
+                            <input type="submit" value="Salvar" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</div>
     <!-- Fim do modal  -->
 
     <div class="row">
@@ -90,17 +90,17 @@ $result = $conn->query($sql);
                 <ul class="mt-4">
                     <li>
                         <a href="dashboard.php?pag=1">
-                           <div class="centralizar">
+                            <div class="centralizar">
                                 <span class="icone"><img src="..\..\assets\images\truck.png" alt=""></span>
                                 <span style=" margin-left: 5px; " class="titulo">Entregas</span>
-                           </div>
+                            </div>
                         </a>
                     </li>
                     <li>
                         <a href="dashboard.php?pag=2">
                             <div class="centralizar">
                                 <span class="icone"><img src="..\..\assets\images\pill.png" alt=""></span>
-                                <span  class="titulo">Medicamentos</span>
+                                <span class="titulo">Medicamentos</span>
                             </div>
                         </a>
                     </li>
@@ -115,19 +115,20 @@ $result = $conn->query($sql);
                     </header>
                 </div>
             </div>
-
-            <!-- Botão que ativa o modal -->
+            <!-- Barra de pesquisa -->
             <div class="row">
-                <div class="col-2">
-                   <div class="form-floating mb-3">
-                   <input id="input" name="teste" class="truncate" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-controls="matches" aria-expanded="false" aria-live="off" placeholder="Pesquise no Google ou digite um URL">
-                   <label for="teste">teste</label>
-                   </div>
+                <div class="col-4  offset-7">
+
+                    <div class="input-group rounded mt-2">
+                        <input type="search" class="form-control rounded" id="search_bar" placeholder="Search the name of medicaments" aria-label="Search" onkeyup="pesquisar(this.value)" aria-describedby="search-addon" />
+                        <span id="search-addon"></span>
+                        <button type="submit" id="search_button"><i class="fas fa-search"></i></button>
+                    </div>
+                    <!-- fim da barra de pesquisa -->
                 </div>
             </div>
-            <!-- Fim do botão que ativa o modal -->
-
             <div class="row">
+
                 <div class="col-10 offset-1">
                     <table class="table mt-5">
                         <thead class="thead-light">
@@ -145,7 +146,7 @@ $result = $conn->query($sql);
                         </thead>
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()): ?>
-                                <tr class="row_paciente" >
+                                <tr class="row_paciente">
                                     <th scope="row"><?= $row['cod_medicamento']; ?></th>
                                     <td><?= $row['cod_compra']; ?></td>
                                     <td><?= $row['nome_medicamento']; ?></td>
@@ -214,10 +215,10 @@ $result = $conn->query($sql);
 <!-- Modal Entrega Infos Fim -->
 
 <!-- Scripts -->
+ <script src="../../assets/js/dashboar.js"></script>
 <script src="../../assets/js/jquery-3.3.1.min.js"></script>
 <script src="../../assets/js/popper.min.js"></script>
 <script src="../../assets/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-
