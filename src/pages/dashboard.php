@@ -59,7 +59,7 @@
 
                if ($pg == 1){
 
-                    include("dashboard_atendente.php");
+                    include("dashboard_medicaments.php");
      
                }else if ($pg == 2){
      
