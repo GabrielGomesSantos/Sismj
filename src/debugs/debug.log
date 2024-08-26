@@ -2,20 +2,11 @@ Array
 (
     [0] => Array
         (
-            [0] => 1
-            [1] => Paracetamol
-            [2] => Comprimido
-            [3] => Laboratório X
-            [4] => 1
-        )
-
-    [1] => Array
-        (
-            [0] => 12
+            [0] => 2
             [1] => Amoxicilina
             [2] => Cápsula
             [3] => Laboratório Y
-            [4] => 10
+            [4] => 15
         )
 
 )

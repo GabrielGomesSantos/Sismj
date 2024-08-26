@@ -43,7 +43,7 @@ $result = $conn->query($sql);
                 <div class="d-flex align-items-center">
                     <h1 class="modal-title fs-5 mb-0" id="cadastrarModal">Cadastrar Entrega</h1>
                 </div>
-                <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="btn btn-light p-2  rounded-circle" style=" height: 42px; width: 42px;" data-bs-dismiss="modal" aria-label="Close">
                     <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
                 </button>
             </div>
@@ -160,9 +160,6 @@ $result = $conn->query($sql);
                 <div class="col-2">
                     <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5" data-bs-toggle="modal" data-bs-target="#cadastromodal">
                         Cadastrar
-                    </button>
-                    <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5"  data-toggle="tooltip" data-placement="top" title=" ">
-                        del
                     </button>
                 </div>
                 

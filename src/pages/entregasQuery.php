@@ -18,7 +18,7 @@ if (isset($_GET['cod_entrega'])) {
                     WHERE e.cod_entrega = ?";
 
 
-    $sqlEntregas = "SELECT e.cod_processo, f.nome_funcionario, e.data_entrega
+    $sqlEntregas = "SELECT e.cod_processo, f.nome_funcionario, e.data_entrega, e.observacao
                     FROM entregas e
                     JOIN funcionarios f ON e.cod_funcionario = f.cod_funcionario
                     WHERE e.cod_entrega = ?";
@@ -114,10 +114,6 @@ if (isset($_GET['cod_entrega'])) {
                     </tr>
                 </thead>
                 <tbody>";
-
-                echo'<pre>';
-                    print_r($medicamentos);
-                echo'</pre>';
              
         foreach ($medicamentos as $medicamento) {
             echo "<tr>
@@ -137,6 +133,12 @@ if (isset($_GET['cod_entrega'])) {
 
     // Exibir dados da entrega
     if ($entrega) {
+        if(!empty($entrega['observacao'])){
+            $obs = $entrega['observacao'];
+        }else{
+            $obs = "Entregas sem observações!";
+        };
+
         echo "
         <h4 class='text-secondary'>Entrega</h4>
         <div class='border-top border-secondary p-2'> 
@@ -145,7 +147,15 @@ if (isset($_GET['cod_entrega'])) {
             
             <label class='mt-3' for='nome-funcionario'>Nome do Funcionário:</label>
             <input type='text' name='nome-funcionario' class='form-control' disabled value='" . htmlspecialchars($entrega['nome_funcionario']) . "'>
-        </div>";
+        </div>
+        
+         <div class='form-group'>
+                    <h4 class='text-secondary mt-4'>OBSERVAÇÕES</h4>
+                    <div class='border-top border-secondary p-2'></div>
+                      <textarea class='form-control'rows='3' disabled> "  . $obs . "</textarea>
+                    </div>"
+        
+        ;
     } else {
         echo "<p>Dados da entrega não encontrados para o código de entrega {$cod_entrega}.</p>";
     }
