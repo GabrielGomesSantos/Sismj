@@ -9,7 +9,7 @@ $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $offset = ($current_page - 1) * $items_per_page;
 
 // Obter o número total de registros
-$sql_total = "SELECT COUNT(*) FROM `processos`";
+$sql_total = "SELECT COUNT(*) FROM `medicos`";
 $total_result = $conn->query($sql_total);
 $total_rows = $total_result->fetch_row()[0];
 
@@ -17,7 +17,7 @@ $total_rows = $total_result->fetch_row()[0];
 $total_pages = ceil($total_rows / $items_per_page);
 
 // Consultar registros para a página atual
-$sql = "SELECT * FROM `processos` LIMIT $items_per_page OFFSET $offset";
+$sql = "SELECT * FROM `medicos` LIMIT $items_per_page OFFSET $offset";
 $result = $conn->query($sql);
 
 ?>
@@ -58,14 +58,16 @@ $result = $conn->query($sql);
 </div>
 <div class="row">
     <div class="col-10 offset-1">
-        <a href="cadastrar_processo.php" class='btn btn-success m-3'>Cadastrar Processo</a>
+        <a href="cadastrar_medico.php" class="btn btn-primary mt-5 mb-5 text-white">Cadastrar medico</a>
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Número do Processo:</th>
-                    <th scope="col">Cópia do Processo:</th>
-                    <th scope="col">Receita:</th>
+                    <th scope="col">ID:</th>
+                    <th scope="col">Nome:</th>
+                    <th scope="col">CPF:</th>
+                    <th scope="col">CRM:</th>
+                    <th scope="col">Especialidade:</th>
+                    <th scope="col">Celular:</th>
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
@@ -73,22 +75,19 @@ $result = $conn->query($sql);
                 <?php if ($result->num_rows > 0): ?>
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <tr>
-                            <th scope="row"><?php echo $row['cod_processo'] ?></th>
-                            <td><?php echo $row['numero_processo'] ?></td>
-                            <td><?php echo $row['copia_processo'] ?></td>
-                            <td><?php echo $row['receita'] ?></td>
-                            <td>
-                                <a href="listar_medicamentos_processos.php?id_processo=<?php echo $row['cod_processo'] ?>"
-                                    class='btn btn-success'>Medicamentos</a>
-                            </td>
-                            <td><a href="remover_processo.php?id_processo=<?php echo $row['cod_processo'] ?>"
-                                    class="btn btn-danger"><i class="bi bi-trash-fill"> Excluir</i></a></td>
-                            <td><a href="editar_processo.php?id_processo=<?php echo $row['cod_processo'] ?>"
-                                    class="btn btn-warning"><i class="bi bi-pencil text-white"> Editar</i></a></td>
+                            <th scope="row"><?php echo $row['cod_medico'] ?></th>
+                            <td><?php echo $row['nome_medico'] ?></td>
+                            <td><?php echo $row['cpf_medico'] ?></td>
+                            <td><?php echo $row['crm'] ?></td>
+                            <td><?php echo $row['especialidade'] ?></td>
+                            <td><?php echo $row['celular'] ?></td>
+                            <td><a href="remover_medico.php?id_medico=<?php echo $row['cod_medico'] ?>" class="btn btn-danger"><i
+                                        class="bi bi-trash-fill"></i></a></td>
+                            <td><a href="editar_medico.php?id_medico=<?php echo $row['cod_medico'] ?>" class="btn btn-warning"><i
+                                        class="bi bi-pencil text-white"></i></a></td>
                         </tr>
                     <?php endwhile; ?>
                 <?php endif ?>
-
             </tbody>
         </table>
     </div>
