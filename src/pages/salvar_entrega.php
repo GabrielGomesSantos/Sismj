@@ -40,26 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // Primeiro insert
-        $insert1 = "INSERT INTO `entregas` (`cod_paciente`, `cod_processo`, `cod_funcionario`) 
-                    VALUES (?, ?, ?)";
 
         // Prepara a consulta para o insert
-        if ($stmt = mysqli_prepare($conn, $insert1)) {
-            mysqli_stmt_bind_param($stmt, 'iii', $dados['pacienteId'], $dados['codProcesso'], $dados['funcionarioId']);
-            if (!mysqli_stmt_execute($stmt)) {
-                throw new Exception("Erro ao inserir entrega: " . mysqli_error($conn));
-            }
+        
 
-            // Obtém o ID do último registro inserido
-            $ultimoId = mysqli_insert_id($conn);
-            file_put_contents('../debugs/sucesso.txt', "ID do último registro inserido: $ultimoId");
-
-            // Confirma a transação
-            mysqli_commit($conn);
-        } else {
-            throw new Exception("Erro ao preparar a consulta de inserção: " . mysqli_error($conn));
-        }
+        
     } catch (Exception $e) {
         // Em caso de erro, desfaz todas as operações realizadas na transação
         mysqli_rollback($conn);

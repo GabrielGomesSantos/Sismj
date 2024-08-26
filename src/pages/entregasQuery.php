@@ -11,10 +11,12 @@ if (isset($_GET['cod_entrega'])) {
                     JOIN pacientes p ON e.cod_paciente = p.cod_paciente
                     WHERE e.cod_entrega = ?";
 
-    $sqlRemedios = "SELECT mp.nome_medicamento, mp.tipo_medicamento, mp.categoria_medicamento, mp.quantidade
+    $sqlRemedios = "SELECT m.nome_medicamento, m.tipo_medicamento, m.categoria, ie.qtde_medicamento 
                     FROM entregas e
-                    JOIN medicamentos_processo mp ON e.cod_processo = mp.cod_processo
+                    JOIN itens_entrega ie ON e.cod_entrega = ie.cod_entrega
+                    JOIN medicamentos m ON ie.cod_medicamento = m.cod_medicamento
                     WHERE e.cod_entrega = ?";
+
 
     $sqlEntregas = "SELECT e.cod_processo, f.nome_funcionario, e.data_entrega
                     FROM entregas e
@@ -112,12 +114,17 @@ if (isset($_GET['cod_entrega'])) {
                     </tr>
                 </thead>
                 <tbody>";
+
+                echo'<pre>';
+                    print_r($medicamentos);
+                echo'</pre>';
+             
         foreach ($medicamentos as $medicamento) {
             echo "<tr>
                 <td>" . htmlspecialchars($medicamento['nome_medicamento']) . "</td>
                 <td>" . htmlspecialchars($medicamento['tipo_medicamento']) . "</td>
-                <td>" . htmlspecialchars($medicamento['categoria_medicamento']) . "</td>
-                <td>" . htmlspecialchars($medicamento['quantidade']) . "</td>
+                <td>" . htmlspecialchars($medicamento['categoria']) . "</td>
+                <td>" . htmlspecialchars($medicamento['qtde_medicamento']) . "</td>
             </tr>";
         }
         echo "

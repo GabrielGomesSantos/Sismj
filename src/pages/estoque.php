@@ -9,7 +9,7 @@ $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($current_page - 1) * $items_per_page;
 
 // Obter o número total de registros
-$sql_total = "SELECT COUNT(*) FROM `entregas`";
+$sql_total = "SELECT COUNT(*) FROM `medicamentos`";
 $total_result = $conn->query($sql_total);
 $total_rows = $total_result->fetch_row()[0];
 

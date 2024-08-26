@@ -17,6 +17,7 @@
 
 ?>
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -59,7 +60,7 @@
 
                if ($pg == 1){
 
-                    include("medicamentos.php");
+                    include("dashboard_atendente.php");
      
                }else if ($pg == 2){
      
