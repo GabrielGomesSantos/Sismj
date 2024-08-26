@@ -97,34 +97,6 @@ input .number {
     
 }
 
-.barraacoes{
-    background-color: red;
-    transition: 0.2s;
-    
-    overflow: hidden;
-}
-.barraacoes:hover{
-    height: 500px;
-}
-
-
-
-.sair{
-
-    position: absolute;
-    right: 0;
-    top: -40px;
-    height: 120px;
-    width: 220px;
-    padding: 8px;
-    transition: 0.4s;
-    background-color: #17a2b8;
-    overflow: hidden;
-}
-
-.sair:hover{
-
-    height: 180px;
-    border-radius: 7px;
-
+.pags {
+    margin-bottom: 30px;
 }
