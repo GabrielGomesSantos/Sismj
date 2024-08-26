@@ -3,7 +3,7 @@ Array
     [pacienteId] => 1
     [funcionarioId] =>  1
     [codProcesso] => 1
-    [observacao] => Yan e corno != 4
+    [observacao] => 
     [medicamentos] => Array
         (
             [0] => Array
