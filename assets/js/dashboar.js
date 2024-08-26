@@ -53,13 +53,9 @@ $(document).ready(function() {
                         var $dropdown = $('#codprocesso');
                         $dropdown.empty().append('<option value="" disabled selected>Selecione o código do processo</option>');
 
-                        if (dados.processos && Array.isArray(dados.processos)) {
-                            dados.processos.forEach(function(processo) {
-                                $dropdown.append(`<option value="${processo['cod_processo']}">${processo['numero_processo']}</option>`);
-                            });
-                        } else {
-                            console.error('Resposta inesperada do servidor (buscar_processos.php):', dados);
-                        }
+                        dados.processos.forEach(function(processo) {
+                            $dropdown.append(`<option value="${processo['cod_processo']}">${processo['numero_processo']}</option>`);
+                        });
                     } catch (e) {
                         console.error('Erro ao processar JSON (buscar_processos.php):', e);
                         console.log('Resposta do servidor (buscar_processos.php):', response);
@@ -88,19 +84,16 @@ $(document).ready(function() {
                         var tabelaCorpo = $('#TabelaMedicamentos tbody');
                         tabelaCorpo.empty();
 
-                        if (dados.dadosTabela && Array.isArray(dados.dadosTabela)) {
-                            dados.dadosTabela.forEach(function(item) {
-                                var novaLinha = '<tr data-id="' + item.cod_medicamento_processo + '">' +
-                                    '<td>' + item.nome_medicamento + '</td>' +
-                                    '<td>' + item.tipo_medicamento + '</td>' +
-                                    '<td>' + item.laboratorio + '</td>' +
-                                    '<td><input style="border: none;" class="number" type="number" min="1" value="' + item.quantidade + '" max="' + item.quantidade + '"></td>' +
-                                '</tr>';
-                                tabelaCorpo.append(novaLinha);
-                            });
-                        } else {
-                            console.error('Resposta inesperada do servidor (buscar_medicamentos.php):', dados);
-                        }
+                        dados.dadosTabela.forEach(function(item) {
+                            var novaLinha = '<tr   data-toggle="tooltip" data-placement="top"    id="' + item.cod_medicamento_processo + '" >' +
+                                '<td>' + item.nome_medicamento + '</td>' +
+                                '<td>' + item.tipo_medicamento + '</td>' +
+                                '<td>' + item.laboratorio + '</td>' +
+                                '<td><input style="border: none;" class="number" type="number" min="1" value="' + item.quantidade + '" max="' + item.quantidade + '"></td>' +
+                            '</tr>';
+                            tabelaCorpo.append(novaLinha);
+                        });
+
                     } catch (e) {
                         console.error('Erro ao processar JSON (buscar_medicamentos.php):', e);
                         console.log('Resposta do servidor (buscar_medicamentos.php):', response);
@@ -134,27 +127,13 @@ $(document).ready(function() {
     
             tabelaDados.push(linha);
         });
-
-        var pacienteId = $('#DropDownNome').val();
-        var FuncionarioId = $('#cod_funcionario').val();
-        var codProcesso = $('#codprocesso').val();
-        var observacao = $('#observacaomed').val(); // Use .val() para pegar o valor de um input ou textarea
-
-        // Certifique-se de que a variável medicamentos está definida
-        var medicamentos = tabelaDados; // Assumindo que você quer usar tabelaDados como medicamentos
         
-        var DadosEntrega = {
-            pacienteId: pacienteId,
-            funcionarioId: FuncionarioId,
-            codProcesso: codProcesso,
-            observacao: observacao,
-            medicamentos: medicamentos
-        };
-
+        console.log(tabelaDados);
+    
         $.ajax({
-            url: 'salvar_entrega.php',
+            url: 'processamento.php',
             type: 'POST',
-            data: { dados: JSON.stringify(DadosEntrega) },
+            data: { dados: JSON.stringify(tabelaDados) },
             success: function(response) {
                 try {
                     var dados = JSON.parse(response);
@@ -231,7 +210,7 @@ $(document).ready(function() {
                 
             },
             error: function(xhr, status, error) {
-                console.error('Erro na requisição AJAX (salvar_entrega.php):', status, error);
+                console.error('Erro na requisição AJAX (processamento):', status, error);
                 console.log('Detalhes do erro:', xhr.responseText);
             }
         });
