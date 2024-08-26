@@ -303,11 +303,6 @@ $result = $conn->query($sql);
                                 <th scope="col">Nota Fiscal</th>
                                 <th scope="col">Fornecedor</th>
                                 <th scope="col">Data</th>
-                                <th scope="col">Descrição</th>
-                                <th scope="col">Laboratório</th>
-                                <th scope="col">Lote</th>
-                                <th scope="col">Validade</th>
-                                <th scope="col">Quantidade</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -317,11 +312,6 @@ $result = $conn->query($sql);
                                     <td><?= $row['nota_fiscal']; ?></td>
                                     <td><?= $row['data']; ?></td>
                                     <td><?= $row['fornecedor']; ?></td>
-                                    <td><?= $row['nome_medicamento']; ?> - <?= $row['tipo_medicamento']; ?> - <?= $row['categoria']; ?></td>
-                                    <td><?= $row['laboratorio']; ?></td>
-                                    <td><?= $row['lote']; ?></td>
-                                    <td><?= $row['validade']; ?></td>
-                                    <td><?= $row['quantidade']; ?></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
