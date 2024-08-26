@@ -42,6 +42,34 @@
                             <label for="fornecedor">Fornecedor:</label>
                             <input type="text" class="form-control" id="fornecedor" name="fornecedor" required>
                         </div>
+                        <div class="form-group mb-4">
+                            <label for="nome_medicamento">Nome do Medicamento:</label>
+                            <input type="text" class="form-control" id="nome_medicamento" name="nome_medicamento" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="tipo_medicamento">Tipo do Medicamento:</label>
+                            <input type="text" class="form-control" id="tipo_medicamento" name="tipo_medicamento" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="categoria">Categoria:</label>
+                            <input type="text" class="form-control" id="categoria" name="categoria" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="laboratorio">Laboratório:</label>
+                            <input type="text" class="form-control" id="laboratorio" name="laboratorio" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="lote">Lote:</label>
+                            <input type="text" class="form-control" id="lote" name="lote" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="validade">Validade:</label>
+                            <input type="date" class="form-control" id="validade" name="validade" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="quantidade">Quantidade:</label>
+                            <input type="number" class="form-control" id="quantidade" name="quantidade" required>
+                        </div>
                         <input type="submit" value="Cadastrar" class="btn text-white btn-block btn-info mt-5">
                     </form>
 
@@ -64,9 +92,17 @@
                         $nota_fiscal = $_POST['nota_fiscal'];
                         $data = $_POST['data'];
                         $fornecedor = $_POST['fornecedor'];
+                        $nome_medicamento = $_POST['nome_medicamento'];
+                        $tipo_medicamento = $_POST['tipo_medicamento'];
+                        $categoria = $_POST['categoria'];
+                        $laboratorio = $_POST['laboratorio'];
+                        $lote = $_POST['lote'];
+                        $validade = $_POST['validade'];
+                        $quantidade = $_POST['quantidade'];
 
                         // Inserir dados na tabela
-                        $sql = "INSERT INTO compras (nota_fiscal, data, fornecedor) VALUES ('$nota_fiscal', '$data', '$fornecedor')";
+                        $sql = "INSERT INTO compras (nota_fiscal, data, fornecedor, nome_medicamento, tipo_medicamento, categoria, laboratorio, lote, validade, quantidade)
+                                VALUES ('$nota_fiscal', '$data', '$fornecedor', '$nome_medicamento', '$tipo_medicamento', '$categoria', '$laboratorio', '$lote', '$validade', '$quantidade')";
 
                         if ($conn->query($sql) === TRUE) {
                             echo "<div class='alert alert-success mt-4'>Compra cadastrada com sucesso!</div>";

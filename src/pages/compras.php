@@ -16,195 +16,188 @@ $total_rows = $total_result->fetch_row()[0];
 // Calcular o número total de páginas
 $total_pages = ceil($total_rows / $items_per_page);
 
-// Consultar registros para a página atual
+// Consultar registros para a página atual, incluindo informações de medicamentos
 $sql = "
-    SELECT * FROM compras
+    SELECT compras.cod_compra, compras.nota_fiscal, compras.data, compras.fornecedor, 
+           medicamentos.nome_medicamento, medicamentos.tipo_medicamento, medicamentos.categoria, 
+           medicamentos.laboratorio, medicamentos.lote, medicamentos.validade, medicamentos.quantidade
+    FROM compras
+    LEFT JOIN medicamentos ON compras.cod_compra = medicamentos.cod_compra
     LIMIT $items_per_page OFFSET $offset;
 ";
+
 
 $result = $conn->query($sql);
-
-include('../../config/config.php');
-
-// Número de itens por página
-$items_per_page = 6;
-
-// Página atual
-$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$offset = ($current_page - 1) * $items_per_page;
-
-// Obter o número total de registros
-$sql_total = "SELECT COUNT(*) FROM `compras`";
-$total_result = $conn->query($sql_total);
-$total_rows = $total_result->fetch_row()[0];
-
-// Calcular o número total de páginas
-$total_pages = ceil($total_rows / $items_per_page);
-
-// Consultar registros para a página atual
-$sql = "
-    SELECT * FROM medicamentos
-    LIMIT $items_per_page OFFSET $offset;
-";
-
-// Consultar registros para a página atual
-$sql = "
-    SELECT * FROM compras
-    LIMIT $items_per_page OFFSET $offset;
-";
-
-// Executar a consulta
-$result = $conn->query($sql);
-
-function getStatus($validade, $quantidade) {
-    $validade_date = new DateTime($validade);
-    $current_date = new DateTime();
-    $interval = $current_date->diff($validade_date);
-    $months_left = $interval->y * 12 + $interval->m;
-
-    if ($months_left < 5 || $quantidade < 50) {
-        return ['color' => '#ff0000', 'status' => 'Estoque baixo']; // Vermelho
-    } elseif ($months_left < 6 || $quantidade < 100) {
-        return ['color' => '#ffff00', 'status' => 'Estoque médio']; // Amarelo
-    } else {
-        return ['color' => '#00ff00', 'status' => 'Estoque suficiente'];; // Verde
-    }
-}
 ?>
 
 
 <div class="container">
 
-    <style>
-        .search-and-button .truncate {
-            flex-grow: 1;
-            max-width: 400px;
-            padding: 5px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-        }
-        .container {
-            padding: 20px;
-        }
+<style>
+    .search-and-button .truncate {
+        flex-grow: 1;
+        max-width: 400px;
+        padding: 5px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+    .container {
+        padding: 20px;
+    }
 
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
-
-            .col-10 {
-                width: 100%;
-            }
-        }
-
-        .search-and-button {
-            display: flex;
-            align-items: center;
-            gap: 10px; /* Alinha o botão de cadastro com a pesquisa */
-        }
-
-        .search-and-button .btn {
-            padding: 5px 10px;
-        }
-
-        .search-and-button .truncate {
-            flex-grow: 1;
-            max-width: 400px;
-            padding: 5px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-        }
-
-        .btn-group .btn {
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-        }
-
-        .btn-group .btn.active {
-            border-bottom: 2px solid #01AEF0;
-            font-weight: bold;
-        }
-
-        .btn-group .btn:hover {
-            background-color: #f8f9fa;
-        }
-
-        .search-and-button .btn-custom-edit {
-            background-color: #17a2b8;
-            color: #FFF;
-        }
-
-        .search-and-button .btn-custom-delete {
-            background-color: #dc3545;
-            color: #FFF;
-        }
-
-        .pagination .page-item.active .page-link {
-            background-color: #233E99;
-            border-color: #01AEF0;
-        }
-
-        .pagination .page-item .page-link {
-            background-color: #17a2b8;
-            color: #FFF;
-        }
-
-        .pagination .page-item .page-link:hover {
-            background-color: #13899c;
-        }
-
-        .pagination .page-item .page-link[aria-label="Previous"],
-        .pagination .page-item .page-link[aria-label="Next"] {
-            background-color: #13899c;
-        }
-
+    /* Responsividade */
+    @media (max-width: 768px) {
         .sidebar {
-            background-color: #f8f9fa;
-            border-right: 1px solid #dee2e6;
+            display: none;
         }
 
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
+        .col-10 {
+            width: 100%;
         }
+    }
 
-        .sidebar ul li {
-            padding: 10px;
-            border-bottom: 1px solid #dee2e6;
-        }
+    .search-and-button {
+        display: flex;
+        align-items: center;
+        gap: 10px; 
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
 
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #000;
-        }
+    .search-and-button .btn {
+        padding: 5px 10px;
+        margin-right: 10px; 
+    }
 
-        .sidebar ul li a .centralizar {
-            display: flex;
-            align-items: center;
-        }
+    .search-and-button .truncate {
+        flex-grow: 1;
+        max-width: 400px;
+        padding: 5px;
+        border: 1px solid #ced4da;
+        border-radius: 4px; 
+        margin-left: auto;
+    }
 
-        .sidebar ul li a .icone img {
-            width: 20px;
-        }
+    .search-and-button label {
+        margin: 0 5px;
+    }
 
-        .sidebar ul li a .titulo {
-            margin-left: 5px;
-        }
+    .search-and-button input[type="date"] {
+        margin: 0 5px;
+        padding: 5px;
+    }
 
-        .table th,
-        .table td {
-            text-align: center;
-        }
+    .btn-group .btn {
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
 
-        .btn-group .btn:not(:last-child) {
-            margin-right: -1px;
-        }
+    .btn-group .btn.active {
+        border-bottom: 2px solid #01AEF0;
+        font-weight: bold;
+    }
 
-        .btn-group .btn {
-            border-radius: 0;
-        }
-    </style>
+    .btn-group .btn:hover {
+        background-color: #f8f9fa;
+    }
+
+    .search-and-button .btn-custom-edit {
+        background-color: #17a2b8;
+        color: #FFF;
+    }
+
+    .search-and-button .btn-custom-delete {
+        background-color: #dc3545;
+        color: #FFF;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #233E99;
+        border-color: #01AEF0;
+    }
+
+    .pagination .page-item .page-link {
+        background-color: #17a2b8;
+        color: #FFF;
+    }
+
+    .pagination .page-item .page-link:hover {
+        background-color: #13899c;
+    }
+
+    .pagination .page-item .page-link[aria-label="Previous"],
+    .pagination .page-item .page-link[aria-label="Next"] {
+        background-color: #13899c;
+    }
+
+    .sidebar {
+        background-color: #f8f9fa;
+        border-right: 1px solid #dee2e6;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .sidebar ul li {
+        padding: 10px;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .sidebar ul li a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    .sidebar ul li a .centralizar {
+        display: flex;
+        align-items: center;
+    }
+
+    .sidebar ul li a .icone img {
+        width: 20px;
+    }
+
+    .sidebar ul li a .titulo {
+        margin-left: 5px;
+    }
+
+    .table th,
+    .table td {
+        text-align: center;
+    }
+
+    .btn-group .btn:not(:last-child) {
+        margin-right: -1px;
+    }
+
+    .btn-group .btn {
+        border-radius: 0;
+    }
+
+    .search-and-button .period {
+        display: flex;
+        align-items: center;
+        gap: 1px; /* Ajusta o espaçamento entre os campos de data */
+        margin-top: 5px; /* Ajusta o espaçamento superior para alinhar melhor */
+        margin-left: 60px; 
+    }
+
+    .search-and-button .period label {
+        margin: 0;
+    }
+    .search {
+        margin-left: auto; /* Alinha a pesquisa à direita */
+    }
+
+    .search input[type="search"] {
+        padding: 5px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+</style>
+
 
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -286,16 +279,18 @@ function getStatus($validade, $quantidade) {
                     </header>
                     <br>
 
-                    <div class="container">
-                        <div class="search-and-button">
-                            <button style="background-color: #17a2b8; color: #FFF;" class="btn btn-custom-edit btn-sm" type="button" onclick="location.href='cadastrarCompras.php'">Cadastrar Compras</button>
-                            <label for="data">Período</label>
-                            <input type="date" name="data">
-                            <label for="data">até</label>
-                            <input type="date" name="data">
-                            <input id="input" name="teste" class="truncate" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-controls="matches" aria-expanded="false" aria-live="off" placeholder="Pesquise no Google ou digite um URL">
+                    <div class="search-and-button">
+                        <button class="btn btn-custom-edit btn-sm" type="button" onclick="location.href='cadastrarCompras.php'">Cadastrar Compras</button>
+                        <div class="period">
+                            <label for="data-inicio">Período:</label>
+                            <input type="date" id="data-inicio" name="data-inicio">
+                            <label for="data-fim">até</label>
+                            <input type="date" id="data-fim" name="data-fim">
                         </div>
-                    </div>
+                        <div class="search">
+                            <input id="input" name="teste" class="truncate" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-controls="matches" aria-expanded="false" aria-live="off" placeholder="Pesquise no Google ou digite um URL">
+                        </div> 
+                    </div>                   
                 </div>
             </div>
 
