@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dados = json_decode($_POST['dados'], true);
 
     // Verifica o conteúdo de $dados 
-    file_put_contents('debug.log', print_r($dados, true)); // Salva o conteúdo no log
+    file_put_contents('../debugs/debug.log', print_r($dados, true)); // Salva o conteúdo no log
 
     // Verifica se os dados foram decodificados corretamente
     if (is_array($dados)) {
@@ -15,12 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         foreach ($dados as $linha) {
             // Verifica se a linha tem a quantidade esperada de elementos
-            if (isset($linha[0]) && isset($linha[1]) && isset($linha[2]) && isset($linha[3])) {
+            if (isset($linha[0]) && isset($linha[1]) && isset($linha[2]) && isset($linha[3]) && isset($linha[4])){
                 // Acessa os dados pelo índice
-                $nome = $linha[0];
-                $tipo = $linha[1];
-                $laboratorio = $linha[2];
-                $quantidade_solicitada = $linha[3]; // Garante que a quantidade é um inteiro
+                $idMed = $linha[0];
+                $nome = $linha[1];
+                $tipo = $linha[2];
+                $laboratorio = $linha[3];
+                $quantidade_solicitada = $linha[4]; // Garante que a quantidade é um inteiro
 
                 // Sanitização básica
                 $nome = mysqli_real_escape_string($conn, $nome);
@@ -46,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         if ($quantidade_solicitada > $row['quantidade']) {
                             // Adiciona um erro se a quantidade for insuficiente
                             $erros[] = [
-                                'cod_medicamento' => $row['cod_medicamento'],
+                                'cod_medicamento' => $idMed,
                                 'mensagem' => "Quantidade insuficiente para $nome. Solicitado: {$quantidade_solicitada}, Disponível: " . $row['quantidade']
                             ];
                         } else {
@@ -64,18 +65,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Adiciona erro ao array de resultados se a consulta falhar
                     $erros[] = ['status' => 'erro', 'mensagem' => 'Erro na consulta SQL: ' . mysqli_error($conn)];
                 }
+
+                // Envia a resposta de volta para o cliente
+                $response = [
+                    'status' => !empty($erros) ? 'erro' : 'sucesso',
+                    'dados' => $resultados,
+                    'erros' => $erros // Inclui os erros na resposta
+                ];
+            
             } else {
-                // Caso a linha tenha dados incompletos
-                $erros[] = ['status' => 'erro', 'mensagem' => 'Dados da linha incompletos'];
+                $response = [
+                    'status' => 'Faltando dados',
+                ];
+                break;
             }
         }
 
-        // Envia a resposta de volta para o cliente
-        $response = [
-            'status' => !empty($erros) ? 'erro' : 'sucesso',
-            'dados' => $resultados,
-            'erros' => $erros // Inclui os erros na resposta
-        ];
+
 
         // Limpa o buffer de saída e envia a resposta
         ob_clean();
@@ -88,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     echo json_encode([
-        'status' => 'erro',
+        'status' => 'faltando',
         'mensagem' => 'Método de requisição inválido'
     ]);
 }

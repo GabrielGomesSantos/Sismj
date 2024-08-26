@@ -1,3 +1,40 @@
+
+function openModal(codEntrega) {
+    // URL para buscar detalhes da entrega
+    const url = 'entregasQuery.php?cod_entrega=' + codEntrega;
+    console.log('Fetching URL for delivery details:', url); // Adicione isto para depuração
+
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('modalContent').innerHTML = data;
+
+            // Mostrar o modal se não estiver visível
+            var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('EntregaModal'));
+            modal.show();
+        })
+        .catch(error => {
+            console.error('Erro ao carregar os detalhes da entrega:', error);
+        });
+}
+
+function fecharModal() {
+    var modal = bootstrap.Modal.getInstance(document.getElementById('cadastromodal'));
+    if (modal) {
+        modal.hide();
+    }
+}
+
+
+function confirmacao(){
+    var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('confirmacaoModal'));
+    modal.show();
+}
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+
 $(document).ready(function() {
     $('#DropDownNome').on('change', function() {
         var pacienteId = $(this).val();
@@ -79,10 +116,14 @@ $(document).ready(function() {
 
     $('#processar').on('click', function() {
         var tabelaDados = [];
-    
+        var id = 0;
         $('#TabelaMedicamentos tbody tr').each(function() {
             var linha = [];
             
+            // Obtém o valor do data-id do tr
+            var id = $(this).attr('id');
+            linha.push(id);
+    
             $(this).find('td').each(function(index) {
                 if (index === 3) {
                     linha.push($(this).find('input').val());
@@ -115,7 +156,79 @@ $(document).ready(function() {
             type: 'POST',
             data: { dados: JSON.stringify(DadosEntrega) },
             success: function(response) {
-                console.log('Resposta bruta do servidor (salvar_entrega.php):', response);
+                try {
+                    var dados = JSON.parse(response);
+                    console.log('Dados processados:', dados);
+                
+                    // Limpar classes de erro e mensagens anteriores
+                    $('#TabelaMedicamentos tbody tr').removeClass('table-danger').find('td.text-danger').remove();
+                
+                    if (dados.status === 'erro' || dados.status === 'Faltando dados') {
+                        console.log('Erros encontrados:', dados.erros);
+                
+                        dados.erros.forEach(function(erro) {
+                            var linhaComErro = $('#TabelaMedicamentos tbody tr').filter(function() {
+                                return $(this).attr('id') == erro.cod_medicamento;
+                            });
+                            
+                            if (linhaComErro.length) {
+                                linhaComErro.addClass('table-danger'); // Adiciona a classe de erro
+                                linhaComErro.attr('data-title', erro.mensagem); // Define o atributo title                            
+                            } else {
+                                console.warn('Linha com erro não encontrada:', erro.cod_medicamento);
+                            }
+                        });
+                
+                    } else {
+                        console.log("Salvando...");
+                        var pacienteId = $('#DropDownNome').val();
+                        var FuncionarioId = $('#cod_funcionario').val();;
+                        var codProcesso = $('#codprocesso').val();
+                        var observacao = $('#observacaomed').val(); // Use .val() para pegar o valor de um input ou textarea
+
+                        var tabelaDados = [];
+    
+                        $('#TabelaMedicamentos tbody tr').each(function() {
+                            var linha = [];
+                            
+                            $(this).find('td').each(function(index) {
+                                if (index === 3) {
+                                    linha.push($(this).find('input').val());
+                                } else {
+                                    linha.push($(this).text().trim());
+                                }
+                            });
+                    
+                            tabelaDados.push(linha);
+                        });
+
+                        var DadosEntrega = {
+                            pacienteId: pacienteId,
+                            funcionarioId: FuncionarioId,
+                            codProcesso: codProcesso,
+                            observacao: observacao, // Adicione observacao se for necessário
+                            medicamentos: tabelaDados // Inclua medicamentos se for necessário
+};
+
+                        console.log('Status não há erro. Status recebido:', dados.status);
+                        $.ajax({
+                            url: 'salvar_entrega.php',
+                            type: 'POST',
+                            data: {dados: JSON.stringify(DadosEntrega)},
+                            success: function(response) {
+                                console.log('Resposta bruta do servidor (processamento):', response);
+
+                                fecharModal();
+                                confirmacao();
+                            }
+                        })
+                    }
+                
+                } catch (e) {
+                    console.error('Erro ao processar JSON:', e);
+                    console.log('Resposta do servidor:', response);
+                }
+                
             },
             error: function(xhr, status, error) {
                 console.error('Erro na requisição AJAX (salvar_entrega.php):', status, error);

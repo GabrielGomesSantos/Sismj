@@ -2,8 +2,8 @@ Array
 (
     [pacienteId] => 2
     [funcionarioId] =>  1
-    [codProcesso] => 2
-    [observacao] => 
+    [codProcesso] => 1
+    [observacao] => Testando campo de observações
     [medicamentos] => Array
         (
             [0] => Array
