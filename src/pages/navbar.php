@@ -21,11 +21,11 @@ if(!isset($_SESSION['ID'])){
 
             <ul class="navbar-nav mb-2 mr-3 mb-lg-0 d-flex align-items-center flex-column">
                 
-                <li class="nav-item mt-5 ml-3">
+                <li class="nav-item mt-5 ">
                    <?php
-                    echo "<span class='me-4 text-white'>Olá, {$_SESSION['Nome']}</span>";
+                    echo "<span class='me-5 text-white'>Olá, {$_SESSION['Nome']}</span>";
                     ?> 
-                    <img src="../../assets/images/acount.png" alt="Conta" width="55" height="54" class="ms-3">
+                    <img src="../../assets/images/acount.png" alt="Conta" width="55" height="54" class="ms-5 me-5">
                 </li>
                 <li class="mt-3">
                     <button type="button" class="btn btn-danger" onclick='window.location="sair.php"'>Logoff</button>

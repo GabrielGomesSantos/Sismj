@@ -3,13 +3,10 @@ if(!isset($_SESSION['ID'])){
      session_start();
  };
  
-     
      if(!isset($_SESSION["Perfil"])){
           header('Location: ../../public/index.php');
      }else{
-
           $perfil = $_SESSION["Perfil"];
-
      }
 
      if(!isset($_GET['pag'])){
@@ -60,32 +57,38 @@ if(!isset($_SESSION['ID'])){
 <body style="position: relative;">
      <!<?php 
           if($perfil == 1){
-
                if ($pg == 1){
-
                     include("dashboard_atendente.php");
-     
                }else if ($pg == 2){
-     
                     include("estoque.php");
-     
                }
 
           }else if($perfil== 2){
-
-               
-               if ($pg == 1){
-
-                    include("dashboard_Compras.php");
-     
-               }else if ($pg == 2){
-     
-                    include("medicamentos.php");
-     
-               }
-
-
-          }
+               switch ($pg) {
+                    case 1:
+                        include("dashboard_Compras.php");
+                        break;
+                    case 2:
+                        include("dashboard_Medicamentos.php");
+                        break;
+                    case 3:
+                        include("dashboard_Processos.php");
+                        break;
+                    case 4:
+                        include("dashboard_Medicos.php");
+                        break;
+                    case 5:
+                        include("dashboard_Funcionarios.php");
+                        break;
+                    case 6:
+                        include("dashboard_Pacientes.php");
+                        break;
+                    default:
+                        include("dashboard_Compras.php");
+                        break;
+                }
+                
+          }     
         
         
       ?>
