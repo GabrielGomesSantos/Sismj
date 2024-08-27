@@ -69,9 +69,9 @@ $result = $conn->query($sql);
                 aria-hidden="true">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header bg-info text-white">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastar Processo</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">&times;</button>
                         </div>
                         <div class="modal-body">
                             <?php include("cadastrar_pacientes.php") ?>
@@ -102,7 +102,7 @@ $result = $conn->query($sql);
             <tbody>
                 <?php if ($result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
-                <tr onclick="getPacientes(<?php echo $row['cod_paciente'] ?>)">
+                <tr>
                     <th scope="row"><?php echo htmlspecialchars($row['cod_paciente']); ?></th>
                     <td><?php echo htmlspecialchars($row['nome_paciente']); ?></td>
                     <td><?php echo htmlspecialchars($row['cpf_paciente']); ?></td>
@@ -118,7 +118,7 @@ $result = $conn->query($sql);
                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header">
+                                    <div class="modal-header bg-danger text-white">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir Paciente</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
@@ -138,19 +138,23 @@ $result = $conn->query($sql);
                     </td>
                     <td><a href="editar_pacientes.php?id_paciente=<?php echo urlencode($row['cod_paciente']); ?>"
                             class="btn btn-warning"><i class="bi bi-pencil text-white"></i></a></td>
-
+                    <td>
+                        <button class="btn btn-primary text-white" onclick="getPacientes(<?php echo $row['cod_paciente'] ?>)">
+                            Ver Detalhes
+                        </button>
+                    </td>
                 </tr>
                 <div id="PacienteModal" class="modal fade" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Paciente</h5>
+                                <h5 class="modal-title">Detalhes do Pacientes</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div id="modal-body" class="modal-body">
-                                <!-- Conteúdo carregado via AJAX será inserido aqui -->
+                            <div id="modal-body-detalhes" class="modal-body">
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -229,7 +233,7 @@ function getPacientes(id) {
     xhr.open("GET", "get_pacientes.php?id_paciente=" + id, true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            var modalBody = document.getElementById("modal-body");
+            var modalBody = document.getElementById("modal-body-detalhes");
             if (modalBody) {
                 modalBody.innerHTML = xhr.responseText;
                 $('#PacienteModal').modal('show');

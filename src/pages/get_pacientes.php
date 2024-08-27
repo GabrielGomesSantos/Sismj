@@ -7,39 +7,49 @@ if(isset($_GET['id_paciente'])) {
 }
 ?>
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nome Paciente:</th>
-            <th scope="col">CPF:</th>
-            <th scope="col">CNS:</th>
-            <th scope="col">CEP:</th>
-            <th scope="col">Logradouro:</th>
-            <th scope="col">Número:</th>
-            <th scope="col">Complemento:</th>
-            <th scope="col">Bairro:</th>
-            <th scope="col">Cidade:</th>
-            <th scope="col">Estado:</th>
-        </tr>
-    </thead>
-    <tbody>
         <?php if($result->num_rows > 0):?>
         <?php while($row = $result->fetch_assoc()):?>
-        <td><?php echo htmlspecialchars($row['nome_paciente']); ?></td>
-        <td><?php echo htmlspecialchars($row['cpf_paciente']); ?></td>
-        <td><?php echo htmlspecialchars($row['cns_paciente']); ?></td>
-        <td><?php echo htmlspecialchars($row['cep']); ?></td>
-        <td><?php echo htmlspecialchars($row['logradouro']); ?></td>
-        <td><?php echo htmlspecialchars($row['numero']); ?></td>
-        <td><?php echo htmlspecialchars($row['complemento']); ?></td>
-        <td><?php echo htmlspecialchars($row['bairro']); ?></td>
-        <td><?php echo htmlspecialchars($row['cidade']); ?></td>
-        <td><?php echo htmlspecialchars($row['estado']); ?></td>
-        
+        <div class="mb-3">
+            <label class="form-label">Nome:</label><br>
+            <input placeholder="<?php echo htmlspecialchars($row['nome_paciente']); ?>" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CPF:</label><br>
+            <input placeholder="<?php echo htmlspecialchars($row['cpf_paciente']); ?>" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CNS:</label><br>
+            <input placeholder="<?php echo htmlspecialchars($row['cns_paciente']); ?>" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Logradouro:</label><br>
+            <input placeholder="<?php echo htmlspecialchars($row['logradouro']); ?>" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Número:</label><br>
+            <input placeholder="<?php echo htmlspecialchars($row['numero']); ?>" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Complemento:</label><br>
+            <input placeholder="<?php echo htmlspecialchars($row['complemento']); ?>" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Bairro:</label><br>
+            <input placeholder="<?php echo htmlspecialchars($row['bairro']); ?>" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Cidade:</label><br>
+            <input placeholder="<?php echo htmlspecialchars($row['cidade']); ?>" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CEP:</label><br>
+            <input placeholder="<?php echo htmlspecialchars($row['cep']); ?>" disabled>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Estado:</label><br>
+            <input placeholder="<?php echo htmlspecialchars($row['estado']); ?>" disabled>
+        </div>
+
         <?php endwhile; ?>
         <?php endif ?>
 
-    </tbody>
-</table>
