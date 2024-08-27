@@ -1,4 +1,8 @@
 <?php
+if(!isset($_SESSION['ID'])){
+    session_start();
+};
+
 if(!isset($_SESSION["Perfil"])){
     header('Location: ../../public/index.php');
 }
