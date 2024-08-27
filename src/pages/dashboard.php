@@ -29,6 +29,7 @@ if(!isset($_SESSION['ID'])){
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
     <!-- Bootstrap CSS -->
   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

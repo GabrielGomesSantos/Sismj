@@ -128,16 +128,16 @@ $result = $conn->query($sql);
             </div>
             <!-- Barra de pesquisa -->
             <div class="row">
-                <div class="col-4  offset-7">
-
-                    <div class="input-group rounded mt-2">
-                        <input type="search" class="form-control rounded" id="search_bar" placeholder="Search the name of medicaments" aria-label="Search" onkeyup="pesquisar(this.value)" aria-describedby="search-addon" />
-                        <span id="search-addon"></span>
-                        <button type="submit" id="search_button"><i class="fas fa-search"></i></button>
-                    </div>
-                    <!-- fim da barra de pesquisa -->
+            <div class="col-5 offset-7">
+                <div class="input-group rounded mt-2">
+                    <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                    <span class="input-group-text" id="search-addon">
+                        <i class="bi bi-search"></i>
+                    </span>
                 </div>
             </div>
+        </div>
+
             <div class="row">
 
                 <div class="col-10 offset-1">
