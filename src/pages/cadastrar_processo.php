@@ -22,14 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cod_paciente = $_POST['cod_paciente'];
     $cod_medico = $_POST['cod_medico'];
 
+    $teste = $num_processo;
+
     $copia_processo = $_FILES['copia_processo']['name'];
     $receita_processo = $_FILES['receita_processo']['name'];
 
 
-    $destino_copia = "uploads/" . basename($copia_processo);
-    $destino_receita = "uploads/" . basename($receita_processo);
-
+   $caminho = "../../arquivos/" . $teste;
     
+    mkdir($caminho, 0722, true);
+    $destino_copia = $caminho . "/" . $copia_processo;
+    $destino_receita = $caminho . "/" . $receita_processo;
+
     move_uploaded_file($_FILES['copia_processo']['tmp_name'], $destino_copia);
     move_uploaded_file($_FILES['receita_processo']['tmp_name'], $destino_receita);
     

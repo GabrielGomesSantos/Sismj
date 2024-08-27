@@ -94,13 +94,7 @@ $result = $conn->query($sql);
                     <th scope="col">Nome</th>
                     <th scope="col">CPF</th>
                     <th scope="col">Cns</th>
-                    <th scope="col">Logradouro</th>
-                    <th scope="col">Número</th>
-                    <th scope="col">Complemento</th>
-                    <th scope="col">Bairro</th>
-                    <th scope="col">Cidade</th>
                     <th scope="col">Cep</th>
-                    <th scope="col">Estado</th>
                     <th scope="col">Celular</th>
                     <th scope="col">Ações</th>
                 </tr>
@@ -108,18 +102,12 @@ $result = $conn->query($sql);
             <tbody>
                 <?php if ($result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
-                <tr>
+                <tr onclick="getPacientes(<?php echo $row['cod_paciente'] ?>)">
                     <th scope="row"><?php echo htmlspecialchars($row['cod_paciente']); ?></th>
                     <td><?php echo htmlspecialchars($row['nome_paciente']); ?></td>
                     <td><?php echo htmlspecialchars($row['cpf_paciente']); ?></td>
                     <td><?php echo htmlspecialchars($row['cns_paciente']); ?></td>
-                    <td><?php echo htmlspecialchars($row['logradouro']); ?></td>
-                    <td><?php echo htmlspecialchars($row['numero']); ?></td>
-                    <td><?php echo htmlspecialchars($row['complemento']); ?></td>
-                    <td><?php echo htmlspecialchars($row['bairro']); ?></td>
-                    <td><?php echo htmlspecialchars($row['cidade']); ?></td>
                     <td><?php echo htmlspecialchars($row['cep']); ?></td>
-                    <td><?php echo htmlspecialchars($row['estado']); ?></td>
                     <td><?php echo htmlspecialchars($row['celular']); ?></td>
                     <td>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
@@ -127,31 +115,50 @@ $result = $conn->query($sql);
                             <i class="bi bi-trash-fill"></i>
                         </button>
                         <div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir Paciente</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Deseja excluir esse paciente ?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-danger"
-                                    onclick="excluirProcesso()">Excluir</button>
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir Paciente</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Deseja excluir esse paciente ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-danger"
+                                            onclick="excluirProcesso()">Excluir</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
                     </td>
                     <td><a href="editar_pacientes.php?id_paciente=<?php echo urlencode($row['cod_paciente']); ?>"
                             class="btn btn-warning"><i class="bi bi-pencil text-white"></i></a></td>
 
                 </tr>
+                <div id="PacienteModal" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Paciente</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id="modal-body" class="modal-body">
+                                <!-- Conteúdo carregado via AJAX será inserido aqui -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <?php endwhile; ?>
                 <?php else: ?>
                 <tr>
@@ -214,6 +221,24 @@ function getID(id) {
 
 function excluirProcesso() {
     window.location.href = "deletar_pacientes.php?id_paciente=" + idSelecionado
+}
+
+function getPacientes(id) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "get_pacientes.php?id_paciente=" + id, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var modalBody = document.getElementById("modal-body");
+            if (modalBody) {
+                modalBody.innerHTML = xhr.responseText;
+                $('#PacienteModal').modal('show');
+            } else {
+                console.error("Elemento com ID 'modal-body' não encontrado.");
+            }
+        }
+    };
+    xhr.send();
 }
 </script>
 

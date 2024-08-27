@@ -67,7 +67,7 @@ $result = $conn->query($sql);
             </button>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog modal-fullscreen-sm-down">
+                <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastar Processo</h1>
@@ -100,7 +100,7 @@ $result = $conn->query($sql);
             <tbody>
                 <?php if ($result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
-                <tr>
+                <tr >
                     <th scope="row"><?php echo $row['cod_processo'] ?></th>
                     <td><?php echo $row['numero_processo'] ?></td>
                     <td><?php echo $row['copia_processo'] ?></td>
