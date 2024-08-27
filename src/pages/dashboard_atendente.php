@@ -158,17 +158,16 @@ $result = $conn->query($sql);
             <!-- Botão que ativa o modal -->
             <div class="row">
                 <div class="col-2">
-                    <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-5" data-bs-toggle="modal" data-bs-target="#cadastromodal">
+                    <button type="button" style="background-color: #17a2b8; color: #FFF;" class="btn mt-3" data-bs-toggle="modal" data-bs-target="#cadastromodal">
                         Cadastrar
                     </button>
                 </div>
-                
             </div>
             <!-- Fim do botão que ativa o modal -->
 
             <div class="row">
                 <div class="col-10 offset-1">
-                    <table class="table mt-5" id="TabelaEntregas">
+                    <table class="table mt-5 text-center" id="TabelaEntregas">
                         <thead class="thead-light" >
                             <tr>
                                 <th scope="col">N°</th>
@@ -180,7 +179,7 @@ $result = $conn->query($sql);
                         </thead>
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()): ?>
-                                <tr class="row_paciente" onclick="openModal('<?= $row['cod_entrega']; ?>')">
+                                <tr class="row_paciente " onclick="openModal('<?= $row['cod_entrega']; ?>')">
                                     <th scope="row"><?= $row['cod_entrega']; ?></th>
                                     <td><?= $row['nome_paciente']; ?></td>
                                     <td><?= $row['cpf_paciente']; ?></td>
@@ -265,6 +264,8 @@ $result = $conn->query($sql);
         </div>
     </div>
 </div>
+</div>
+
 <!-- Modal confirmacao Fim -->
 
 

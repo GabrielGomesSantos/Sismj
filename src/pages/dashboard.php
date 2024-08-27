@@ -70,7 +70,16 @@
 
           }else if($perfil== 2){
 
-               include("medicamentos.php");
+               
+               if ($pg == 1){
+
+                    include("dashboard_Compras.php");
+     
+               }else if ($pg == 2){
+     
+                    include("medicamentos.php");
+     
+               }
 
 
           }
@@ -78,5 +87,5 @@
         
       ?>
 </body> 
-<?php include('footer.php')?>
+     <?php include('footer.php')?>
 </html>

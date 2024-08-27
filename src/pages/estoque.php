@@ -4,6 +4,9 @@ include('../../config/config.php');
 // Número de itens por página
 $items_per_page = 6;
 
+// Variavel da pesquisa 
+$var_search = $current_page = isset($_GET['page']) ? $_GET['page'] : " ";
+
 // Página atual
 $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($current_page - 1) * $items_per_page;
@@ -130,7 +133,7 @@ $result = $conn->query($sql);
             <div class="row">
 
                 <div class="col-10 offset-1">
-                    <table class="table mt-5">
+                    <table class="table mt-5 text-center">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Codigo</th>
