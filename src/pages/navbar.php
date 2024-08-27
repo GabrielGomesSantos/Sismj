@@ -17,7 +17,7 @@ if(!isset($_SESSION['ID'])){
             </a>
         </div>
 
-        <div class=" sair ">
+        <div class=" sair " onclick="toggleActive()" type="button">
 
             <ul class="navbar-nav mb-2 mr-3 mb-lg-0 d-flex align-items-center flex-column">
                 
@@ -25,7 +25,7 @@ if(!isset($_SESSION['ID'])){
                    <?php
                     echo "<span class='me-5 text-white'>Olá, {$_SESSION['Nome']}</span>";
                     ?> 
-                    <img src="../../assets/images/acount.png" alt="Conta" width="55" height="54" class="ms-5 me-5">
+                    <img src="../../perfil_img/João Silva/peter.jpg" alt="Conta" width="55" height="54" class="ms-5 me-5 rounded-circle">
                 </li>
                 <li class="mt-3">
                     <button type="button" class="btn btn-danger" onclick='window.location="sair.php"'>Logoff</button>

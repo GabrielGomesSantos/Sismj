@@ -122,11 +122,20 @@ input .number {
     overflow: hidden;
 }
 
-.sair:hover{
+.sair.active{
 
     height: 180px;
     border-radius: 7px;
+    background-color: #17a2b8;
 
+}
+.sair.active:hover{
+
+    background-color: #17a2b8;
+}
+.sair:hover{
+
+    background-color: #128da0;
 }
 
 /* Estilo da linha com erro */
