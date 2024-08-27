@@ -1,5 +1,5 @@
 <?php
-include ("config/config.php");
+include ("../../config/config.php");
 
 ////////////////FUNÇÕES DE CRUD///////////////////////
 function postCompra($nota_fiscal, $data, $fornecedor, $conn)
@@ -9,34 +9,39 @@ function postCompra($nota_fiscal, $data, $fornecedor, $conn)
     if (!mysqli_query($conn, $sql)) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
+
+    redCompra($nota_fiscal,$conn);
 }
+
+function redCompra($nota_fiscal,$conn){
+    $sql = "SELECT * FROM compras WHERE nota_fiscal = '$nota_fiscal';";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) $saida[] = $row;
+    }
+    header("location: ../../dashboard(teste)/cadastrar_med.php?id=".$saida[0]['cod_compra']);
+}
+
 //POST
 function postMed($cod_compra, $nome, $tipo, $categoria, $laboratorio, $lote, $validade, $quantidade, $conn)
 {
     $sql = "INSERT INTO medicamentos (cod_compra, nome_medicamento, tipo_medicamento, categoria, laboratorio, validade, lote, quantidade) 
-    VALUES ('$cod_compra', '$nome', '$tipo', '$categoria', '$laboratorio', '$lote', '$validade', '$quantidade')";
+    VALUES ('$cod_compra', '$nome', '$tipo', '$categoria', '$laboratorio', '$validade', '$lote', '$quantidade')";
 
     if (!mysqli_query($conn, $sql)) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
+    header("Location: ../../dashboard(teste)/cadastrar_med.php?id=".$cod_compra);
 
 }
 
-function assignCodCompra($id, $conn){
-    $sql = "UPDATE `medicamentos` 
-            SET `cod_compra` = '$id'
-            WHERE `cod_compra` = 0";
-    
-    mysqli_query($conn, $sql);
-}
-
-function deleteMed($id, $conn)
+function deleteMed($id, $conn, $col)
 {
     //Insere o id enviado do "dashboard.php" na variável delete
     $delete = $id;
 
     //Faz uma consulta sql para deletar o produto com base no id
-    $sql = "DELETE FROM medicamentos WHERE cod_medicamento = $delete;";
+    $sql = "DELETE FROM medicamentos WHERE $col = $delete;";
     $result = mysqli_query($conn, $sql);
 
     //VERIFICANDO SE A CONSULTA GEROU RESULTADOS
@@ -45,7 +50,7 @@ function deleteMed($id, $conn)
     } else {
         echo "Erro ao deletar registro: " . mysqli_error($conn);
     }
-    header("Location: /sismj/src/pages/dashboard.php?pag=2");
+
 }
 
 function updateMed($id, $nome, $tipo, $categoria, $lab, $lote, $validade, $quant, $conn) {
@@ -84,36 +89,46 @@ function updateMed($id, $nome, $tipo, $categoria, $lab, $lote, $validade, $quant
     header("Location: /sismj/src/pages/dashboard.php?pag=2"); 
 }
 
+function deleteComp($id,$conn)
+{
+    //Insere o id enviado do "dashboard.php" na variável delete
+    $delete = $id;
+
+    //Faz uma consulta sql para deletar o produto com base no id
+    $sql = "DELETE FROM compras WHERE cod_compra = $delete;";
+    $result = mysqli_query($conn, $sql);
+
+    //VERIFICANDO SE A CONSULTA GEROU RESULTADOS
+    if ($result) {
+        echo "Registro deletado com sucesso";
+    } else {
+        echo "Erro ao deletar registro: " . mysqli_error($conn);
+    }
+
+}
+
 
 //Verificações de requisição
-
 if ( isset($_GET['id_delete']) ){
-    deleteMed($_GET['id_delete'],$conn);
+    deleteMed($_GET['id_delete'],$conn,'cod_medicamento');
+};
+if ( isset($_GET['compra_delete']) ){
+    deleteMed($_GET['compra_delete'],$conn,'cod_compra');
+    deleteComp($_GET['compra_delete'],$conn);
+    header("location: ../../dashboard(teste)/");
 };
 if ( isset($_POST['id_edit']) ){
     updateMed($_POST['id_edit'],$_POST['nome'],$_POST['tipo'],$_POST['categoria'],$_POST['lab'],$_POST['lote'],$_POST['valid'],$_POST['quant'],$conn);
 };
 
 if (isset($_POST['insert_med']) ){
-    postMed(0, $_POST['name'], $_POST['tipo'], $_POST['categoria'], $_POST['laboratorio'], $_POST['lote'], $_POST['validade'], $_POST['quantidade'], $conn);
-    header("Location: dashboard\adicionar_compras.php");
-}
+    postMed($_POST['id_compra'], $_POST['nome'], $_POST['tipo'], $_POST['categoria'], $_POST['laboratorio'], $_POST['lote'], $_POST['validade'], $_POST['quantidade'], $conn);
 
-if (isset($_POST['finish_purchase']) && (!empty($_POST['nota_fiscal']) && !empty($_POST['data']) && !empty($_POST['fornecedor']))) {
-    $nota_fiscal = $_POST['nota_fiscal'];
-    $data = $_POST['data'];
-    $fornecedor = $_POST['fornecedor'];
-
-    $sql = "SELECT MAX(cod_compra) FROM compras";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $id = $row["MAX(cod_compra)"] + 1;
-
-    postCompra($nota_fiscal, $data, $fornecedor, $conn);
-    assignCodCompra($row["MAX(cod_compra)"] + 1, $conn);
-    header("Location: dashboard\index.php");
-}
-
+};
+if(isset($_POST['add_compra']))
+{
+    postCompra($_POST['nota_fiscal'], $_POST['data'],$_POST['fornecedor'],$conn);
+};
 function close_session($conn){
     mysqli_close($conn);
 }
