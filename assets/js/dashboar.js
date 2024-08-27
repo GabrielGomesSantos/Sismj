@@ -275,3 +275,11 @@ $(document).ready(function() {
         }
     });
 });
+
+
+//  toggleActive button
+
+function toggleActive() {
+    var button = document.querySelector('.sair');
+    button.classList.toggle('active');
+}
