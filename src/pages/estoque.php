@@ -1,11 +1,11 @@
 <?php
-if(!isset($_SESSION['ID'])){
+if (!isset($_SESSION['ID'])) {
     session_start();
 };
 
-    if(!isset($_SESSION["Perfil"])){
-        header('Location: ../../public/index.php');
-    }
+if (!isset($_SESSION["Perfil"])) {
+    header('Location: ../../public/index.php');
+}
 
 include('../../config/config.php');
 
@@ -101,7 +101,7 @@ $result = $conn->query($sql);
                 <ul class="mt-4">
                     <li>
                         <a href="dashboard.php?pag=1">
-                           <div class="centralizar">
+                            <div class="centralizar">
                                 <span class="icone"><img src="..\..\assets\images\entrega.png" alt=""></span>
                                 <span style=" margin-left: 5px; " class="titulo">Entregas</span>
                             </div>
@@ -111,7 +111,7 @@ $result = $conn->query($sql);
                         <a href="dashboard.php?pag=2">
                             <div class="centralizar">
                                 <span class="icone"><img src="..\..\assets\images\estoque.png" alt=""></span>
-                                <span  class="titulo">Estoque</span>
+                                <span class="titulo">Estoque</span>
                             </div>
                         </a>
                     </li>
@@ -127,17 +127,30 @@ $result = $conn->query($sql);
                 </div>
             </div>
             <!-- Barra de pesquisa -->
+
+            <style>
+                #search-addon {
+                    position: relative;
+                    z-index: 1;
+                    background-color: transparent; /* Remove a cor de fundo */
+                    display: block; /* Garante que o span ocupe uma linha inteira */
+                    margin-top: 0px; /* Espaçamento entre o input e o span */
+                }
+            </style>
+            
             <div class="row">
-            <div class="col-5 offset-7">
-                <div class="input-group rounded mt-2">
-                    <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                    <span class="input-group-text" id="search-addon">
-                        <i class="bi bi-search"></i>
+            <div class="col-3 offset-9">
+                <div class="input-group rounded mt-4 mb-0">
+                    <input type="search" class="form-control rounded" id="search_bar" placeholder="Search the name of medicaments" aria-label="Search" onkeyup="pesquisar(this.value)" aria-describedby="search-addon" />
+                    <span class="input-group-text border-0" id="search-glass" onclick="alert('')">
+                        <i class="fas fa-search"></i>
                     </span>
                 </div>
+                <!-- Span para exibir os resultados da busca -->
+                <span class="input-group-text border-0" id="search-addon"></span>
             </div>
         </div>
-
+            <!-- fim da barra de pesquisa -->
             <div class="row">
 
                 <div class="col-10 offset-1">
@@ -226,7 +239,7 @@ $result = $conn->query($sql);
 <!-- Modal Entrega Infos Fim -->
 
 <!-- Scripts -->
- <script src="../../assets/js/dashboar.js"></script>
+<script src="../../assets/js/dashboar.js"></script>
 <script src="../../assets/js/jquery-3.3.1.min.js"></script>
 <script src="../../assets/js/popper.min.js"></script>
 <script src="../../assets/js/bootstrap.min.js"></script>
