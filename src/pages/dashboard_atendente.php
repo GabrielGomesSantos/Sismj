@@ -170,10 +170,8 @@ $result = $conn->query($sql);
                         Cadastrar
                     </button>
                 </div>
-                
             </div>
             <!-- Fim do botão que ativa o modal -->
-             
 
             <div class="row">
                 <div class="col-10 offset-1">

@@ -1,25 +1,17 @@
 Array
 (
-    [pacienteId] => 1
+    [pacienteId] => 2
     [funcionarioId] =>  1
-    [codProcesso] => 1
+    [codProcesso] => 2
     [observacao] => 
     [medicamentos] => Array
         (
             [0] => Array
                 (
-                    [0] => Paracetamol
-                    [1] => Comprimido
-                    [2] => Laboratório X
-                    [3] => 10
-                )
-
-            [1] => Array
-                (
                     [0] => Amoxicilina
                     [1] => Cápsula
                     [2] => Laboratório Y
-                    [3] => 10
+                    [3] => 12
                 )
 
         )
