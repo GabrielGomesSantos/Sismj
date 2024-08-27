@@ -16,8 +16,8 @@ if (isset($_GET['id_processo'])) {
 
         if (mysqli_query($conn, $sql)) {
             echo "<script>
-            alert('Medicamento Cadastrado com sucesso!');
-            window.location.href='listar_medicamentos_processos.php?id_processo=$id_processo';
+            alert('Medicamento cadastrado com sucesso no processo!');
+            window.location.href='dashboard.php?pag=1';
             </script>";
         } else {
             echo "Erro ao cadastrar medicamento: " . mysqli_error($conn);
@@ -46,10 +46,9 @@ if (isset($_GET['id_processo'])) {
     <title>Cadastro de Medicamento</title>
 </head>
 
-<?php include('navbar.php'); ?>
 
 <body>
-    <div class="content">
+    <div class="content mb-5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 contents">
@@ -99,7 +98,6 @@ if (isset($_GET['id_processo'])) {
     <script src="../../assets/js/popper.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="../../assets/js/main.js"></script>
-    <?php include('footer.php'); ?>
 </body>
 
 </html>

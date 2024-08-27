@@ -16,7 +16,7 @@ if($_SERVER["REQUEST_METHOD"] == 'POST') {
     if (mysqli_query($conn, $sql)) {
         echo "<script>
         alert('Medicamento Editado com sucesso!');
-        window.location.href='listar_medicamentos_processos.php?id_processo=$cod_processo';
+        window.location.href='dashboard.php?pag=1';
         </script>";
     } else {
         echo "Erro ao editaro medicamento: " . mysqli_error($conn);

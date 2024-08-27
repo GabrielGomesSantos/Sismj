@@ -7,7 +7,7 @@ if (isset($_GET['id_funcionario'])) {
     $sql = "DELETE FROM funcionarios WHERE cod_funcionario = $id_funcionario";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ./listar_funcionario.php");
+        header("Location: dashboard.php?pag=2");
         exit(); 
     } else {
         echo "Erro ao deletar funcionário: " . $conn->error;

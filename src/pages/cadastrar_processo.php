@@ -39,36 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($conn->query($sql)) {
        echo '<script>
                 alert("Processo Cadastrado");
-                window.location.href="dashboard.php"
+                window.location.href="dashboard.php?pag=1"
             </script>';
     } else {
         echo "Erro na inserção: " . $conn->error;
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="shortcut icon" href="../../assets/images/favico.ico">
-    <title>Cadastro de Processo</title>
-    <style>
-        
-    </style>
-</head>
-
-<body>
     <div class="content">
         <div class="container">
             <div class="row justify-content-center">
@@ -102,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <?php endforeach; ?>
                                 </select>
                         </div>
-                        <label for="cod_paciente">Selecione o Paciente:</label>
+                        <label for="cod_paciente">Selecione o Médico:</label>
                         <div class="form-group">
                             <select class="form-select form-control" id="cod_paciente" name="cod_medico" required>
                                 <option value="" selected disabled>Selecione um médico</option>
@@ -121,11 +98,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
-
-    <script src="../../assets/js/jquery-3.3.1.min.js"></script>
-    <script src="../../assets/js/popper.min.js"></script>
-    <script src="../../assets/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/main.js"></script>
-</body>
-
-</html>

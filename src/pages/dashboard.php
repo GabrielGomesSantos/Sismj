@@ -1,6 +1,6 @@
 <?php
-$_SESSION['Perfil'] = 1;
 session_start();
+$_SESSION['Perfil'] = 1;
 if (!isset($_SESSION["Perfil"])) {
      header('Location: ../../public/index.php');
 } else {

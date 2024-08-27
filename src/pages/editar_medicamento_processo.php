@@ -31,7 +31,6 @@ $result = $conn->query($sql);
     <title>Cadastro de Medicamento</title>
 </head>
 
-<?php include('navbar.php'); ?>
 
 <body>
     <div class="content">
@@ -76,7 +75,7 @@ $result = $conn->query($sql);
                                         </div>
                                         <?php endwhile;?>
                                 <?php endif;?>
-                                <input type="submit" value="Cadastrar" class="btn text-white btn-block btn-info mt-5">
+                                <input type="submit" value="Editar" class="btn text-white btn-block btn-info mt-5">
                             </form>
                         </div>
                     </div>
@@ -89,7 +88,6 @@ $result = $conn->query($sql);
     <script src="../../assets/js/popper.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="../../assets/js/main.js"></script>
-    <?php include('footer.php'); ?>
 </body>
 
 </html>

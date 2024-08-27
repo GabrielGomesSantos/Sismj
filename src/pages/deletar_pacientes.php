@@ -2,15 +2,17 @@
 require_once('../../config/config.php');
 
 if (isset($_GET['id_paciente'])) {
-    $id_paciente = intval($_GET['id_paciente']); // Sanitiza o ID do paciente
+    $id_paciente = intval($_GET['id_paciente']); 
 
-    // Usa prepared statements para evitar SQL Injection
+
     $stmt = $conn->prepare("DELETE FROM pacientes WHERE cod_paciente = ?");
     $stmt->bind_param("i", $id_paciente);
 
     if ($stmt->execute()) {
-        header("Location: ./listar_pacientes.php"); // Atualize com o caminho correto se necessário
-        exit();
+        echo "<script>
+            alert('Paciente Excluido');
+            window.location.href='dashboard.php?pag=4'
+            </script>";
     } else {
         echo "Erro ao deletar paciente: " . $stmt->error;
     }

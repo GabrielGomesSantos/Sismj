@@ -28,12 +28,12 @@ if (isset($_GET['id_processo'])) {
         if (unlink($copia) && unlink($receita)) {
             echo "<script>
                 alert('Processo excluído');
-                window.location.href='dashboard.php';
+                window.location.href='dashboard.php?pag=1';
             </script>";
         } else {
             echo "<script>
                 alert('Falha ao excluir o processo');
-                window.location.href='dashboard.php';
+                window.location.href='dashboard.php?pag=1';
             </script>";
         }
         

@@ -7,7 +7,7 @@ if (isset($_GET['id_medico'])) {
     $sql = "DELETE FROM medicos WHERE cod_medico = $id_medico";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ./listar_medico.php");
+        header("Location: dashboard.php?pag=3");
         exit(); 
     } else {
         echo "Erro ao deletar funcionário: " . $conn->error;
