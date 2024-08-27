@@ -71,13 +71,10 @@ $result = $conn->query($sql);
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastar Processo</h1>
-                            <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                            <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close"><img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;"></button>
                         </div>
                         <div class="modal-body">
                             <?php include("cadastrar_pacientes.php") ?>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
                         </div>
                     </div>
                 </div>
@@ -120,15 +117,13 @@ $result = $conn->query($sql);
                                 <div class="modal-content">
                                     <div class="modal-header bg-danger text-white">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir Paciente</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                        <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal"
+                                            aria-label="Close"><img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;"></button>
                                     </div>
                                     <div class="modal-body">
                                         Deseja excluir esse paciente ?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cancelar</button>
                                         <button type="button" class="btn btn-danger"
                                             onclick="excluirProcesso()">Excluir</button>
                                     </div>
@@ -147,17 +142,17 @@ $result = $conn->query($sql);
                 <div id="PacienteModal" class="modal fade" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header bg-info text-white">
                                 <h5 class="modal-title">Detalhes do Pacientes</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
+                                 <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
                                 </button>
                             </div>
                             <div id="modal-body-detalhes" class="modal-body">
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                               
                             </div>
                         </div>
                     </div>

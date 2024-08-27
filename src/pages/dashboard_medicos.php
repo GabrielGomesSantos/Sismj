@@ -69,15 +69,13 @@ $result = $conn->query($sql);
                 aria-hidden="true">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header bg-info text-white">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastar Processo</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close"><img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;"></button>
                         </div>
-                        <div class="modal-body">
+                        </div>
+                        <div class="modal-body bg-white">
                             <?php include("cadastrar_medico.php") ?>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
                         </div>
                     </div>
                 </div>
@@ -118,17 +116,16 @@ $result = $conn->query($sql);
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header">
+                                <div class="modal-header bg-danger text-white">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir Médico</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
+                </button>
                                 </div>
                                 <div class="modal-body">
                                     Deseja excluir esse médico ? 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar</button>
                                     <button type="button" class="btn btn-danger"
                                         onclick="excluirProcesso()">Excluir</button>
                                 </div>

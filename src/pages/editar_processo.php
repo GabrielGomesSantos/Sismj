@@ -37,6 +37,7 @@ if (isset($_GET['id_processo'])) {
 </head>
 
 <body>
+    <?php include('navbar.php')?>
     <div class="content">
         <div class="container">
             <div class="row justify-content-center">
@@ -93,7 +94,7 @@ if (isset($_GET['id_processo'])) {
             </div>
         </div>
     </div>
-
+    
     <script src="../../assets/js/jquery-3.3.1.min.js"></script>
     <script src="../../assets/js/popper.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
