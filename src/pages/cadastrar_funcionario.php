@@ -1,3 +1,9 @@
+<?php
+     if(!isset($_SESSION["Perfil"])){
+        header('Location: ../../public/index.php');
+   }
+?>
+
 <!doctype html>
 <html lang="pt-br">
 

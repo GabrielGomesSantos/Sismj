@@ -1,5 +1,9 @@
 <?php  
 
+if(!isset($_SESSION["Perfil"])){
+    header('Location: ../../public/index.php');
+}
+
 include('../../config/config.php'); 
 
 $valor = filter_input(INPUT_GET, "valor", FILTER_DEFAULT);

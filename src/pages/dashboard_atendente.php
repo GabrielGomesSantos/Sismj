@@ -1,4 +1,9 @@
 <?php
+
+if(!isset($_SESSION["Perfil"])){
+    header('Location: ../../public/index.php');
+}
+
 include('../../config/config.php');
 
 $id_funcionario = $_SESSION['ID'];

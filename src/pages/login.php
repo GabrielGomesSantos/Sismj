@@ -1,4 +1,7 @@
 <?php
+     if(!isset($_SESSION["Perfil"])){
+        header('Location: ../../public/index.php');
+   }
 
     //Inclusao da pagina de conexao com banco de dados
     include('../../config/config.php');

@@ -1,5 +1,8 @@
 <?php
 // buscar_medicamentos.php
+if(!isset($_SESSION["Perfil"])){
+    header('Location: ../../public/index.php');
+}
 
 if (isset($_POST['id'])) {
     $cod_processo = $_POST['id'];

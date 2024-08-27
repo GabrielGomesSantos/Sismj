@@ -1,4 +1,8 @@
 <?php
+    if(!isset($_SESSION["Perfil"])){
+        header('Location: ../../public/index.php');
+   }
+
 include('../../config/config.php');
 
 // Verificar se o parâmetro 'cod_entrega' foi passado

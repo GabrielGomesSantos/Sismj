@@ -1,4 +1,8 @@
 <?php
+     if(!isset($_SESSION["Perfil"])){
+        header('Location: ../../public/index.php');
+   }
+
 require_once('C:/xampp/htdocs/Sismj/config/config.php');
 
 if (isset($_GET['id_funcionario'])) {

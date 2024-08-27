@@ -1,4 +1,9 @@
 <?php
+
+if(!isset($_SESSION["Perfil"])){
+    header('Location: ../../public/index.php');
+}
+
 // Inclui o arquivo de configuração, que provavelmente contém a conexão com o banco de dados e outras configurações
 include('../../config/config.php');
 
