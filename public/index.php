@@ -1,9 +1,13 @@
 <?php session_start();
 if (isset($_SESSION['login_erro'])) {
-  $login_erro = $_SESSION['login_erro'];
+
+ 
+  $login_erro= $_SESSION['login_erro'];
+  
 } else {
   $login_erro = "";
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -66,11 +70,11 @@ if (isset($_SESSION['login_erro'])) {
 
                 <div class="form-group first">
                   <label for="cpf">Cpf</label>
-                  <input type="text" class="form-control" name="cpf" id="cpf" required>
+                  <input type="text" class="form-control" name="cpf" maxlength="14" id="cpf" required>
 
                 </div>
                 <div class="form-group last mb-4">
-                  <label for="password">Password</label>
+                  <label for="password">Senha</label>
                   <input type="password" class="form-control" name="senha" id="password" required>
 
                 </div>
@@ -80,10 +84,10 @@ if (isset($_SESSION['login_erro'])) {
               </div>
               </div>";
                 }
-
+                  $_SESSION['login_erro'] = false;
                 ?>
 
-                <input type="submit" value="Log In" class="btn text-white btn-block btn-info">
+                <input type="submit" value="Entrar" class="btn text-white btn-block btn-info">
 
             </div>
             </form>
