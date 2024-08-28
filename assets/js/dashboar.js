@@ -90,6 +90,7 @@ $(document).ready(function() {
                                 '<td>' + item.tipo_medicamento + '</td>' +
                                 '<td>' + item.laboratorio + '</td>' +
                                 '<td><input style="border: none;" class="number" type="number" min="1" value="' + item.quantidade + '" max="' + item.quantidade + '"></td>' +
+                                '<td> <button>delete</button></td>' +
                             '</tr>';
                             tabelaCorpo.append(novaLinha);
                         });
@@ -279,6 +280,72 @@ $(document).ready(function() {
 function searchMedicamento(){
     var nome = $('#search_bar').val()
     window.location.href = '../../src/pages/dashboard.php?pag=2&searchMed=' + nome;
+}
+
+
+
+// Função de pesquisa Entrega 
+
+
+function pesquisar_entrega(valor) {
+    if (valor.length >= 3) {
+        $.ajax({
+            url: `../../src/pages/pesquisar_entrega.php`,
+            type: 'GET',
+            data: { valor: valor },
+            dataType: 'json',
+            success: function(dados) {
+                let resultado = "<ul class='list-group position-fixed'>";
+                console.log(dados);
+
+                if (dados.status) {
+                    dados.dados.forEach(function(item) {
+                        resultado += `<li onclick="listar_entregas('${item.nome}')" class='list-group-item list-group-item-action'>${item.nome}</li>`;
+                    });
+                } else {
+                    resultado += `<li class='list-group-item disabled'>${dados.msg}</li>`;
+                }
+
+                resultado += "</ul>";
+
+                // Atualize a interface com os resultados
+                $('#search-addon-entregas').html(resultado);
+            },
+            error: function(xhr, status, error) {
+                console.error('Erro na pesquisa:', status, error);
+            }
+        });
+    } else {
+        // Limpa a lista se a pesquisa for menor que 3 caracteres
+        $('#search-addon-entregas').html('');
+    }
+}
+
+// Função para listar medicamentos
+function listar_entregas(nome) {
+    $('#search_bar_entrega').val(nome);
+    $('#search-addon-entregas').html(''); // Limpa a lista de sugestões ao selecionar um item
+}
+
+$(document).ready(function() {
+    // Manipulador de eventos para o botão de pesquisa
+    $('#search_button').on('click', function(e) {
+        e.preventDefault(); // Evita o comportamento padrão do botão de envio
+        var nome = $('#search_bar_entrega').val(); // Obtém o valor do campo de entrada
+        listar_entregas(nome); // Chama a função de pesquisa com o valor do campo
+    });
+
+    // Limpar a lista de sugestões ao clicar fora da área de pesquisa
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#search_bar_entrega, #search-addon-entregas').length) {
+            $('#search-addon-entregas').html('');
+        }
+    });
+});
+
+function searchEntregas(){
+    var valor = $('#search_bar_entrega').val();
+    window.location.href = '../../src/pages/dashboard.php?pag=1&search=' + valor;
 }
 
 //  toggleActive button

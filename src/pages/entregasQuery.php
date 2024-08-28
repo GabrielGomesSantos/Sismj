@@ -112,8 +112,8 @@ if (isset($_GET['cod_entrega'])) {
         echo "
         <h4 class='text-secondary mt-4'>Medicamentos</h4>
         <div class='border-top border-secondary'>
-            <table class='table mt-4'>
-                <thead class='thead-light'>
+            <table class='table mt-4 text-center'>
+                <thead class='thead-light text-center'>
                     <tr>
                         <th>Medicamento</th>
                         <th>Tipo</th>
