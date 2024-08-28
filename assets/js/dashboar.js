@@ -276,6 +276,10 @@ $(document).ready(function() {
     });
 });
 
+function searchMedicamento(){
+    var nome = $('#search_bar').val()
+    window.location.href = '../../src/pages/dashboard.php?pag=2&searchMed=' + nome;
+}
 
 //  toggleActive button
 

@@ -13,7 +13,7 @@ include('../../config/config.php');
 $items_per_page = 6;
 
 // Variavel da pesquisa 
-$var_search = $current_page = isset($_GET['page']) ? $_GET['page'] : " ";
+$var_search =  isset($_GET['searchMed']) ? $_GET['searchMed'] : "";
 
 // Página atual
 $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -28,10 +28,19 @@ $total_rows = $total_result->fetch_row()[0];
 $total_pages = ceil($total_rows / $items_per_page);
 
 // Consultar registros para a página atual
-$sql = "
-    SELECT * FROM medicamentos
-    LIMIT $items_per_page OFFSET $offset;
-";
+if ($var_search != '') {
+    // Sanitiza a entrada para prevenir SQL Injection
+    $var_search = mysqli_real_escape_string($conn, $var_search);
+
+    // Coloca a variável entre aspas simples para ser interpretada como string
+    $sql = "SELECT * FROM medicamentos
+            WHERE nome_medicamento = '$var_search'
+            LIMIT $items_per_page OFFSET $offset";
+} else {
+    $sql = "SELECT * FROM medicamentos
+            LIMIT $items_per_page OFFSET $offset";
+}
+
 
 // Executar a consulta
 $result = $conn->query($sql);
@@ -118,7 +127,7 @@ $result = $conn->query($sql);
                 </ul>
             </div>
         </div>
-        
+
         <div class="col-10">
             <div class="row mt-5">
                 <div class="col mt-3">
@@ -133,24 +142,27 @@ $result = $conn->query($sql);
                 #search-addon {
                     position: relative;
                     z-index: 1;
-                    background-color: transparent; /* Remove a cor de fundo */
-                    display: block; /* Garante que o span ocupe uma linha inteira */
-                    margin-top: 0px; /* Espaçamento entre o input e o span */
+                    background-color: transparent;
+                    /* Remove a cor de fundo */
+                    display: block;
+                    /* Garante que o span ocupe uma linha inteira */
+                    margin-top: 0px;
+                    /* Espaçamento entre o input e o span */
                 }
             </style>
-            
+
             <div class="row">
-            <div class="col-3 offset-9">
-                <div class="input-group rounded mt-4 mb-0">
-                    <input type="search" class="form-control rounded" id="search_bar" placeholder="Search the name of medicaments" aria-label="Search" onkeyup="pesquisar(this.value)" aria-describedby="search-addon" />
-                    <span class="input-group-text border-0" id="search-glass" onclick="alert('')">
-                        <i class="fas fa-search"></i>
-                    </span>
+                <div class="col-3 offset-9">
+                    <div class="input-group rounded mt-4 mb-0">
+                        <input type="search" class="form-control rounded" id="search_bar" placeholder="Search the name of medicaments" aria-label="Search" onkeyup="pesquisar(this.value)" aria-describedby="search-addon" />
+                        <button class="input-group-text border-0" id="search-glass" onclick="searchMedicamento()" required>
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <!-- Span para exibir os resultados da busca -->
+                    <span class="input-group-text border-0" id="search-addon"></span>
                 </div>
-                <!-- Span para exibir os resultados da busca -->
-                <span class="input-group-text border-0" id="search-addon"></span>
             </div>
-        </div>
             <!-- fim da barra de pesquisa -->
             <div class="row">
 
