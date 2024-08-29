@@ -90,7 +90,7 @@ $(document).ready(function() {
                                 '<td>' + item.tipo_medicamento + '</td>' +
                                 '<td>' + item.laboratorio + '</td>' +
                                 '<td><input style="border: none;" class="number" type="number" min="1" value="' + item.quantidade + '" max="' + item.quantidade + '"></td>' +
-                                '<td> <button>delete</button></td>' +
+                                '<td> <button class="btn btn-danger" >delete</button></td>' +
                             '</tr>';
                             tabelaCorpo.append(novaLinha);
                         });

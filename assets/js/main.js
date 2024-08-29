@@ -31,19 +31,4 @@ $(function() {
             // Atualiza o valor do input
             e.target.value = input;
         });
-		document.addEventListener('DOMContentLoaded', function() {
-            const passwordField = document.getElementById('password');
-            const togglePasswordButton = document.getElementById('togglePassword');
 
-            togglePasswordButton.addEventListener('click', function() {
-                // Verifica o tipo do campo de senha
-                const type = passwordField.type === 'password' ? 'text' : 'password';
-                
-                // Altera o tipo do campo de senha
-                passwordField.type = type;
-                
-                // Altera o texto do botão com base no tipo atual do campo
-                togglePasswordButton.setAttribute('aria-label', type === 'password' ? 'Mostrar Senha' : 'Ocultar Senha');
-                togglePasswordButton.textContent = type === 'password' ? '👁️' : '🙈';  // Muda o ícone do botão
-            });
-        });
