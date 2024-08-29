@@ -61,7 +61,7 @@ $result = $conn->query($sql);
             <header class="bg-info text-white" style="padding: 5px 15px;">
                 Processos:
             </header>
-            <button type="button" class="btn btn-primary  mt-5 mb-5 text-white" data-bs-toggle="modal"
+            <button type="button" class="btn btn-info  mt-5 mb-5 text-white" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
                 Cadastrar Processo
             </button>
@@ -71,22 +71,23 @@ $result = $conn->query($sql);
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastar Processo</h1>
-                            <button type="button" class="btn btn-close btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" class="btn btn-close btn-light p-2 rounded-circle"
+                                data-bs-dismiss="modal" aria-label="Close">
                                 <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
                             </button>
                         </div>
-                        </div>
-                        <div class="modal-body bg-white">
-                            <?php include("cadastrar_processo.php") ?>
-                        </div>
-                        <div class="modal-footer">
-                            
-                        </div>
+                    </div>
+                    <div class="modal-body bg-white">
+                        <?php include("cadastrar_processo.php") ?>
+                    </div>
+                    <div class="modal-footer">
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <div class="row">
     <div class="col-10 offset-1">
@@ -103,13 +104,13 @@ $result = $conn->query($sql);
             <tbody>
                 <?php if ($result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
-                <tr >
+                <tr>
                     <th scope="row"><?php echo $row['cod_processo'] ?></th>
                     <td><?php echo $row['numero_processo'] ?></td>
                     <td><?php echo $row['copia_processo'] ?></td>
                     <td><?php echo $row['receita'] ?></td>
                     <td>
-                        <button type="button" class="btn btn-primary text-white" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-info text-white" data-bs-toggle="modal"
                             data-bs-target="#medModal" onclick="medProcessID(<?php echo $row['cod_processo'] ?>)">
                             Medicamentos
                         </button>
@@ -117,15 +118,18 @@ $result = $conn->query($sql);
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-xl" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header">
+                                    <div class="modal-header bg-info text-white">
                                         <h5 class="modal-title" id="exampleModalLabel">Detalhes do Medicamento</h5>
+                                        <button type="button" class="btn btn-light p-2 rounded-circle"
+                                            data-bs-dismiss="modal" aria-label="Close">
+                                            <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
+                                        </button>
                                     </div>
                                     <div class="modal-body" id="modal-body">
 
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Fechar</button>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -147,9 +151,10 @@ $result = $conn->query($sql);
                         <div class="modal-content">
                             <div class="modal-header bg-danger text-white">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir Processo</h1>
-                                <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
-                    <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
-                </button>
+                                <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
+                                </button>
                             </div>
                             <div class="modal-body">
                                 Deseja excluir esse processo ?

@@ -10,7 +10,7 @@ if(isset($_GET['id_processo'])) {
 ?>
     <table class="table table-striped">
         <a href="cadastrar_medicamento_processo.php?id_processo=<?php echo $id_processo?> "
-            class="btn btn-primary mt-3 mb-3 text-white">Cadastrar Medicamento</a>
+            class="btn btn-info mt-3 mb-3 text-white">Cadastrar Medicamento</a>
 
         <thead>
             <tr>

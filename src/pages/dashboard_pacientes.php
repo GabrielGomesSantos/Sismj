@@ -61,7 +61,7 @@ $result = $conn->query($sql);
             <header class="bg-info text-white" style="padding: 5px 15px;">
                 Pacientes:
             </header>
-            <button type="button" class="btn btn-primary  mt-5 mb-5 text-white" data-bs-toggle="modal"
+            <button type="button" class="btn btn-info  mt-5 mb-5 text-white" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
                 Cadastrar Pacientes
             </button>
@@ -134,7 +134,7 @@ $result = $conn->query($sql);
                     <td><a href="editar_pacientes.php?id_paciente=<?php echo urlencode($row['cod_paciente']); ?>"
                             class="btn btn-warning"><i class="bi bi-pencil text-white"></i></a></td>
                     <td>
-                        <button class="btn btn-primary text-white" onclick="getPacientes(<?php echo $row['cod_paciente'] ?>)">
+                        <button class="btn btn-info text-white" onclick="getPacientes(<?php echo $row['cod_paciente'] ?>)">
                             Ver Detalhes
                         </button>
                     </td>

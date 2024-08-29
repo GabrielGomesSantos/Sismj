@@ -61,7 +61,7 @@ $result = $conn->query($sql);
             <header class="bg-info text-white" style="padding: 5px 15px;">
                 Funcionarios:
             </header>
-            <button type="button" class="btn btn-primary  mt-5 mb-5 text-white" data-bs-toggle="modal"
+            <button type="button" class="btn btn-info  mt-5 mb-5 text-white" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
                 Cadastrar Funcionarios
             </button>
