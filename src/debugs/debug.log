@@ -2,21 +2,11 @@ Array
 (
     [0] => Array
         (
-            [0] => 1
-            [1] => Paracetamol
-            [2] => Comprimido
-            [3] => Laboratório X
-            [4] => 5
-            [5] => delete
-        )
-
-    [1] => Array
-        (
-            [0] => 12
-            [1] => Amoxicilina
-            [2] => Cápsula
-            [3] => Laboratório Y
-            [4] => 10
+            [0] => 4
+            [1] => Ibuprofeno
+            [2] => Suspensão
+            [3] => Laboratório W
+            [4] => 25
             [5] => delete
         )
 
