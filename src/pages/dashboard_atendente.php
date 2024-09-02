@@ -146,7 +146,6 @@ $result = $conn->query($sql);
                                 </table>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <h4 class="text-secondary mt-4">OBSERVAÇÕES</h4>
                             <div class="border-top border-secondary p-2"></div>

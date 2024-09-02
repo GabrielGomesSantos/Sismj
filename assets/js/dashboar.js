@@ -84,15 +84,18 @@ $(document).ready(function() {
                         tabelaCorpo.empty();
 
                         dados.dadosTabela.forEach(function(item) {
-                            var novaLinha = '<tr   data-toggle="tooltip" data-placement="top"    id="' + item.cod_medicamento_processo + '" >' +
+                            var novaLinha = 
+                            '<tr data-toggle="tooltip" data-placement="top" id="' + item.cod_medicamento_processo + '" >' +
                                 '<td>' + item.nome_medicamento + '</td>' +
                                 '<td>' + item.tipo_medicamento + '</td>' +
                                 '<td>' + item.laboratorio + '</td>' +
                                 '<td><input style="border: none;" class="number" type="number" min="1" value="' + item.quantidade + '" max="' + item.quantidade + '"></td>' +
-                                '<td> <button onclick="deletar_mediamento(' + item.cod_medicamento_processo +')" >delete</button></td>' +
+                                '<td><button type="button" class="deletarButton" data-cod="' + item.cod_medicamento_processo + '">Deletar</button></td>' +
                             '</tr>';
                             tabelaCorpo.append(novaLinha);
                         });
+
+                        //<button onclick="deletar_mediamento(' + item.cod_medicamento_processo +')" >TEste</button>
 
                     } catch (e) {
                         console.error('Erro ao processar JSON (buscar_medicamentos.php):', e);
@@ -354,13 +357,23 @@ function toggleActive() {
     button.classList.toggle('active');
 };
 
-// Funcao de Deletar Medicamento 
+// Função de Deletar Medicamento
+$(document).ready(function() {
+    // Usa delegação de eventos para lidar com elementos dinâmicos
+    $(document).on('click', '.deletarButton', function(event) {
+        // Impede o comportamento padrão do botão, como submissão de formulário
+        event.preventDefault();
 
-function deletar_mediamento(id){
-    var cod = id;
+        // Obtém o valor do atributo data-cod do botão clicado
+        var cod = $(this).data('cod');
 
-    var tabelaCorpo = $('#TabelaMedicamentos tbody');
-
-    console.log(tabelaCorpo);
-
-}
+        // Remover a linha da tabela HTML que possui o ID correspondente
+        $('#TabelaMedicamentos tbody tr').each(function() {
+            var id = $(this).attr('id');
+            if (id == cod) {
+                alert("Igual é: " + cod);
+                $(this).remove(); // Remove a linha da tabela
+            }
+        });
+    });
+});

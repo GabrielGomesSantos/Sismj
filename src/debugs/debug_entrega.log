@@ -11,8 +11,8 @@ Array
                     [0] => Paracetamol
                     [1] => Comprimido
                     [2] => Laboratório X
-                    [3] => 5
-                    [4] => delete
+                    [3] => 10
+                    [4] => Deletar
                 )
 
             [1] => Array
@@ -21,7 +21,7 @@ Array
                     [1] => Cápsula
                     [2] => Laboratório Y
                     [3] => 10
-                    [4] => delete
+                    [4] => Deletar
                 )
 
         )
