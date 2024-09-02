@@ -1,104 +1,88 @@
 <?php
-if(!isset($_SESSION['ID'])){
-    session_start();
-};
+session_start();
 
-
-if(!isset($_SESSION["Perfil"])){
+if (!isset($_SESSION['ID']) || !isset($_SESSION["Perfil"])) {
     header('Location: ../../public/index.php');
+    exit();
 }
 
-// Inclui o arquivo de configuração, que provavelmente contém a conexão com o banco de dados e outras configurações
+// Inclui o arquivo de configuração
 include('../../config/config.php');
 
-// Verifica se o método da requisição é POST, indicando que os dados estão sendo enviados para processamento
+// Verifica se o método da requisição é POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Decodifica os dados JSON enviados via POST e os converte em um array associativo PHP
+    // Decodifica os dados JSON enviados via POST
     $dados = json_decode($_POST['dados'], true);
-
+    
     // Salva o conteúdo de $dados no arquivo de log para depuração
     file_put_contents('../debugs/debug_entrega.log', print_r($dados, true));
-
-    // Extrai o array de medicamentos do array $dados
-    $medicamentos = $dados["medicamentos"];
     
-    // Salva o array de medicamentos em outro arquivo de log para depuração
-    file_put_contents('../debugs/debug_medicamentos.log', print_r($medicamentos, true));
+    $medicamentos = $dados["medicamentos"];
 
-    // Inicia uma transação
+    // Inicia a transação
     mysqli_begin_transaction($conn);
 
     try {
-        // Itera sobre o array de medicamentos para atualizar a quantidade de cada um no banco de dados
-        foreach ($medicamentos as $row) {
-            // Monta a consulta SQL para atualizar a quantidade de cada medicamento com base no nome, tipo e laboratório
-            $updateSql = "UPDATE `medicamentos` 
-                          SET `quantidade` = `quantidade` - ?
-                          WHERE `nome_medicamento` = ? 
-                          AND `tipo_medicamento` = ? 
-                          AND `laboratorio` = ?";
-
-            // Prepara a consulta para evitar SQL Injection
-            if ($stmt = mysqli_prepare($conn, $updateSql)) {
-                mysqli_stmt_bind_param($stmt, 'isss', $row[3], $row[0], $row[1], $row[2]);
-                if (!mysqli_stmt_execute($stmt)) {
-                    throw new Exception("Erro ao atualizar medicamento: " . mysqli_error($conn));
-                }
-            } else {
-                throw new Exception("Erro ao preparar a consulta de atualização: " . mysqli_error($conn));
-            }
+        // Insere na tabela `entregas`
+        $insert1 = "INSERT INTO `entregas` (`cod_paciente`, `cod_processo`, `cod_funcionario`, `observacao`) VALUES (?, ?, ?, ?)";
+        $stmt = mysqli_prepare($conn, $insert1);
+        mysqli_stmt_bind_param($stmt, 'ssss', $dados["pacienteId"], $dados["codProcesso"], $dados["funcionarioId"], $dados["observacao"]);
+        if (!mysqli_stmt_execute($stmt)) {
+            throw new Exception("Erro ao inserir entrega: " . mysqli_error($conn));
         }
 
-
-        // Prepara a consulta para o insert
-        
-
-        
-    } catch (Exception $e) {
-        // Em caso de erro, desfaz todas as operações realizadas na transação
-        mysqli_rollback($conn);
-        file_put_contents('../debugs/error_log.txt', "Erro: " . $e->getMessage(), FILE_APPEND);
-    }
-    
-    //Salvandi entrega 
-    
-    //Inicia uma transação 
-    mysqli_begin_transaction($conn);
-    
-    try {
-        // Insert na tabela `entregas`
-        $insert1 = "INSERT INTO `entregas`(`cod_paciente`, `cod_processo`, `cod_funcionario`, `observacao`) VALUES ('{$dados["pacienteId"]}','{$dados["codProcesso"]}','{$dados["funcionarioId"]}','{$dados["observacao"]}')";
-        mysqli_query($conn, $insert1);
-        
+        // Obtém o ID da última entrega inserida
         $entragaid = "SELECT MAX(cod_entrega) AS lastId FROM entregas";
         $result = mysqli_query($conn, $entragaid);
+        if (!$result) {
+            throw new Exception("Erro ao consultar o último ID de entrega: " . mysqli_error($conn));
+        }
         $lastIdEntrega = mysqli_fetch_assoc($result)['lastId'];
         file_put_contents('../debugs/debug_sql.log', print_r($lastIdEntrega, true));
-        
+
+        // Itera sobre o array de medicamentos para atualizar a quantidade de cada um
         foreach ($medicamentos as $row) {
-            $medicamentoSql = "SELECT cod_medicamento FROM `medicamentos` WHERE `nome_medicamento` = '{$row[0]}' AND `tipo_medicamento` = '{$row[1]}' AND `laboratorio` = '{$row[2]}'";
-            $result = mysqli_query($conn, $medicamentoSql);
+            // Consulta o código do medicamento
+            $medicamentoSql = "SELECT cod_medicamento FROM `medicamentos` WHERE `nome_medicamento` = ? AND `tipo_medicamento` = ? AND `laboratorio` = ?";
+            $stmt = mysqli_prepare($conn, $medicamentoSql);
+            mysqli_stmt_bind_param($stmt, 'sss', $row[0], $row[1], $row[2]);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
             $idMedicamento = mysqli_fetch_assoc($result)['cod_medicamento'];
+
+            if (!$idMedicamento) {
+                throw new Exception("Medicamento não encontrado: {$row[0]}, {$row[1]}, {$row[2]}");
+            }
+
+            // Insere o item de entrega
+            $insert2 = "INSERT INTO `itens_entrega` (`cod_entrega`, `cod_medicamento`, `qtde_medicamento`) VALUES (?, ?, ?)";
+            $stmt = mysqli_prepare($conn, $insert2);
+            mysqli_stmt_bind_param($stmt, 'sss', $lastIdEntrega, $idMedicamento, $row[3]);
             
-            $insert2 = "INSERT INTO `itens_entrega`(`cod_entrega`, `cod_medicamento`, `qtde_medicamento`) VALUES ('{$lastIdEntrega}','{$idMedicamento}','{$row[3]}')";
-            mysqli_query($conn, $insert2);
-            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Erro ao inserir item de entrega: " . mysqli_error($conn));
+            }
+
             // Atualiza a quantidade do medicamento
-            $updateSql = "UPDATE `medicamentos` SET `quantidade` = `quantidade` - {$row[3]} WHERE `nome_medicamento` = '{$row[0]}' AND `tipo_medicamento` = '{$row[1]}' AND `laboratorio` = '{$row[2]}'";
-            if (!mysqli_query($conn, $updateSql)) {
-                file_put_contents('../debugs/debug_entrega.log', "Erro: " . mysqli_error($conn) . "\n", FILE_APPEND);
+            $updateSql = "UPDATE `medicamentos` SET `quantidade` = `quantidade` - ? WHERE `cod_medicamento` = ?";
+            $stmt = mysqli_prepare($conn, $updateSql);
+            mysqli_stmt_bind_param($stmt, 'is', $row[3], $idMedicamento);
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Erro ao atualizar quantidade do medicamento: " . mysqli_error($conn));
             }
         }
-        $response = [
-            'status' => 'sucesso',
-        ];
-        
+
+        // Confirma a transação
         mysqli_commit($conn);
+        
+        // Resposta de sucesso
+        $response = ['status' => 'sucesso'];
+        echo json_encode($response);
     } catch (Exception $e) {
+        // Reverte a transação em caso de erro
         mysqli_rollback($conn);
-        file_put_contents('error_log.txt', $e->getMessage(), FILE_APPEND);
+        file_put_contents('../debugs/error_log.txt', "Erro: " . $e->getMessage(), FILE_APPEND);
+        echo json_encode(['status' => 'erro', 'mensagem' => $e->getMessage()]);
     }
-    
 }
-    
-    ?>
+?>

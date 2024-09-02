@@ -1,8 +1,8 @@
 Array
 (
-    [pacienteId] => 4
+    [pacienteId] => 1
     [funcionarioId] =>  1
-    [codProcesso] => 4
+    [codProcesso] => 1
     [observacao] => 
     [medicamentos] => Array
         (
