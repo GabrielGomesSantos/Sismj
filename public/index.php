@@ -34,7 +34,7 @@ if (isset($_SESSION['login_erro'])) {
 <style>
         .password-container {
             position: relative;
-            width: 300px;
+            
         }
         .password-container input[type="password"] {
             width: 100%;
@@ -48,6 +48,9 @@ if (isset($_SESSION['login_erro'])) {
             border: none;
             padding: 10px;
             cursor: pointer;
+        }
+        .imgsenha{
+          width: 30px;
         }
     </style>
 
@@ -95,9 +98,9 @@ if (isset($_SESSION['login_erro'])) {
                
                   <label for="password">Senha</label>
                   <div class="password-container">
-                  <input type="password" class="form-control" name="senha" id="password" required>
+                  <input type="password" class="form-control" maxlength="20" name="senha" id="password" required>
                   <button type="button" id="togglePassword" aria-label="Mostrar Senha">
-                        👁️
+                        <img  class="imgsenha" src="../assets/images/mostrars.png" alt="mostrar_senha">
                     </button>
                   </div>
                 </div>
