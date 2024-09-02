@@ -16,7 +16,12 @@ body{
    margin: 0px;
 }
 
+.modal {
 
+    width: 800px;
+    left: 500px;
+
+}
 
 .sidebar{
     position: absolute;

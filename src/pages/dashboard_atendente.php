@@ -80,9 +80,9 @@ $result = $conn->query($sql);
 
 <div class="container">
     <!-- Modal -->
-    <div class="modal fade" id="cadastromodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal" id="cadastromodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <!-- Cabeçalho do Modal -->
                 <div class="modal-header bg-info text-white">
@@ -124,7 +124,7 @@ $result = $conn->query($sql);
 
                         <!-- Tabela dos medicamentos -->
                         <h4 class="text-secondary mt-4">MEDICAMENTOS</h4>
-                        <div class="border-top border-secondary p-2">
+                        <div class="border-top border-secondary p-2 m overflow-x-scroll">
                             <div>
                                 <table class="table mt-4" id="TabelaMedicamentos">
 
@@ -150,7 +150,7 @@ $result = $conn->query($sql);
                         <div class="form-group">
                             <h4 class="text-secondary mt-4">OBSERVAÇÕES</h4>
                             <div class="border-top border-secondary p-2"></div>
-                            <textarea class="form-control" id="observacaomed"
+                            <textarea class="form-control" style="resize: none;" id="observacaomed"
                                 placeholder="Observações sobre o(s) medicamento(s)" rows="3"></textarea>
                         </div>
                         <input type="hidden" value=" <?php echo $_SESSION['ID'] ?>" name="id" id="cod_funcionario">
@@ -161,7 +161,7 @@ $result = $conn->query($sql);
                         </div>
                     </form>
                     <div class="row">
-                        <div class="col-2 offset-9">
+                        <div class="bot">
                             <button type="button" id="processar" style="background-color: #17a2b8; color: #FFF;"
                                 class="btn">
                                 Salvar
