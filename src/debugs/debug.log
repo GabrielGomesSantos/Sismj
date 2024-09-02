@@ -2,11 +2,22 @@ Array
 (
     [0] => Array
         (
-            [0] => 4
-            [1] => Diazepam
-            [2] => Cápsula
-            [3] => Laboratório W
+            [0] => 1
+            [1] => Paracetamol
+            [2] => Comprimido
+            [3] => Laboratório X
             [4] => 10
+            [5] => Deletar
+        )
+
+    [1] => Array
+        (
+            [0] => 12
+            [1] => Amoxicilina
+            [2] => Cápsula
+            [3] => Laboratório Y
+            [4] => 10
+            [5] => Deletar
         )
 
 )

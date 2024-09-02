@@ -146,7 +146,6 @@ $result = $conn->query($sql);
                                 </table>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <h4 class="text-secondary mt-4">OBSERVAÇÕES</h4>
                             <div class="border-top border-secondary p-2"></div>
@@ -342,12 +341,26 @@ $result = $conn->query($sql);
             <div class="modal-header bg-info text-white">
                 <div class="d-flex align-items-center">
                     <h1 class="modal-title fs-5 mb-0" id="cadastrarModal">Confirmação de Entrega</h1>
+                    <a href="dashboard.php">
+                        <button type="button" class="btn btn-light p-2  rounded-circle" style=" height: 42px; width: 42px;">
+                            <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
+                        </button>
+                    </a>
                 </div>
-                <div>
-                    <p>
-                        Entrega realizada com sucesso
-                    </p>
-                </div>
+            </div>
+            <div class=" mt-5 mb-3 d-flex justify-content-center align-itens-center">
+                <h3>
+                    Entrega realizada com sucesso
+                </h3>
+            </div>
+            
+            <div class="col-2 offset-9 mb-3 mt-3">
+               <a href="dashboard.php"> 
+                    <button type="button" style="background-color: #17a2b8; color: #FFF;"
+                        class="btn">
+                        Salvar
+                    </button>
+                </a>
             </div>
         </div>
     </div>
