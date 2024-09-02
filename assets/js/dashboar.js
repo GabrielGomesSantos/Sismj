@@ -1,4 +1,3 @@
-
 function openModal(codEntrega) {
     // URL para buscar detalhes da entrega
     const url = 'entregasQuery.php?cod_entrega=' + codEntrega;
@@ -90,7 +89,7 @@ $(document).ready(function() {
                                 '<td>' + item.tipo_medicamento + '</td>' +
                                 '<td>' + item.laboratorio + '</td>' +
                                 '<td><input style="border: none;" class="number" type="number" min="1" value="' + item.quantidade + '" max="' + item.quantidade + '"></td>' +
-                                '<td> <button>delete</button></td>' +
+                                '<td> <button onclick="deletar_mediamento(' + item.cod_medicamento_processo +')" >delete</button></td>' +
                             '</tr>';
                             tabelaCorpo.append(novaLinha);
                         });
@@ -353,4 +352,15 @@ function searchEntregas(){
 function toggleActive() {
     var button = document.querySelector('.sair');
     button.classList.toggle('active');
+};
+
+// Funcao de Deletar Medicamento 
+
+function deletar_mediamento(id){
+    var cod = id;
+
+    var tabelaCorpo = $('#TabelaMedicamentos tbody');
+
+    console.log(tabelaCorpo);
+
 }
