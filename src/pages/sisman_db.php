@@ -19,7 +19,7 @@ function redCompra($nota_fiscal,$conn){
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) $saida[] = $row;
     }
-    header("location: ../../dashboard(teste)/cadastrar_med.php?id=".$saida[0]['cod_compra']);
+    header("location: dashboard.php?pag=3&id=".$saida[0]['cod_compra']);
 }
 
 //POST
@@ -31,8 +31,7 @@ function postMed($cod_compra, $nome, $tipo, $categoria, $laboratorio, $lote, $va
     if (!mysqli_query($conn, $sql)) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
-    header("Location: ../../dashboard(teste)/cadastrar_med.php?id=".$cod_compra);
-
+    header("Location: /sismj/src/pages/dashboard.php?pag=3&id=".$cod_compra);
 }
 
 function deleteMed($id, $conn, $col)
@@ -64,7 +63,7 @@ function updateMed($id, $nome, $tipo, $categoria, $lab, $lote, $validade, $quant
     $lote = mysqli_real_escape_string($conn, $lote);
     $validade = mysqli_real_escape_string($conn, $validade);
     $quant = mysqli_real_escape_string($conn, $quant);
-
+    
     // Faz uma consulta SQL para atualizar o produto com base no id
     $sql = "UPDATE `medicamentos` 
             SET `nome_medicamento` = '$nome', 
@@ -111,19 +110,29 @@ function deleteComp($id,$conn)
 //Verificações de requisição
 if ( isset($_GET['id_delete']) ){
     deleteMed($_GET['id_delete'],$conn,'cod_medicamento');
+    header("Location: /sismj/src/pages/dashboard.php?pag=1"); 
 };
+if ( isset($_GET['id_deleteMed']) ){
+    deleteMed($_GET['id_deleteMed'],$conn,'cod_medicamento');
+    header("Location: /sismj/src/pages/dashboard.php?pag=3&id=". $_GET['id_compra']); 
+};
+if ( isset($_GET['id_deleteMed2']) ){
+    deleteMed($_GET['id_deleteMed2'],$conn,'cod_medicamento');
+    header("Location: /sismj/src/pages/dashboard.php?pag=4&id_compra=". $_GET['id_compra']); 
+};
+
+
 if ( isset($_GET['compra_delete']) ){
     deleteMed($_GET['compra_delete'],$conn,'cod_compra');
     deleteComp($_GET['compra_delete'],$conn);
-    header("location: ../../dashboard(teste)/");
+    header("Location: /sismj/src/pages/dashboard.php?pag=2"); 
 };
-if ( isset($_POST['id_edit']) ){
-    updateMed($_POST['id_edit'],$_POST['nome'],$_POST['tipo'],$_POST['categoria'],$_POST['lab'],$_POST['lote'],$_POST['valid'],$_POST['quant'],$conn);
+if ( isset($_POST['cod_medicamento']) ){
+    updateMed($_POST['cod_medicamento'],$_POST['nome'],$_POST['tipo'],$_POST['categoria'],$_POST['lab'],$_POST['lote'],$_POST['valid'],$_POST['quant'],$conn);
 };
 
 if (isset($_POST['insert_med']) ){
     postMed($_POST['id_compra'], $_POST['nome'], $_POST['tipo'], $_POST['categoria'], $_POST['laboratorio'], $_POST['lote'], $_POST['validade'], $_POST['quantidade'], $conn);
-
 };
 if(isset($_POST['add_compra']))
 {
@@ -132,4 +141,5 @@ if(isset($_POST['add_compra']))
 function close_session($conn){
     mysqli_close($conn);
 }
+
 

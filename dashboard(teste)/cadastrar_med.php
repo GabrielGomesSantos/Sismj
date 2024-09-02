@@ -21,11 +21,11 @@
         <br>
         <label for="laboratorio">laboratorio: </label>
         <input type="text" name="laboratorio" id="laboratorio">
-        <br>
+        <br> 
         <br>
         <label for="lote">lote: </label>
         <input type="number" name="lote" id="lote">
-        <br>
+        <br>   
         <br>
         <label for="validade">validade: </label>
         <input type="date" name="validade" id="validade">
@@ -52,6 +52,7 @@
         if (mysqli_num_rows($result) > 0) {
             while($row = mysqli_fetch_assoc($result)) $saida[] = $row;
         }
+  
     ?>
     <h1>Medicamentos da compra:</h1>
     <div class="table-container">
@@ -76,7 +77,6 @@
                     <?php foreach ($saida as $medicamento) { ?>
                         <tr>
                             <td><?php echo $medicamento['cod_medicamento'] ?></td>
-                            <td><?php echo $medicamento['cod_compra'] ?></td>
                             <td><?php echo $medicamento['nome_medicamento'] ?></td>
                             <td><?php echo $medicamento['tipo_medicamento'] ?></td>
                             <td><?php echo $medicamento['categoria'] ?></td>
@@ -86,9 +86,7 @@
                             <td><?php echo $medicamento['quantidade'] ?></td>
                             <!--Links para editar ou remover um elemento da tabela com base no ID-->
                             <td><a class="corDelete"
-                                    href="../sisman_db.php?id_delete=<?php echo $medicamento['cod_medicamento'] ?>">Remover</a>/<a
-                                    class="editarColor"
-                                    href="editar.php?id=<?php echo $medicamento['cod_medicamento'] ?>">Editar</a></td>
+                                    href="../sisman_db.php?id_delete=<?php echo $medicamento['cod_medicamento'] ?>">Remover</a></td>
                         </tr>
                     <?php } ?>
                 <?php } else { ?>

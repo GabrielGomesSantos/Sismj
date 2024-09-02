@@ -22,13 +22,7 @@ function postMed($cod_compra, $nome, $tipo, $categoria, $laboratorio, $lote, $va
 
 }
 
-function assignCodCompra($id, $conn){
-    $sql = "UPDATE `medicamentos` 
-            SET `cod_compra` = '$id'
-            WHERE `cod_compra` = 0";
-    
-    mysqli_query($conn, $sql);
-}
+
 
 function deleteMed($id, $conn)
 {
@@ -99,20 +93,6 @@ if (isset($_POST['insert_med']) ){
     header("Location: dashboard\adicionar_compras.php");
 }
 
-if (isset($_POST['finish_purchase']) && (!empty($_POST['nota_fiscal']) && !empty($_POST['data']) && !empty($_POST['fornecedor']))) {
-    $nota_fiscal = $_POST['nota_fiscal'];
-    $data = $_POST['data'];
-    $fornecedor = $_POST['fornecedor'];
-
-    $sql = "SELECT MAX(cod_compra) FROM compras";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $id = $row["MAX(cod_compra)"] + 1;
-
-    postCompra($nota_fiscal, $data, $fornecedor, $conn);
-    assignCodCompra($row["MAX(cod_compra)"] + 1, $conn);
-    header("Location: dashboard\index.php");
-}
 
 function close_session($conn){
     mysqli_close($conn);

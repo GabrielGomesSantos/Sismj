@@ -39,20 +39,25 @@
     <title>Sisman - Dashboard</title>
 
 </head>
-
-
-
 <?php include('navbar.php')?>
 
 <body style="position: relative;">
      <!<?php 
           if ($pg == 1){
 
-               include("medicamentos.php");
+               include("visualizar_medicamentos.php");
 
           }else if ($pg == 2){
 
                include("compras.php");
+
+          }else if ($pg == 3){
+
+               include("cadastrar_medicamento.php");
+
+          }else if ($pg == 4){
+
+               include("ver_medicamento.php");
 
           }
         
