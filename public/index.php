@@ -31,7 +31,28 @@ if (isset($_SESSION['login_erro'])) {
   <title>Login</title>
 </head>
 
-
+<style>
+        .password-container {
+            position: relative;
+            
+        }
+        .password-container input[type="password"] {
+            width: 100%;
+            padding-right: 40px;
+        }
+        .password-container button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .imgsenha{
+          width: 30px;
+        }
+    </style>
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #17a2b8;">
   <div class="container-fluid ">
@@ -74,9 +95,14 @@ if (isset($_SESSION['login_erro'])) {
 
                 </div>
                 <div class="form-group last mb-4">
+               
                   <label for="password">Senha</label>
-                  <input type="password" class="form-control" name="senha" id="password" required>
-
+                  <div class="password-container">
+                  <input type="password" class="form-control" maxlength="20" name="senha" id="password" required>
+                  <button type="button" id="togglePassword" aria-label="Mostrar Senha">
+                        <img  class="imgsenha" src="../assets/images/mostrars.png" alt="mostrar_senha">
+                    </button>
+                  </div>
                 </div>
                 <?php if ($login_erro == true) {
                   echo "<div class=' justify-content-center'>
