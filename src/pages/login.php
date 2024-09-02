@@ -21,7 +21,7 @@
         if($row["senha"] == $senha){
             $_SESSION["Nome"] = $row["nome_funcionario"];
             $_SESSION["ID"] = $row["cod_funcionario"];
-            // $_SESSION["Perfil"] = $row["perfil"];
+            $_SESSION["Perfil"] = $row["perfil"];
             $_SESSION["login_erro"]=false;
             header('location: dashboard.php');
           print_r($_SESSION);

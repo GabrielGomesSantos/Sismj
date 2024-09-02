@@ -1,5 +1,5 @@
 <?php
-// session_start();
+
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #17a2b8; height: 80px; padding-left: 4; padding-right: 0;">
@@ -14,7 +14,7 @@
 
         <ul class="navbar-nav mb-2 mr-3 mb-lg-0 d-flex align-items-center">
             <?php
-                echo "<span class='me-4 text-white'>Olá, {$_SESSION['Nome']}</span>";
+                echo "<span class='me-4 text-white'>Olá, João Silva</span>";
             ?>
             <li class="nav-item ml-3">
                 <img src="../../assets/images/acount.png" alt="Conta" width="55" height="54" class="ms-3">

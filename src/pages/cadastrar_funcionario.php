@@ -58,7 +58,9 @@
 
 <?php
 require_once('../../config/config.php');
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     $nome_funcionario = $_POST['nome_funcionario'];
     $cpf_funcionario = $_POST['cpf_funcionario'];
     $matricula_funcionario = $_POST['matricula_funcionario'];
@@ -67,17 +69,42 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $perfil_funcionario = $_POST['perfil_funcionario'];
 
 
-    $sql = "INSERT INTO funcionarios (nome_funcionario, cpf_funcionario, matricula, email_funcionario, senha, perfil) VALUES ('$nome_funcionario', '$cpf_funcionario', '$matricula_funcionario', '$email_funcionario', '$senha_funcionario', '$perfil_funcionario')";
+    $sql = $conn->prepare("INSERT INTO funcionarios (nome_funcionario, cpf_funcionario, matricula, email_funcionario, senha, perfil) VALUES (?, ?, ?, ?, ?, ?)");
+    $sql->bind_param("ssssss", $nome_funcionario, $cpf_funcionario, $matricula_funcionario, $email_funcionario, $senha_funcionario, $perfil_funcionario);
 
-    if ($conn->query($sql) === TRUE) {
-        echo "<script>
-        alert('Funcionario Cadastrado');
-        window.location.href='dashboard.php?pag=2'
-        </script>";
+    if ($sql->execute()) {
+
+        $caminho = "../../perfil_img/" . $nome_funcionario;
+        if (!file_exists($caminho)) {
+            mkdir($caminho, 0777, true);
+        }
+
+        if (isset($_FILES['acount']) && $_FILES['acount']['error'] === UPLOAD_ERR_OK) {
+            $arquivo_temp = $_FILES['acount']['tmp_name'];
+            $nome_arquivo = basename($_FILES['acount']['name']); 
+            $destino = $caminho . "/" . $nome_arquivo;
+            
+            if (move_uploaded_file($arquivo_temp, $destino)) {
+                echo "<script>
+                alert('Funcionário Cadastrado e imagem enviada com sucesso!');
+                window.location.href='dashboard.php?pag=2';
+                </script>";
+            } else {
+                echo "Erro ao mover o arquivo enviado.";
+            }
+            
+        } else {
+            echo "Erro no envio do arquivo.";
+        }
+    
     } else {
-        echo "Erro ao cadastrar funcionario: " . $conn->error;
+        echo "Erro ao cadastrar funcionário: " . $conn->error;
     }
-
-
-   
+    
+    
+    $sql->close();
+    
 }
+
+$conn->close();
+?>
