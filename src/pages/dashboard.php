@@ -50,9 +50,6 @@ if(!isset($_SESSION['ID'])){
     <title>Sisman - Dashboard</title>
 
 </head>
-
-
-
 <?php include('navbar.php')?>
 
 <body style="position: relative;">

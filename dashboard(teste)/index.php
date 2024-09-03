@@ -47,16 +47,18 @@
     </header>
     <br>
     <div class="card">
-        <a href="adicionar.php" class="botao">Adicionar Produto</a>
+        <a href="adicionar_compras.php" class="botao">Adicionar Compras</a>
         <br> <br>
         <a href="reset.php" class="botao">Apagar Tabela</a>
     </div>
     <br>
+        <h1>Medicamentos:</h1>
     <form action="" method="get">
         <input name="search" type="text">
         <input  type="submit" value="search">
     </form>
     <br>
+
     <div class="table-container">
         <table border="1">
             <tbody>
@@ -97,6 +99,56 @@
                     aparecerá uma imagem e uma mensagem informando que a tabela está vazia-->
                     <div class="cardVazia">
                         <p>A tabela está sem medicamentos😪 <br>Se tiver adicione medicamento</p>
+                    </div>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <br>
+    <br>
+    <h1>Compras:</h1>
+    <?php
+        $get = "SELECT * FROM compras";
+        
+        $query = mysqli_query($conn, $get);
+
+        //Se a consulta gerar resultado irá armazenar tudo na variável "saida"
+        if (mysqli_num_rows($query) > 0) {
+            while($row = mysqli_fetch_assoc($query)) $comp[] = $row;
+        }
+    ?>
+    <br>
+    <div class="table-container">
+        <table border="1">
+            <tbody>
+                <!--Se a variável "saida" estiver vazia ele não irá tentar imprimir a tabela, caso contrário,
+                a tabela aparecerá normalmente-->
+                <?php if (!empty($comp)) { ?>
+                    <tr>
+                        <th>COD:</th>
+                        <th>Nota Fiscal:</th>
+                        <th>Data:</th>
+                        <th>Fornecedor:</th>
+                        <th>Ações:</th>
+                    </tr>
+                    <!--Itera sobre todos os elementos da variável "saida" para imprimi-la corretamente-->
+                    <?php foreach ($comp as $compra) { ?>
+                        <tr>
+                            <td><?php echo $compra['cod_compra'] ?></td>
+                            <td><?php echo $compra['nota_fiscal'] ?></td>
+                            <td><?php echo $compra['data'] ?></td>
+                            <td><?php echo $compra['fornecedor'] ?></td>
+                            <!--Links para editar ou remover um elemento da tabela com base no ID-->
+                            <td><a class="corDelete" href="view_medicamentos.php?id_compra=<?php echo $compra['cod_compra']?>">View</a>/<a class="editarColor" href="../src/pages/sisman_db.php?compra_delete=<?php echo $compra['cod_compra']?>">Delete</a></td>
+                        </tr>
+                    <?php } ?>     
+                <?php }
+                else {  ?> 
+                    <!--Como dito anteriormente, se a tabela estiver vazia não irá imprimi-la, por conseguinte
+                    aparecerá uma imagem e uma mensagem informando que a tabela está vazia-->
+                    <div class="cardVazia">
+                        <p>A tabela está sem compras😪</p>
                     </div>
                 <?php } mysqli_close($conn); ?>
             </tbody>
