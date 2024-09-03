@@ -1,13 +1,6 @@
 <?php
-if(!isset($_SESSION['ID'])){
-  session_start();
-};
-
-     if(!isset($_SESSION["Perfil"])){
-      header('Location: ../../public/index.php');
-    }
-
-    require_once('C:/xampp/htdocs/Sismj/config/config.php');
+    require_once('../../config/config.php'); 
+    $perfil = '';
     $sql = "SELECT * FROM funcionarios";
     $result = $conn->query($sql);
 ?>
@@ -40,6 +33,137 @@ if(!isset($_SESSION['ID'])){
     <!-- Titulo Lembrar de mudar! -->
     <link rel="shortcut icon" href="../../assets/images/favico.ico">
     <title>Remover Funcionario</title>
+    <style>
+      *{
+
+list-style: none;
+margin: 0; 
+padding: 0;
+}
+body{
+
+min-height: 100vh;
+
+}
+
+.col {
+margin: 0px;
+}
+.row {
+margin: 0px;
+}
+.sidebar{
+
+position: absolute;
+width: 60px;
+height: calc(100vh - 80px);
+transition: 0.4s;
+background-color: #17a2b8;
+overflow: hidden;
+
+
+}
+.sidebar ul li a{
+
+display: flex;
+white-space: nowrap;
+text-decoration: none;
+
+}
+.sidebar ul li .icone{
+
+display: flex;
+justify-content: center;
+
+
+
+min-width: 60px;
+height: 60px;
+
+}
+
+.sidebar:hover{
+
+width: 175px;
+
+}
+
+.sidebar ul li .titulo{
+
+display: flex;
+width: 100%;
+height: 20px;
+text-align: flex-start;
+color: white;
+transition: 0.2s;
+
+}
+
+.sidebar ul li .titulo:hover{
+
+color: #ccc;
+
+}
+
+.centralizar{
+
+display: flex;
+align-items: center;
+text-align: center;
+margin-bottom: 30px;
+
+}
+
+input .number {
+
+border: none;
+
+}
+
+.row_paciente{
+transition: 0.2s;
+cursor: pointer; 
+
+
+}
+.row_paciente:hover{
+background-color: #e7e6e5;
+  
+
+}
+
+.barraacoes{
+background-color: red;
+transition: 0.2s;
+
+overflow: hidden;
+}
+.barraacoes:hover{
+height: 500px;
+}
+
+
+
+.sair{
+
+position: absolute;
+right: 0;
+top: -40px;
+height: 120px;
+width: 220px;
+padding: 8px;
+transition: 0.4s;
+background-color: #17a2b8;
+overflow: hidden;
+}
+
+.sair:hover{
+
+height: 180px;
+border-radius: 7px;
+
+}
+    </style>
 </head>
 
 <?php include('navbar.php')?>
@@ -49,13 +173,13 @@ if(!isset($_SESSION['ID'])){
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nome</th>
-      <th scope="col">CPF</th>
-      <th scope="col">Matricula</th>
-      <th scope="col">Email</th>
-      <th scope="col">Senha</th>
-      <th scope="col">Perfil</th>
+      <th scope="col">ID:</th>
+      <th scope="col">Nome:</th>
+      <th scope="col">CPF:</th>
+      <th scope="col">Matricula:</th>
+      <th scope="col">Email:</th>
+      <th scope="col">Senha:</th>
+      <th scope="col">Perfil:</th>
       <th scope="col">Ações</th>
     </tr>
   </thead>
@@ -69,8 +193,23 @@ if(!isset($_SESSION['ID'])){
       <td><?php echo $row['matricula'] ?></td>
       <td><?php echo $row['email_funcionario'] ?></td>
       <td><?php echo $row['senha'] ?></td>
-      <td><?php echo $row['perfil'] ?></td>
+      <?php
+      switch ($row['perfil']) {
+        case 1:
+            $perfil = "Gestor";
+            break;
+        case 2:
+            $perfil = "Atendente";
+            break;
+        default:
+            echo "Perfil desconhecido!";
+            break;
+    }
+    
+      ?>
+      <td><?php echo $perfil ?></td>
       <td><a href="remover_funcionario.php?id_funcionario=<?php echo $row['cod_funcionario']?>" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a></td>
+      <td><a href="editar_funcionario.php?id_funcionario=<?php echo $row['cod_funcionario']?>" class="btn btn-warning"><i class="bi bi-pencil text-white"></i></a></td>
     </tr>
     <?php endwhile;?>
     <?php endif?>
