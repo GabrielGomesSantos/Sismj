@@ -234,12 +234,3 @@ $(function() {
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
 </script>
-
-<script>
-function showSelectedValue() {
-    var dropdown = document.getElementById('myDropdown');
-    var selectedValue = dropdown.value;
-    var variaveljs - "yan_corno"
-    alert('Valor selecionado: ' + selectedValue);
-}
-</script>

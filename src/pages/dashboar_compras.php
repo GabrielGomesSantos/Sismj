@@ -413,5 +413,5 @@ $result = $conn->query($sql);
             document.getElementById('editarData').value = row.querySelector('td:nth-child(4)').innerText;
             document.getElementById('editarFornecedor').value = row.querySelector('td:nth-child(5)').innerText;
         });
-
+    });
 </script>
