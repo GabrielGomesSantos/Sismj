@@ -81,6 +81,9 @@ if(!isset($_SESSION['ID'])){
                     case 6:
                         include("dashboard_pacientes.php");
                         break;
+                    case 7:
+                         include("ver_medicamento.php");
+                         break;
                     default:
                         include("dashboard_Compras.php");
                         break;
