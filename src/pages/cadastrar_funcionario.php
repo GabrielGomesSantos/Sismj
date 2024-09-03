@@ -10,28 +10,25 @@
                         </div>
                         <form action="cadastrar_funcionario.php" method="post">
                             <div class="form-group first mb-4">
-                                <label for="nome_funcionario">Nome:</label>
-                                <input type="text" class="form-control" id="nome_funcionario" name="nome_funcionario"
+                                <!-- <label for="nome_funcionario">Nome:</label> -->
+                                <input type="text" class="form-control" id="nome_funcionario" name="nome_funcionario" placeholder="Nome:"
                                     required>
                             </div>
                             <div class="form-group mb-4">
-                                <label for="cpf_funcionario">Cpf:</label>
-                                <input type="text" class="form-control" id="cpf_funcionario" name="cpf_funcionario"
+                                <input type="text" class="form-control" id="cpf_funcionario" name="cpf_funcionario" placeholder="CPF:"
                                     required>
                             </div>
                             <div class="form-group mb-4">
-                                <label for="matricula_funcionario">Matricula:</label>
-                                <input type="text" class="form-control" id="matricula_funcionario" 0
+                                <input type="text" class="form-control" id="matricula_funcionario" placeholder="Matrícula:"
                                     name="matricula_funcionario" required>
                             </div>
                             <div class="form-group mb-4">
-                                <label for="email_funcionario">Email:</label>
-                                <input type="email" class="form-control" id="email_funcionario" name="email_funcionario"
+                                <input type="email" class="form-control" id="email_funcionario" name="email_funcionario" placeholder="E-mail:"
                                     required>
                             </div>
                             <div class="form-group mb-4">
-                                <label for="senha_funcionario">Senha:</label>
-                                <input type="password" class="form-control" id="senha_funcionario"
+
+                                <input type="password" class="form-control" id="senha_funcionario"placeholder="Senha:"
                                     name="senha_funcionario" required>
                             </div>
 

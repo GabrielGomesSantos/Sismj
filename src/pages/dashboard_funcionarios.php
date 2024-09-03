@@ -1,32 +1,29 @@
 <?php
 include('../../config/config.php');
 
-// Número de itens por página
+
 $items_per_page = 6;
 
-// Página atual
 $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $offset = ($current_page - 1) * $items_per_page;
 
-// Obter o número total de registros
+
+
 $sql_total = "SELECT COUNT(*) FROM `funcionarios`";
 $total_result = $conn->query($sql_total);
 $total_rows = $total_result->fetch_row()[0];
 
-// Calcular o número total de páginas
 $total_pages = ceil($total_rows / $items_per_page);
 
-// Consultar registros para a página atual
 $sql = "SELECT * FROM `funcionarios` LIMIT $items_per_page OFFSET $offset";
 $result = $conn->query($sql);
 
 ?>
 
-<!-- Modal -->
+
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
 </div>
-<!-- fim do modal  -->
 <div class="sidebar ">
     <ul class="mt-4">
         <li>
@@ -89,7 +86,7 @@ $result = $conn->query($sql);
 </div>
 <div class="row">
     <div class="col-10 offset-1">
-        <table class="table text-center">
+        <table class="table text-center" style=>
             <thead>
                 <tr>
                     <th scope="col">ID:</th>
@@ -161,8 +158,7 @@ $result = $conn->query($sql);
         </table>
     </div>
 </div>
-
-<div class="row">
+<div class="row mb-5">
     <div class="col-12">
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
@@ -192,6 +188,7 @@ $result = $conn->query($sql);
         </nav>
     </div>
 </div>
+
 
 <script src="../../assets/js/jquery-3.3.1.min.js"></script>
 <script src="../../assets/js/popper.min.js"></script>
