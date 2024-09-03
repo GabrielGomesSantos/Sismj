@@ -29,10 +29,13 @@ $nome = htmlspecialchars($_SESSION['Nome']); // Sanitize session variable
                     echo "<span class='me-5 text-white'>Olá, {$_SESSION['Nome']}</span>";
                     ?> 
                     <img src="../../perfil_img/<?php echo $nome; ?>/acount.jpg" alt="Conta" width="55" height="54" class="ms-5 me-5 rounded-circle">                </li>
-                <li class="mt-3">
-                    <button type="button" class="btn btn-danger" onclick='window.location="sair.php"'>Logoff</button>
-                </li>
-            </ul>
+                    <li class="mt-3">
+                        <button type="button" class="btn btn-danger" onclick='window.location="sair.php"'>Logoff</button>
+                    </li>
+                    <li class="mt-3">
+                        <button type="button" class="btn btn-danger" onclick='window.location="sair.php"'>Foto</button>
+                    </li>
+                </ul>
 
         </div>
 

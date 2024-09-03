@@ -35,6 +35,7 @@ if(!isset($_SESSION['ID'])){
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="../../assets/js/dashboar.js"></script>
 
     <!-- Style -->
     <link rel="stylesheet" href="../../assets/css/style.css">
