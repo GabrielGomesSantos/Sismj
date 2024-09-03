@@ -132,26 +132,7 @@ function getStatus($validade, $quantidade) {
 
     <div class="row">
         <div class="col-1" style="margin: 0; padding: 0;">
-            <div class="sidebar">
-                <ul class="mt-4">
-                    <li>
-                        <a href="dashboard.php?pag=1">
-                           <div class="centralizar">
-                                <span class="icone"><img src="..\..\assets\images\medicamentos.png" alt=""></span>
-                                <span style=" margin-left: 5px; " class="titulo">Medicamentos</span>
-                           </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="dashboard.php?pag=2">
-                            <div class="centralizar">
-                                <span class="icone"><img src="..\..\assets\images\compras.png" alt=""></span>
-                                <span  class="titulo">Compras</span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <?php include('sidebar_gestor.php'); ?>
         </div>
         <div class="col-10">
             <div class="row mt-5">

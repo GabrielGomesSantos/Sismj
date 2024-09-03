@@ -27,34 +27,7 @@ $result = $conn->query($sql);
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
 </div>
 <!-- fim do modal  -->
-<div class="sidebar ">
-    <ul class="mt-4">
-        <li>
-            <a href="dashboard.php?pag=1">
-                <div class="centralizar">
-                    <span class="icone"><img src="..\..\assets\images\processo.png" alt=""></span>
-                    <span class="titulo">Processos</span>
-                </div>
-            </a>
-        </li>
-        <li>
-            <a href="dashboard.php?pag=2">
-                <div class="centralizar">
-                    <span class="icone"><img src="..\..\assets\images\funcionarios.png" alt=""></span>
-                    <span style=" margin-left: 5px; " class="titulo">Funcionarios</span>
-                </div>
-            </a>
-        </li>
-        <li>
-            <a href="dashboard.php?pag=4">
-                <div class="centralizar">
-                    <span class="icone"><img src="..\..\assets\images\paciente.png" alt=""></span>
-                    <span class="titulo">Pacientes</span>
-                </div>
-            </a>
-        </li>
-    </ul>
-</div>
+<?php include('sidebar_gestor.php'); ?>
 <div class="col-10 mb-5">
     <div class="row mt-5">
         <div class="col mt-3" style="position: relative; width:100%; inset: 0% 10%;">

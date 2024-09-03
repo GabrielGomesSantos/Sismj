@@ -89,7 +89,42 @@ if(!isset($_SESSION['ID'])){
                         break;
                 }
                 
-          }     
+          }else if($perfil == 0 ){
+          
+               switch ($pg) {
+                    case 1:
+                        include("dashboard_Compras.php");
+                        break;
+                    case 2:
+                        include("dashboard_Medicamentos.php");
+                        break;
+                    case 3:
+                        include("dashboard_processo.php");
+                        break;
+                    case 4:
+                        include("dashboard_medicos.php");
+                        break;
+                    case 5:
+                        include("dashboard_funcionarios.php");
+                        break;
+                    case 6:
+                        include("dashboard_pacientes.php");
+                        break;
+                    case 7:
+                         include("ver_medicamento.php");
+                         break;
+                    case 8:
+                         include("dashboard_atendente.php");
+                         break;
+                    case 9:
+                         include("estoque.php");
+                         break;
+                    default:
+                        include("dashboard_Compras.php");
+                        break; 
+                    
+          }    
+     }
         
         
       ?>
