@@ -49,28 +49,25 @@ $result = $conn->query($sql);
                                         <input type="hidden" name="id_medicamento_processo" value="<?php echo $row['cod_medicamento_processo']?>">
                                         <input type="hidden" name="id_processo" value="<?php echo $id_medicamento_processo?>">
                                         <div class="form-group first mb-4">
-                                            <label for="nome_medicamento">Nome do Medicamento:</label>
+                                            
                                             <input type="text" class="form-control" id="nome_medicamento"
-                                                name="nome_medicamento" value="<?php echo $row['nome_medicamento']?>" required>
+                                                name="nome_medicamento" value="<?php echo $row['nome_medicamento']?>" placeholder="Nome Medicamento:" required>
                                         </div>
                                         <div class="form-group mb-4">
-                                            <label for="tipo_medicamento">Tipo do Medicamento:</label>
                                             <input type="text" class="form-control" id="tipo_medicamento"
-                                                name="tipo_medicamento" value="<?php echo $row['tipo_medicamento']?>" required>
+                                                name="tipo_medicamento" value="<?php echo $row['tipo_medicamento']?>" placeholder="Tipo Medicamento:" required>
                                         </div>
                                         <div class="form-group mb-4">
-                                            <label for="categoria_medicamento">Categoria do Medicamento:</label>
                                             <input type="text" class="form-control" id="categoria_medicamento"
-                                                name="categoria_medicamento" value="<?php echo $row['categoria_medicamento']?>" required>
+                                                name="categoria_medicamento" value="<?php echo $row['categoria_medicamento']?>" placeholder="Categoria Medicamento" required>
                                         </div>
                                         <div class="form-group mb-4">
-                                            <label for="laboratorio">Laboratório:</label>
                                             <input type="text" class="form-control" id="laboratorio" name="laboratorio" value="<?php echo $row['laboratorio']?>"
-                                                required>
+                                              placeholder="Laboratório"  required>
                                         </div>
                                         <div class="form-group mb-4">
-                                            <label for="quantidade">Quantidade:</label>
-                                            <input type="number" class="form-control" id="quantidade" name="quantidade" value="<?php echo $row['quantidade']?>"
+                                            
+                                            <input type="number" class="form-control" id="quantidade" name="quantidade" value="<?php echo $row['quantidade']?>"placeholder="Quantidade:"
                                                 required>
                                         </div>
                                         <?php endwhile;?>

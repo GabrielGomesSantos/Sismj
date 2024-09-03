@@ -61,28 +61,23 @@ if (isset($_GET['id_medico'])) {
                                         name="cod_medico" value="<?php echo $row['cod_medico'] ?>">
                                 </div>
                                 <div class="form-group first mb-4">
-                                    <label for="nome_medico">Nome:</label>
-                                    <input type="text" class="form-control" id="nome_medico"
+                                    <input type="text" class="form-control" id="nome_medico"placeholder="Nome:"
                                         name="nome_medico" required value="<?php echo $row['nome_medico'] ?>">
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="cpf_medico">Cpf:</label>
-                                    <input type="text" class="form-control" id="cpf_medico" name="cpf_medico"
+                                    <input type="text" class="form-control" id="cpf_medico" name="cpf_medico" placeholder="CPF:"
                                         required value="<?php echo $row['cpf_medico'] ?>">
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="crm">CRM:</label>
-                                    <input type="text" class="form-control" id="crm"
+                                    <input type="text" class="form-control" id="crm"placeholder="CRM:"
                                         name="crm" required value="<?php echo $row['crm'] ?>">
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="especialidade">Especialidade:</label>
-                                    <input type="text" class="form-control" id="especialidade"
+                                    <input type="text" class="form-control" id="especialidade"placeholder="Especialidade:"
                                         name="especialidade" required value="<?php echo $row['especialidade'] ?>">
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="celular">Celular:</label>
-                                    <input type="password" class="form-control" id="celular"
+                                    <input type="password" class="form-control" id="celular"placeholder="Celular:"
                                         name="celular" required value="<?php echo $row['celular'] ?>">
                                 </div>
                                 <input type="submit" value="Editar" class="btn text-white btn-block btn-info mt-5">

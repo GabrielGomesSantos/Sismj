@@ -63,48 +63,37 @@ if (isset($_GET['id_paciente'])) {
                         <input type="hidden" name="cod_paciente" value="<?php echo htmlspecialchars($row['cod_paciente']); ?>">
                         
                         <div class="form-group first mb-4">
-                            <label for="nome_paciente">Nome:</label>
-                            <input type="text" class="form-control" id="nome_paciente" name="nome_paciente" required value="<?php echo htmlspecialchars($row['nome_paciente']); ?>">
+                            <input type="text" class="form-control" id="nome_paciente" name="nome_paciente" placeholder="Nome:" required value="<?php echo htmlspecialchars($row['nome_paciente']); ?>">
                         </div>
                         <div class="form-group mb-4">
-                            <label for="cpf_paciente">CPF:</label>
-                            <input type="text" class="form-control" id="cpf_paciente" name="cpf_paciente" required value="<?php echo htmlspecialchars($row['cpf_paciente']); ?>">
+                            <input type="text" class="form-control" id="cpf_paciente" placeholder="CPF:" name="cpf_paciente" required value="<?php echo htmlspecialchars($row['cpf_paciente']); ?>">
                         </div>
                         <div class="form-group mb-4">
-                            <label for="cns_paciente">CNS:</label>
-                            <input type="text" class="form-control" id="cns_paciente" name="cns_paciente" required value="<?php echo htmlspecialchars($row['cns_paciente']); ?>">
+                            <input type="text" class="form-control" placeholder="CNS:" id="cns_paciente" name="cns_paciente" required value="<?php echo htmlspecialchars($row['cns_paciente']); ?>">
                         </div>
                         <div class="form-group mb-4">
-                            <label for="logradouro">Logradouro:</label>
-                            <input type="text" class="form-control" id="logradouro" name="logradouro" required value="<?php echo htmlspecialchars($row['logradouro']); ?>">
+                            <input type="text" class="form-control" placeholder="Logradouro" id="logradouro" name="logradouro" required value="<?php echo htmlspecialchars($row['logradouro']); ?>">
                         </div>
                         <div class="form-group mb-4">
-                            <label for="numero">Número:</label>
-                            <input type="text" class="form-control" id="numero" name="numero" required value="<?php echo htmlspecialchars($row['numero']); ?>">
+                            <input type="text" class="form-control" placeholder="Número:" id="numero" name="numero" required value="<?php echo htmlspecialchars($row['numero']); ?>">
                         </div>
                         <div class="form-group mb-4">
-                            <label for="complemento">Complemento:</label>
-                            <input type="text" class="form-control" id="complemento" name="complemento" value="<?php echo htmlspecialchars($row['complemento']); ?>">
+                            <input type="text" class="form-control" placeholder="Complemento" id="complemento" name="complemento" value="<?php echo htmlspecialchars($row['complemento']); ?>">
                         </div>
                         <div class="form-group mb-4">
-                            <label for="bairro">Bairro:</label>
-                            <input type="text" class="form-control" id="bairro" name="bairro" required value="<?php echo htmlspecialchars($row['bairro']); ?>">
+                            <input type="text" class="form-control" placeholder="Bairro:" id="bairro" name="bairro" required value="<?php echo htmlspecialchars($row['bairro']); ?>">
                         </div>
                         <div class="form-group mb-4">
-                            <label for="cidade">Cidade:</label>
-                            <input type="text" class="form-control" id="cidade" name="cidade" required value="<?php echo htmlspecialchars($row['cidade']); ?>">
+                            <input type="text" class="form-control" placeholder="Cidade:" id="cidade" name="cidade" required value="<?php echo htmlspecialchars($row['cidade']); ?>">
                         </div>
                         <div class="form-group mb-4">
-                            <label for="cep">CEP:</label>
-                            <input type="text" class="form-control" id="cep" name="cep" required value="<?php echo htmlspecialchars($row['cep']); ?>">
+                            <input type="text" class="form-control" placeholder="CEF:" id="cep" name="cep" required value="<?php echo htmlspecialchars($row['cep']); ?>">
                         </div>
                         <div class="form-group mb-4">
-                            <label for="estado">Estado:</label>
-                            <input type="text" class="form-control" id="estado" name="estado" required value="<?php echo htmlspecialchars($row['estado']); ?>">
+                            <input type="text" class="form-control" placeholder="Estado:" id="estado" name="estado" required value="<?php echo htmlspecialchars($row['estado']); ?>">
                         </div>
                         <div class="form-group mb-4">
-                            <label for="celular">Celular:</label>
-                            <input type="text" class="form-control" id="celular" name="celular" required value="<?php echo htmlspecialchars($row['celular']); ?>">
+                            <input type="text" class="form-control" placeholder="Celular" id="celular" name="celular" required value="<?php echo htmlspecialchars($row['celular']); ?>">
                         </div>
                         
                         <input type="submit" value="Salvar Alterações" class="btn text-white btn-block btn-info mt-5">
