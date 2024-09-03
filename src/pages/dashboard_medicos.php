@@ -84,8 +84,8 @@ $result = $conn->query($sql);
     </div>
 </div>
 <div class="row">
-    <div class="col-10 offset-1">
-        <table class="table">
+    <div class="col-10 offset-1 ">
+        <table class="table text-center">
             <thead>
                 <tr>
                     <th scope="col">ID:</th>
@@ -94,13 +94,13 @@ $result = $conn->query($sql);
                     <th scope="col">CRM:</th>
                     <th scope="col">Especialidade:</th>
                     <th scope="col">Celular:</th>
-                    <th scope="col">Ações</th>
+                    <th scope="col" colspan="2">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if ($result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
-                <td>
+                
                 <th scope="row"><?php echo $row['cod_medico'] ?></th>
                 <td><?php echo $row['nome_medico'] ?></td>
                 <td><?php echo $row['cpf_medico'] ?></td>

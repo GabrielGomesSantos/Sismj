@@ -70,16 +70,16 @@ if(!isset($_SESSION['ID'])){
                         include("dashboard_Medicamentos.php");
                         break;
                     case 3:
-                        include("dashboard_Processos.php");
+                        include("dashboard_processo.php");
                         break;
                     case 4:
-                        include("dashboard_Medicos.php");
+                        include("dashboard_medicos.php");
                         break;
                     case 5:
-                        include("dashboard_Funcionarios.php");
+                        include("dashboard_funcionarios.php");
                         break;
                     case 6:
-                        include("dashboard_Pacientes.php");
+                        include("dashboard_pacientes.php");
                         break;
                     default:
                         include("dashboard_Compras.php");

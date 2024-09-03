@@ -89,7 +89,7 @@ $result = $conn->query($sql);
 </div>
 <div class="row">
     <div class="col-10 offset-1">
-        <table class="table">
+        <table class="table text-center">
             <thead>
                 <tr>
                     <th scope="col">ID:</th>
@@ -99,7 +99,7 @@ $result = $conn->query($sql);
                     <th scope="col">Email:</th>
                     <th scope="col">Senha:</th>
                     <th scope="col">Perfil:</th>
-                    <th scope="col">Ações</th>
+                    <th scope="col" colspan="2">Ações</th>
                 </tr>
             </thead>
             <tbody>

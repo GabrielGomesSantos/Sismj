@@ -173,7 +173,7 @@ function getStatus($validade, $quantidade) {
 
             <div class="row">
                 <div class="col-10 offset-1">
-                    <table class="table mt-5">
+                    <table class="table mt-5 text-center">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Status</th>
