@@ -85,7 +85,6 @@ function updateMed($id, $nome, $tipo, $categoria, $lab, $lote, $validade, $quant
     }
 
     // Redireciona para o dashboard (descomente se necessário)
-    header("Location: /sismj/src/pages/dashboard.php?pag=2"); 
 }
 
 function deleteComp($id,$conn)
@@ -127,10 +126,6 @@ if ( isset($_GET['compra_delete']) ){
     deleteComp($_GET['compra_delete'],$conn);
     header("Location: /sismj/src/pages/dashboard.php?pag=2"); 
 };
-if ( isset($_POST['cod_medicamento']) ){
-    updateMed($_POST['cod_medicamento'],$_POST['nome'],$_POST['tipo'],$_POST['categoria'],$_POST['lab'],$_POST['lote'],$_POST['valid'],$_POST['quant'],$conn);
-};
-
 if (isset($_POST['insert_med']) ){
     postMed($_POST['id_compra'], $_POST['nome'], $_POST['tipo'], $_POST['categoria'], $_POST['laboratorio'], $_POST['lote'], $_POST['validade'], $_POST['quantidade'], $conn);
 };

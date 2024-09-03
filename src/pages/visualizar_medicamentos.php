@@ -24,23 +24,6 @@ $sql = "
 
 // Executar a consulta
 $result = $conn->query($sql);
-
-function getStatus($validade, $quantidade)
-{
-    $validade_date = new DateTime($validade);
-    $current_date = new DateTime();
-    $interval = $current_date->diff($validade_date);
-    $months_left = $interval->y * 12 + $interval->m;
-
-    if ($months_left < 5 || $quantidade < 50) {
-        return ['color' => '#ff0000', 'status' => 'Estoque baixo']; // Vermelho
-    } elseif ($months_left < 6 || $quantidade < 100) {
-        return ['color' => '#ffff00', 'status' => 'Estoque médio']; // Amarelo
-    } else {
-        return ['color' => '#00ff00', 'status' => 'Estoque suficiente'];
-        ; // Verde
-    }
-}
 ?>
 
 
@@ -122,7 +105,6 @@ function getStatus($validade, $quantidade)
                     <table class="table mt-5">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">Status</th>
                                 <th scope="col">Nº</th>
                                 <th scope="col">Nome Medicamento</th>
                                 <th scope="col">Tipo Medicamento</th>
@@ -137,13 +119,6 @@ function getStatus($validade, $quantidade)
                         <tbody>
                             <?php while ($row = $result->fetch_assoc()): ?>
                                 <tr class="row_paciente">
-                                    <?php
-                                    $status_info = getStatus($row['validade'], $row['quantidade']);
-                                    ?>
-                                    <th class="btn" title="<?php echo htmlspecialchars($status_info['status']); ?>"
-                                        style="height:80px; background-color: <?php echo htmlspecialchars($status_info['color']); ?>;"
-                                        disable>
-                                    </th>
                                     <th scope="row" data-id="<?= $row['cod_medicamento']; ?>"></th>
                                     <td><?= $row['nome_medicamento']; ?></td>
                                     <td><?= $row['tipo_medicamento']; ?></td>
@@ -205,7 +180,7 @@ function getStatus($validade, $quantidade)
                     </div>
                     <div class="modal-body">
                         <form method="POST" action="sisman_db.php">
-                            <input type="hidden" name="cod_medicamento" id="editarCodMedicamento">
+                            <input type="hidden" name="cod_medicamento1" id="editarCodMedicamento">
                             <div class="mb-3">
                                 <label for="editarNomeMedicamento" class="form-label">Nome Medicamento</label>
                                 <input type="text" class="form-control" id="editarNomeMedicamento" name="nome" required>
@@ -262,8 +237,8 @@ function getStatus($validade, $quantidade)
                             Esta ação não pode ser desfeita.</p>
                     </div>
                     <div class="modal-footer">
-                        <form id="excluirMedicamentoForm" method="POST" action="excluir.php">
-                            <input type="hidden" name="cod_medicamento" id="excluirCodMedicamento">
+                        <form id="excluirMedicamentoForm" method="get" action="sisman_db.php">
+                            <input type="hidden" name="id_delete" id="excluirCodMedicamento">
                             <button type="submit" class="btn btn-danger">Excluir</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </form>
@@ -294,13 +269,13 @@ function getStatus($validade, $quantidade)
 
                         // Preencher o modal de edição com os dados
                         document.getElementById('editarCodMedicamento').value = dataId;
-                        document.getElementById('editarNomeMedicamento').value = row.querySelector('td:nth-child(3)').innerText; // Ajuste o índice
-                        document.getElementById('editarTipoMedicamento').value = row.querySelector('td:nth-child(4)').innerText;
-                        document.getElementById('editarCategoria').value = row.querySelector('td:nth-child(5)').innerText;
-                        document.getElementById('editarLaboratorio').value = row.querySelector('td:nth-child(6)').innerText;
-                        document.getElementById('editarLote').value = row.querySelector('td:nth-child(7)').innerText;
-                        document.getElementById('editarValidade').value = row.querySelector('td:nth-child(8)').innerText;
-                        document.getElementById('editarQuantidade').value = row.querySelector('td:nth-child(9)').innerText;
+                        document.getElementById('editarNomeMedicamento').value = row.querySelector('td:nth-child(2)').innerText; // Ajuste o índice
+                        document.getElementById('editarTipoMedicamento').value = row.querySelector('td:nth-child(3)').innerText;
+                        document.getElementById('editarCategoria').value = row.querySelector('td:nth-child(4)').innerText;
+                        document.getElementById('editarLaboratorio').value = row.querySelector('td:nth-child(5)').innerText;
+                        document.getElementById('editarLote').value = row.querySelector('td:nth-child(6)').innerText;
+                        document.getElementById('editarValidade').value = row.querySelector('td:nth-child(7)').innerText;
+                        document.getElementById('editarQuantidade').value = row.querySelector('td:nth-child(8)').innerText;
                     });
                 });
 
