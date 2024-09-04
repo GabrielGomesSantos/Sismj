@@ -4,8 +4,8 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "";
-$dbname = "test";
+$password = "usbw";
+$dbname = "bd_sisman";
 
 ////////////////////////////////
 
@@ -15,7 +15,6 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 ////////////////////////////////
 
-
 // Verifica a conexão
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
@@ -23,8 +22,7 @@ if (!$conn) {
 
 mysqli_set_charset($conn, "utf8");
 
-
-// define('BASE_URL', 'http://localhost/Sismj/');
+define('BASE_URL', 'http://localhost/Sismj/');
 // define('ASSETS_URL', BASE_URL . 'assets/');
 
 ?>

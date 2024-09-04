@@ -1,4 +1,12 @@
 <?php
+if(!isset($_SESSION['ID'])){
+    session_start();
+};
+
+    if(!isset($_SESSION["Perfil"])){
+        header('Location: ../../public/index.php');
+   }
+
 include('../../config/config.php');
 
 // Verificar se o parâmetro 'cod_entrega' foi passado
@@ -11,12 +19,14 @@ if (isset($_GET['cod_entrega'])) {
                     JOIN pacientes p ON e.cod_paciente = p.cod_paciente
                     WHERE e.cod_entrega = ?";
 
-    $sqlRemedios = "SELECT mp.nome_medicamento, mp.tipo_medicamento, mp.categoria_medicamento, mp.quantidade
+    $sqlRemedios = "SELECT m.nome_medicamento, m.tipo_medicamento, m.categoria, ie.qtde_medicamento 
                     FROM entregas e
-                    JOIN medicamentos_processo mp ON e.cod_processo = mp.cod_processo
+                    JOIN itens_entrega ie ON e.cod_entrega = ie.cod_entrega
+                    JOIN medicamentos m ON ie.cod_medicamento = m.cod_medicamento
                     WHERE e.cod_entrega = ?";
 
-    $sqlEntregas = "SELECT e.cod_processo, f.nome_funcionario, e.data_entrega
+
+    $sqlEntregas = "SELECT e.cod_processo, f.nome_funcionario, e.data_entrega, e.observacao
                     FROM entregas e
                     JOIN funcionarios f ON e.cod_funcionario = f.cod_funcionario
                     WHERE e.cod_entrega = ?";
@@ -102,8 +112,8 @@ if (isset($_GET['cod_entrega'])) {
         echo "
         <h4 class='text-secondary mt-4'>Medicamentos</h4>
         <div class='border-top border-secondary'>
-            <table class='table mt-4'>
-                <thead class='thead-light'>
+            <table class='table mt-4 text-center'>
+                <thead class='thead-light text-center'>
                     <tr>
                         <th>Medicamento</th>
                         <th>Tipo</th>
@@ -112,12 +122,13 @@ if (isset($_GET['cod_entrega'])) {
                     </tr>
                 </thead>
                 <tbody>";
+             
         foreach ($medicamentos as $medicamento) {
             echo "<tr>
                 <td>" . htmlspecialchars($medicamento['nome_medicamento']) . "</td>
                 <td>" . htmlspecialchars($medicamento['tipo_medicamento']) . "</td>
-                <td>" . htmlspecialchars($medicamento['categoria_medicamento']) . "</td>
-                <td>" . htmlspecialchars($medicamento['quantidade']) . "</td>
+                <td>" . htmlspecialchars($medicamento['categoria']) . "</td>
+                <td>" . htmlspecialchars($medicamento['qtde_medicamento']) . "</td>
             </tr>";
         }
         echo "
@@ -130,6 +141,12 @@ if (isset($_GET['cod_entrega'])) {
 
     // Exibir dados da entrega
     if ($entrega) {
+        if(!empty($entrega['observacao'])){
+            $obs = $entrega['observacao'];
+        }else{
+            $obs = "Entregas sem observações!";
+        };
+
         echo "
         <h4 class='text-secondary'>Entrega</h4>
         <div class='border-top border-secondary p-2'> 
@@ -138,7 +155,15 @@ if (isset($_GET['cod_entrega'])) {
             
             <label class='mt-3' for='nome-funcionario'>Nome do Funcionário:</label>
             <input type='text' name='nome-funcionario' class='form-control' disabled value='" . htmlspecialchars($entrega['nome_funcionario']) . "'>
-        </div>";
+        </div>
+        
+         <div class='form-group'>
+                    <h4 class='text-secondary mt-4'>OBSERVAÇÕES</h4>
+                    <div class='border-top border-secondary p-2'></div>
+                      <textarea class='form-control'rows='3' disabled> "  . $obs . "</textarea>
+                    </div>"
+        
+        ;
     } else {
         echo "<p>Dados da entrega não encontrados para o código de entrega {$cod_entrega}.</p>";
     }

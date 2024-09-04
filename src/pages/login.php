@@ -1,5 +1,4 @@
 <?php
-
     //Inclusao da pagina de conexao com banco de dados
     include('../../config/config.php');
 
@@ -10,7 +9,28 @@
     $cpf = $_POST['cpf'];
     $senha = $_POST['senha'];
 
-    print_r($cpf);
+    function criarPastaEMoverArquivo($nome) {
+
+        $destino = "../../perfil_img/" . $nome;
+
+
+        
+        if (!is_dir($destino)) {
+            if (!mkdir($destino, 0755, true)) {
+                return "Falha ao criar a pasta.";
+            }
+        }
+    
+        $arquivoOrigem = '../../assests/images/acount.jpg';
+
+        // Move o arquivo para a nova pasta
+        if (!rename($arquivoOrigem, $destino . '/' . $arquivoDestino)) {
+            return "Falha ao mover o arquivo.";
+        }
+    
+        return "Arquivo movido com sucesso.";
+    }
+    
 
     //Consulta sql a partir do cpf
     $sql_login = "SELECT * FROM `funcionarios` WHERE cpf_funcionario = '$cpf'";
@@ -22,11 +42,22 @@
             $_SESSION["Nome"] = $row["nome_funcionario"];
             $_SESSION["ID"] = $row["cod_funcionario"];
             $_SESSION["Perfil"] = $row["perfil"];
+            $_SESSION["login_erro"] = false;
+
+
+            
+
+
+
+
             header('location: dashboard.php');
+            
         }else{
-            header('location: error_login.php');
+            $_SESSION["login_erro"]=true;
+            header('location: ../../public/index.php');
         }        
     } else {
-        header('location: error_login.php');
+        $_SESSION["login_erro"]=true;
+        header('location: ../../public/index.php');
     }
 ?>

@@ -1,47 +1,29 @@
-<!doctype html>
-<html lang="pt-br">
+<?php
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <!-- Required meta tags -->
+if(!isset($_SESSION['ID'])){
+    session_start();
+};
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
-    <!-- Bootstrap CSS -->
+     if(!isset($_SESSION["Perfil"])){
+        header('Location: ../../public/index.php');
+   }
 
-    <!-- Style -->
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <!-- Style -->
-
-    <!-- Fonte Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Fonte Awesome -->
-    
-    <!-- Titulo Lembrar de mudar! -->
-    <link rel="shortcut icon" href="../../assets/images/favico.ico">
-    <title>Remover Funcionario</title>
-</head>
-
-<?php include('navbar.php')?>
-
-<body>
-
-        <!-- Colocar Formulario de Remocao de Funcionario AQUI!! -->
-
-        <!-- Colocar Formulario de Remocao de Funcionario AQUI!! -->
+require_once('../../config/config.php');
+if (isset($_GET['id_funcionario'])) {
+    $id_funcionario = intval($_GET['id_funcionario']); 
 
 
-    <script src="../../assets/js/jquery-3.3.1.min.js"></script>
-    <script src="../../assets/js/popper.min.js"></script>
-    <script src="../../assets/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/main.js"></script>
-    <?php include('footer.php')?>
-</body>
+    $sql = "DELETE FROM funcionarios WHERE cod_funcionario = $id_funcionario";
 
+    if ($conn->query($sql) === TRUE) {
+        header("Location: dashboard.php?pag=2");
+        exit(); 
+    } else {
+        echo "Erro ao deletar funcionário: " . $conn->error;
+    }
+} else {
+    echo "ID do funcionário não fornecido.";
+}
 
-</html>
+$conn->close(); 
+?>

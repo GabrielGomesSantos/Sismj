@@ -16,7 +16,12 @@ body{
    margin: 0px;
 }
 
+.modal {
 
+    width: 800px;
+    left: 500px;
+
+}
 
 .sidebar{
     position: absolute;
@@ -97,6 +102,76 @@ input .number {
     
 }
 
-.pags {
-    margin-bottom: 30px;
+.barraacoes{
+    background-color: red;
+    transition: 0.2s;
+    
+    overflow: hidden;
 }
+.barraacoes:hover{
+    height: 500px;
+}
+
+
+
+.sair{
+
+    position: absolute;
+    right: 0;
+    top: -40px;
+    height: 120px;
+    width: 220px;
+    padding: 8px;
+    transition: 0.4s;
+    background-color: #17a2b8;
+    overflow: hidden;
+}
+
+.sair.active{
+
+    height: 180px;
+    border-radius: 7px;
+    background-color: #17a2b8;
+
+}
+.sair.active:hover{
+
+    background-color: #17a2b8;
+}
+.sair:hover{
+
+    background-color: #128da0;
+}
+
+/* Estilo da linha com erro */
+.table-danger {
+    position: relative; /* Necessário para o posicionamento do tooltip */
+    background-color: #f8d7da; /* Cor de fundo vermelho claro */
+    color: #721c24; /* Cor do texto */
+    border: 1px solid #f5c6cb; /* Borda vermelha clara */
+  }
+  
+  /* Estilo do tooltip personalizado */
+  .table-danger::after {
+    content: attr(data-title); /* Usa o atributo data-title como conteúdo do tooltip */
+    position: absolute;
+    bottom: 100%; /* Posiciona o tooltip acima do elemento */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #721c24; /* Cor de fundo do tooltip */
+    color: #fff; /* Cor do texto do tooltip */
+    padding: 5px 10px;
+    border-radius: 4px; /* Bordas arredondadas */
+    white-space: nowrap; /* Evita quebra de linha do texto */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 10; /* Garante que o tooltip fique acima dos outros elementos */
+    font-size: 12px; /* Tamanho da fonte do tooltip */
+  }
+  
+  /* Exibe o tooltip ao passar o mouse sobre o elemento */
+  .table-danger:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }

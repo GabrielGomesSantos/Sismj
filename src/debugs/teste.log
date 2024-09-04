@@ -1,0 +1,29 @@
+Array
+(
+    [0] => Array
+        (
+            [cod_medicamento] => 1
+            [cod_compra] => 1
+            [nome_medicamento] => Paracetamol
+            [tipo_medicamento] => Comprimido
+            [categoria] => Analgésico
+            [laboratorio] => Laboratório X
+            [lote] => 12345
+            [validade] => 2025-12-31
+            [quantidade] => 34
+        )
+
+    [1] => Array
+        (
+            [cod_medicamento] => 2
+            [cod_compra] => 2
+            [nome_medicamento] => Amoxicilina
+            [tipo_medicamento] => Cápsula
+            [categoria] => Antibiótico
+            [laboratorio] => Laboratório Y
+            [lote] => 67890
+            [validade] => 2026-06-30
+            [quantidade] => 210
+        )
+
+)

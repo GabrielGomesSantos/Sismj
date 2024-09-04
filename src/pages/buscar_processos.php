@@ -1,5 +1,12 @@
 <?php
 // buscar_processos.php
+if(!isset($_SESSION['ID'])){
+    session_start();
+};
+
+if(!isset($_SESSION["Perfil"])){
+    header('Location: ../../public/index.php');
+};
 
 if (isset($_POST['id'])) {
     $pacienteId = $_POST['id'];

@@ -1,4 +1,13 @@
 <?php 
+if(!isset($_SESSION['ID'])){
+     session_start();
+ };
+ 
+     if(!isset($_SESSION["Perfil"])){
+          header('Location: ../../public/index.php');
+     }else{
+          $perfil = $_SESSION["Perfil"];
+     }
 
      if(!isset($_GET['pag'])){
           $pg = 1;
@@ -8,6 +17,7 @@
 
 ?>
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -19,6 +29,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
     <!-- Bootstrap CSS -->
   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -43,26 +54,45 @@
 
 <body style="position: relative;">
      <!<?php 
-          if ($pg == 1){
+          if($perfil == 1){
+               if ($pg == 1){
+                    include("dashboard_atendente.php");
+               }else if ($pg == 2){
+                    include("estoque.php");
+               }
 
-               include("visualizar_medicamentos.php");
-
-          }else if ($pg == 2){
-
-               include("compras.php");
-
-          }else if ($pg == 3){
-
-               include("cadastrar_medicamento.php");
-
-          }else if ($pg == 4){
-
-               include("ver_medicamento.php");
-
-          }
+          }else if($perfil== 2){
+               switch ($pg) {
+                    case 1:
+                        include("dashboard_Medicamentos.php");
+                        break;
+                    case 2:
+                        include("dashboard_compras.php");
+                        break;
+                    case 3:
+                        include("cadastrar_medicamento.php");
+                        break;
+                    case 4:
+                        include("ver_medicamento.php");
+                        break;
+                    case 5:
+                        include("dashboard_funcionarios.php");
+                        break;
+                    case 6:
+                        include("dashboard_pacientes.php");
+                        break;
+                    case 7:
+                         include("ver_medicamento.php");
+                         break;
+                    default:
+                        include("dashboard_Compras.php");
+                        break;
+                }
+                
+          }     
         
         
       ?>
 </body> 
-<?php include('footer.php')?>
+     <?php //include('footer.php')?>
 </html>

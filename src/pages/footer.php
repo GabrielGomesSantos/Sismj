@@ -1,5 +1,5 @@
     <!-- Footer -->
-    <footer style=" position:absolute; bottom: -180px; width:100%; z-index: 1;" class="bg-dark text-center text-white mt-auto  mt-5">
+    <footer style="position:absolute; bottom:0px; width:100%; z-index: 1" class="bg-dark text-center text-white">
       <div class="container p-4 pb-0 d-flex justify-content-center">
         <!-- Section: Social media -->
         <section class="mb-2">

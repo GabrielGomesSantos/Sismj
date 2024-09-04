@@ -1,42 +1,48 @@
 <?php
-header('Content-Type: application/json'); // Define o cabeçalho da resposta como JSON
-include('../../config/config.php');
+if(!isset($_SESSION['ID'])){
+    session_start();
+};
 
-// Inclua o arquivo de conexão com o banco de dados
-// require 'caminho/para/seu/arquivo_de_conexao.php'; // Certifique-se de incluir o arquivo que define a variável $conn
+
+if(!isset($_SESSION["Perfil"])){
+    header('Location: ../../public/index.php');
+}
+
+include('../../config/config.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recebe os dados JSON enviados via POST
     $dados = json_decode($_POST['dados'], true);
 
-    // Verifique o conteúdo de $dados 
-    file_put_contents('debug.log', print_r($dados, true)); // Salva o conteúdo no log
+    // Verifica o conteúdo de $dados 
+    file_put_contents('../debugs/debug.log', print_r($dados, true)); // Salva o conteúdo no log
 
     // Verifica se os dados foram decodificados corretamente
     if (is_array($dados)) {
         $resultados = []; // Array para armazenar os resultados
+        $erros = []; // Array para armazenar erros de quantidade
 
         foreach ($dados as $linha) {
             // Verifica se a linha tem a quantidade esperada de elementos
-            if (isset($linha[0]) && isset($linha[1]) && isset($linha[2]) && isset($linha[3])) {
+            if (isset($linha[0]) && isset($linha[1]) && isset($linha[2]) && isset($linha[3]) && isset($linha[4])){
                 // Acessa os dados pelo índice
-                $nome = $linha[0];
-                $tipo = $linha[1];
-                $laboratorio = $linha[2];
-                $quantidade = (int)$linha[3]; // Garante que a quantidade é um inteiro
+                $idMed = $linha[0];
+                $nome = $linha[1];
+                $tipo = $linha[2];
+                $laboratorio = $linha[3];
+                $quantidade_solicitada = $linha[4]; // Garante que a quantidade é um inteiro
 
                 // Sanitização básica
                 $nome = mysqli_real_escape_string($conn, $nome);
                 $tipo = mysqli_real_escape_string($conn, $tipo);
                 $laboratorio = mysqli_real_escape_string($conn, $laboratorio);
 
-                // Consulta SQL
-                $sqlConsulta = "SELECT cod_medicamento 
+                // Consulta SQL para verificar a quantidade
+                $sqlConsulta = "SELECT cod_medicamento, quantidade 
                                 FROM `medicamentos` 
                                 WHERE nome_medicamento = '$nome' 
                                   AND tipo_medicamento = '$tipo'
-                                  AND laboratorio = '$laboratorio'
-                                  AND quantidade >= $quantidade";
+                                  AND laboratorio = '$laboratorio'";
 
                 // Executa a consulta
                 $resultado = mysqli_query($conn, $sqlConsulta);
@@ -44,31 +50,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Verifica se a consulta retornou algum resultado
                 if ($resultado) {
                     if (mysqli_num_rows($resultado) > 0) {
-                        // Adiciona o resultado ao array de resultados
-                        while ($row = mysqli_fetch_assoc($resultado)) {
-                            $resultados[] = $row;
+                        $row = mysqli_fetch_assoc($resultado);
+                        
+                        // Verifica se a quantidade solicitada é maior do que a disponível
+                        if ($quantidade_solicitada > $row['quantidade']) {
+                            // Adiciona um erro se a quantidade for insuficiente
+                            $erros[] = [
+                                'cod_medicamento' => $idMed,
+                                'mensagem' => "Quantidade insuficiente para $nome. Solicitado: {$quantidade_solicitada}, Disponível: " . $row['quantidade']
+                            ];
+                        } else {
+                            // Adiciona o resultado ao array de resultados
+                            $resultados[] = [
+                                'cod_medicamento' => $row['cod_medicamento'],
+                                'mensagem' => "Quantidade suficiente para $nome. Solicitado: {$quantidade_solicitada}, Disponível: " . $row['quantidade']
+                            ];
                         }
                     } else {
                         // Caso não haja resultados
-                        $resultados[] = ['cod_medicamento' => 'Nenhum encontrado para ' . $nome];
+                        $erros[] = ['mensagem' => 'Nenhum medicamento encontrado para ' . $nome];
                     }
                 } else {
                     // Adiciona erro ao array de resultados se a consulta falhar
-                    $resultados[] = ['status' => 'erro', 'mensagem' => 'Erro na consulta SQL: ' . mysqli_error($conn)];
+                    $erros[] = ['status' => 'erro', 'mensagem' => 'Erro na consulta SQL: ' . mysqli_error($conn)];
                 }
+
+                // Envia a resposta de volta para o cliente
+                $response = [
+                    'status' => !empty($erros) ? 'erro' : 'sucesso',
+                    'dados' => $resultados,
+                    'erros' => $erros // Inclui os erros na resposta
+                ];
+            
             } else {
-                // Caso a linha tenha dados incompletos
-                $resultados[] = ['status' => 'erro', 'mensagem' => 'Dados da linha incompletos'];
+                $response = [
+                    'status' => 'Faltando dados',
+                ];
+                break;
             }
         }
 
-        // Envia a resposta de volta para o cliente
-        $response = [
-            'status' => 'sucesso',
-            'dados' => $resultados // Inclui os resultados na resposta
-        ];
 
-        echo json_encode($response); // Converte o array PHP em JSON
+
+        // Limpa o buffer de saída e envia a resposta
+        ob_clean();
+        echo json_encode($response);
     } else {
         echo json_encode([
             'status' => 'erro',
@@ -77,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     echo json_encode([
-        'status' => 'erro',
+        'status' => 'faltando',
         'mensagem' => 'Método de requisição inválido'
     ]);
 }
