@@ -34,10 +34,10 @@ $nome = htmlspecialchars($_SESSION['Nome']); // Sanitize session variable
                     ?> 
                     <img src="../../perfil_img/<?php echo $nome; ?>/acount.jpg" alt="Conta" width="55" height="54" class="ms-5 me-5 rounded-circle">                </li>
                     <li class="mt-3">
-                        <button type="button" class="btn btn-danger" onclick='window.location="sair.php"'>Logoff</button>
+                        <button type="button" class="btn btn-secondary" onclick='changePicture()'>Trocar Foto</button>
                     </li>
                     <li class="mt-3">
-                        <button type="button" class="btn btn-danger" onclick='window.location="sair.php"'>Foto</button>
+                        <button type="button" class="btn btn-danger" onclick='window.location="sair.php"'>Logoff</button>
                     </li>
                 </ul>
 
@@ -48,3 +48,29 @@ $nome = htmlspecialchars($_SESSION['Nome']); // Sanitize session variable
 </nav>
 
 
+
+  <!-- Modal Change Picture-->
+  <div class="modal fade" id="modalChange" tabindex="-1" aria-labelledby="modalChangeLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <div class="d-flex align-items-center">
+                        <h1 class="modal-title fs-5 mb-0" id="modalPicture">Mudar Foto de Perfil</h1>
+                    </div>
+                    <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
+                        <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
+                    </button>
+                </div>
+                <div class="modal-body" id="modalPictureBody">
+                    <!-- Formulário de upload de imagem -->
+                    <form class="d-flex flex-column justify-content-center align-items-center p-4" id="form-form">
+                        <div class="image-upload">
+                            <img id="image-preview" src="" class="w-100 h-100">
+                            <i class="bi bi-cloud-arrow-up"></i>
+                            <input id="image-field" type="file">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

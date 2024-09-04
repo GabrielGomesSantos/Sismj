@@ -27,7 +27,7 @@ function redCompra($nota_fiscal,$conn){
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) $saida[] = $row;
     }
-    header("location: dashboard.php?pag=3&id=".$saida[0]['cod_compra']);
+    header("location: dashboard.php?pag=2&id=".$saida[0]['cod_compra']);
 }
 
 //POST
