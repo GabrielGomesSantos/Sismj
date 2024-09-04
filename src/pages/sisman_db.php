@@ -116,6 +116,8 @@ function deleteComp($id,$conn)
 
 //Verificações de requisição
 if ( isset($_GET['id_delete']) ){
+
+    print($_GET);
     deleteMed($_GET['id_delete'],$conn,'cod_medicamento');
 
 };

@@ -35,8 +35,7 @@ function getStatus($validade, $quantidade)
     } elseif ($months_left < 6 || $quantidade < 100) {
         return ['color' => '#ffff00', 'status' => 'Estoque médio']; // Amarelo
     } else {
-        return ['color' => '#00ff00', 'status' => 'Estoque suficiente'];
-        ; // Verde
+        return ['color' => '#00ff00', 'status' => 'Estoque suficiente'];; // Verde
     }
 }
 
@@ -181,7 +180,7 @@ $result = $conn->query($sql);
         <!-- Scripts -->
         <!-- Inicializa os tooltips -->
         <script>
-            $(function () {
+            $(function() {
                 $('[data-toggle="tooltip"]').tooltip();
             });
         </script>
@@ -266,6 +265,7 @@ $result = $conn->query($sql);
                                 id="excluirNomeMedicamento"></strong>?
                             Esta ação não pode ser desfeita.</p>
                     </div>
+
                     <div class="modal-footer">
                         <form id="excluirMedicamentoForm" method="get" action="sisman_db.php">
                             <input type="hidden" name="id_delete" id="excluirCodMedicamento">
@@ -282,43 +282,40 @@ $result = $conn->query($sql);
         <script src="../../assets/js/jquery-3.3.1.min.js"></script>
         <script src="../../assets/js/popper.min.js"></script>
         <script src="../../assets/js/bootstrap.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
             crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', () => {
+            $(document).ready(function() {
                 // Configurar o modal de edição
-                document.querySelectorAll('.btn-editar').forEach(button => {
-                    button.addEventListener('click', function () {
-                        const row = this.closest('tr');
-                        const dataId = row.querySelector('th[data-id]').getAttribute('data-id');
+                $('.btn-editar').click(function() {
+                    var $row = $(this).closest('tr');
+                    var dataId = $row.find('th[data-id]').data('id');
 
-                        // Preencher o modal de edição com os dados
-                        document.getElementById('editarCodMedicamento').value = dataId;
-                        document.getElementById('editarNomeMedicamento').value = row.querySelector('td:nth-child(3)').innerText; // Ajuste o índice
-                        document.getElementById('editarTipoMedicamento').value = row.querySelector('td:nth-child(4)').innerText;
-                        document.getElementById('editarCategoria').value = row.querySelector('td:nth-child(5)').innerText;
-                        document.getElementById('editarLaboratorio').value = row.querySelector('td:nth-child(6)').innerText;
-                        document.getElementById('editarLote').value = row.querySelector('td:nth-child(7)').innerText;
-                        document.getElementById('editarValidade').value = row.querySelector('td:nth-child(8)').innerText;
-                        document.getElementById('editarQuantidade').value = row.querySelector('td:nth-child(9)').innerText;
-                    });
+                    // Preencher o modal de edição com os dados
+                    $('#editarCodMedicamento').val(dataId);
+                    $('#editarNomeMedicamento').val($row.find('td:nth-child(3)').text()); // Ajuste o índice
+                    $('#editarTipoMedicamento').val($row.find('td:nth-child(4)').text());
+                    $('#editarCategoria').val($row.find('td:nth-child(5)').text());
+                    $('#editarLaboratorio').val($row.find('td:nth-child(6)').text());
+                    $('#editarLote').val($row.find('td:nth-child(7)').text());
+                    $('#editarValidade').val($row.find('td:nth-child(8)').text());
+                    $('#editarQuantidade').val($row.find('td:nth-child(9)').text());
                 });
 
                 // Configurar o modal de exclusão
-                document.querySelectorAll('.btn-excluir').forEach(button => {
-                    button.addEventListener('click', function () {
-                        const row = this.closest('tr');
-                        const dataId = row.querySelector('th[data-id]').getAttribute('data-id');
-                        const nomeMedicamento = row.querySelector('td:nth-child(2)').innerText;
+                $('.btn-excluir').click(function() {
+                    var $row = $(this).closest('tr');
+                    var dataId = $row.find('th[data-id]').data('id');
 
-                        document.getElementById('excluirCodMedicamento').value = dataId;
-                        document.getElementById('excluirNomeMedicamento').innerText = nomeMedicamento;
-                    });
+                    var nomeMedicamento = $row.find('td:nth-child(3)').text();
+
+                    $('#excluirCodMedicamento').val(dataId);
+                    $('#excluirNomeMedicamento').text(nomeMedicamento);
                 });
             });
         </script>
