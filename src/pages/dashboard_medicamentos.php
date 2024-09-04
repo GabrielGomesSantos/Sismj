@@ -104,7 +104,6 @@ $result = $conn->query($sql);
                     <header class="bg-info text-white" style="padding: 5px 15px;">
                         Medicamentos:
                     </header>
-                   
                 </div>
             </div>
             <!-- Botão que ativa o modal -->

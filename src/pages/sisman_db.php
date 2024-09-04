@@ -119,7 +119,7 @@ if ( isset($_GET['id_delete']) ){
 
     print($_GET);
     deleteMed($_GET['id_delete'],$conn,'cod_medicamento');
-
+    header("Location: /sismj/src/pages/dashboard.php?pag=1"); 
 };
 if ( isset($_GET['id_deleteMed']) ){
     deleteMed($_GET['id_deleteMed'],$conn,'cod_medicamento');

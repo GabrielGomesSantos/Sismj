@@ -1,4 +1,3 @@
-
 <?php
 include('../../config/config.php');
 
@@ -28,13 +27,11 @@ $result = $conn->query($sql);
 ?>
 
 <div class="container">
-<script>
-        function modal_excluir(id)
-    {   
-        document.getElementById('excluirCodCompra').value = id;
-    }
-
-</script>
+    <script>
+        function modal_excluir(id) {
+            document.getElementById('excluirCodCompra').value = id;
+        }
+    </script>
 
 
     <style>
@@ -233,8 +230,13 @@ $result = $conn->query($sql);
                         Compras:
                     </header>
                     <br>
+                    <div class="search-and-button">
+                        <button class="btn btn-custom-edit btn-sm" type="button"
+                            onclick="location.href='cadastrarCompras.php'">Cadastrar Compras</button>
+                    </div>
                 </div>
             </div>
+
 
             <div class="row">
                 <div class="col-12">
@@ -260,7 +262,7 @@ $result = $conn->query($sql);
                                             <button type="button"
                                                 onclick="window.location.href='dashboard.php?pag=4&id_compra=<?php echo $row['cod_compra'] ?>';"
                                                 class="btn btn-custom-edit btn-sm btn btn-success">Visualizar</button>
-                                            <button type="button" onclick="modal_excluir(<?php echo $row['cod_compra']; ?>)" 
+                                            <button type="button" onclick="modal_excluir(<?php echo $row['cod_compra']; ?>)"
                                                 class="btn btn-custom-delete btn-sm btn btn-danger btn-excluir"
                                                 data-bs-toggle="modal" data-bs-target="#excluirCompraModal">Excluir</button>
                                         </div>
@@ -383,12 +385,11 @@ $result = $conn->query($sql);
 <script>
     // Configurar o modal de edição
     document.querySelectorAll('.btn-editar').forEach(button => {
-        button.addEventListener('click', function () {
-            const row = this.closest('tr');
-            document.getElementById('editarCodCompra').value = row.querySelector('th').innerText;
-            document.getElementById('editarNotaFiscal').value = row.querySelector('td:nth-child(3)').innerText;
-            document.getElementById('editarData').value = row.querySelector('td:nth-child(4)').innerText;
-            document.getElementById('editarFornecedor').value = row.querySelector('td:nth-child(5)').innerText;
-        });
-
+                button.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    document.getElementById('editarCodCompra').value = row.querySelector('th').innerText;
+                    document.getElementById('editarNotaFiscal').value = row.querySelector('td:nth-child(3)').innerText;
+                    document.getElementById('editarData').value = row.querySelector('td:nth-child(4)').innerText;
+                    document.getElementById('editarFornecedor').value = row.querySelector('td:nth-child(5)').innerText;
+                });
 </script>
