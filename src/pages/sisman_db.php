@@ -93,7 +93,6 @@ function updateMed($id, $nome, $tipo, $categoria, $lab, $lote, $validade, $quant
     }
 
     // Redireciona para o dashboard (descomente se necessário)
-
 }
 
 function deleteComp($id,$conn)
