@@ -233,28 +233,12 @@ $result = $conn->query($sql);
                         Compras:
                     </header>
                     <br>
-
-                    <div class="search-and-button">
-                        <button class="btn btn-custom-edit btn-sm" type="button"
-                            onclick="location.href='cadastrarCompras.php'">Cadastrar Compras</button>
-                        <div class="period">
-                            <label for="data-inicio">Período:</label>
-                            <input type="date" id="data-inicio" name="data-inicio">
-                            <label for="data-fim">até</label>
-                            <input type="date" id="data-fim" name="data-fim">
-                        </div>
-                        <div class="search">
-                            <input id="input" name="teste" class="truncate" type="search" autocomplete="off"
-                                spellcheck="false" role="combobox" aria-controls="matches" aria-expanded="false"
-                                aria-live="off" placeholder="Pesquise no Google ou digite um URL">
-                        </div>
-                    </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-12">
-                    <table class="table mt-5">
+                    <table class="table mt-3">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Cod.Compra</th>

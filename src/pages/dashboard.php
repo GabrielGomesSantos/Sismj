@@ -64,16 +64,16 @@ if(!isset($_SESSION['ID'])){
           }else if($perfil== 2){
                switch ($pg) {
                     case 1:
-                        include("dashboard_Compras.php");
-                        break;
-                    case 2:
                         include("dashboard_Medicamentos.php");
                         break;
+                    case 2:
+                        include("dashboard_Compras.php");
+                        break;
                     case 3:
-                        include("dashboard_processo.php");
+                        include("cadastrar_medicamento.php");
                         break;
                     case 4:
-                        include("dashboard_medicos.php");
+                        include("ver_medicamento.php");
                         break;
                     case 5:
                         include("dashboard_funcionarios.php");

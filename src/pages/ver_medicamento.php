@@ -151,7 +151,8 @@ if (mysqli_num_rows($result) > 0) {
             </div>
             <div class="modal-body">
                 <form id="editarMedicamentoForm" method="POST" action="sisman_db.php">
-                    <input type="hidden" name="cod_medicamento" id="editarCodMedicamento">
+                    <input type="hidden" name="cod_medicamento2" id="editarCodMedicamento">
+                    <input type="hidden" name="id_compra" value="<?php echo $_GET['id_compra'] ?>" id="editarCodMedicamento">
                     <div class="mb-3">
                         <label for="editarNomeMedicamento" class="form-label">Nome Medicamento</label>
                         <input type="text" class="form-control" id="editarNomeMedicamento" name="nome"
@@ -209,32 +210,6 @@ if (mysqli_num_rows($result) > 0) {
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
 
-<!-- Modal Excluir Medicamento -->
-<div class="modal fade" id="excluirMedicamentoModal" tabindex="-1" aria-labelledby="excluirMedicamentoModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="excluirMedicamentoModalLabel">Excluir Medicamento</h5>
-                <button type="button" class="btn btn-light p-2 rounded-circle" data-bs-dismiss="modal"
-                    aria-label="Close">
-                    <img src="../../assets/images/close.png" alt="Fechar" style="width: 20px;">
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Você tem certeza de que deseja excluir o medicamento <strong id="excluirNomeMedicamento"></strong>?
-                    Esta ação não pode ser desfeita.</p>
-            </div>
-            <div class="modal-footer">
-                <form id="excluirMedicamentoForm" method="POST" action="excluir.php">
-                    <input type="hidden" name="cod_medicamento" id="excluirCodMedicamento">
-                    <button type="submit" class="btn btn-danger">Excluir</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <!-- Scripts -->
@@ -255,7 +230,6 @@ if (mysqli_num_rows($result) > 0) {
             button.addEventListener('click', function () {
                 const row = this.closest('tr');
                 const codMedicamento = row.querySelector('td:nth-child(1)').innerText; // Código do medicamento
-
                 // Preencher o modal de edição com os dados
                 document.getElementById('editarCodMedicamento').value = codMedicamento;
                 document.getElementById('editarNomeMedicamento').value = row.querySelector('td:nth-child(2)').innerText; // Nome
