@@ -52,6 +52,20 @@ if (isset($_SESSION['login_erro'])) {
         .imgsenha{
           width: 30px;
         }
+        .container {
+          width: 100vw;
+          height: 80vh;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .centro {
+          width: 600px;
+          height: 50vh;
+ 
+        }
     </style>
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #17a2b8;">
@@ -74,7 +88,7 @@ if (isset($_SESSION['login_erro'])) {
     <div class="container">
       <div class="row">
         <div class="col-md-6 order-md-2">
-          <img src="../assets/images/medicos.png" alt="Image" class="img-fluid">
+          <img class="centro" src="../assets/images/image_login.png" alt="Image" class="img-fluid">
         </div>
         <div class="col-md-6 contents">
           <div class="row justify-content-center">
@@ -83,7 +97,7 @@ if (isset($_SESSION['login_erro'])) {
                 <div class="logo-container">
                   <h3>Entrar no <strong class="logo">SISMAN</strong></h3>
                 </div>
-                <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+                <p class="mb-4">Faça login para acessar suas funcionalidades.</p>
               </div>
 
 
