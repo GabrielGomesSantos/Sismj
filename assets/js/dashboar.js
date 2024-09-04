@@ -377,3 +377,95 @@ $(document).ready(function() {
         });
     });
 });
+
+
+//
+
+function changePicture() {
+    // Obter os elementos necessários
+    const imageField = document.getElementById('image-field'); // Campo de input de arquivo
+    const imagePreview = document.getElementById('image-preview'); // Elemento de visualização da imagem
+    const modalElement = document.getElementById('modalChange'); // Elemento do modal
+    const modalBody = document.getElementById('modalPictureBody'); // Corpo do modal onde o botão será inserido
+
+    if (!imageField || !imagePreview || !modalBody) {
+        console.error('Elementos necessários não encontrados!');
+        return;
+    }
+
+    // Função para carregar a imagem
+    const loadImage = (e) => {
+        const files = e.target.files; // Obtém os arquivos a partir do evento
+
+        if (files && files[0]) {  // Verifica se há arquivos selecionados
+            const fileReader = new FileReader();
+
+            fileReader.onload = () => {
+                imagePreview.src = fileReader.result;  // Define a imagem de pré-visualização
+                showSaveButton();  // Chama a função para mostrar o botão de salvar
+            };
+
+            fileReader.readAsDataURL(files[0]);  // Lê o arquivo como URL de dados
+        }
+    };
+
+    // Função para mostrar o botão de salvar
+    const showSaveButton = () => {
+        // Verifica se o botão de salvar já existe
+        let saveButton = document.getElementById('save-button');
+        if (!saveButton) {
+            // Cria o botão de salvar dinamicamente
+            saveButton = document.createElement('button');
+            saveButton.id = 'save-button';
+            saveButton.className = 'btn btn-success mt-3'; // Estilo Bootstrap
+            saveButton.textContent = 'Salvar';
+
+            // Adiciona o botão ao corpo do modal
+            modalBody.appendChild(saveButton);
+
+            // Adiciona um listener de evento ao botão de salvar
+            saveButton.addEventListener('click', saveImage);
+        }
+    };
+
+    // Função para salvar a imagem (você pode personalizar isso conforme necessário)
+    const saveImage = () => {
+        const file = imageField.files[0]; 
+    
+        if (file) {
+            const formData = new FormData();
+            formData.append('image-field', file); 
+    
+            // Envia o arquivo via AJAX para o servidor
+            fetch('salvando_img.php', {  
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na resposta do servidor');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log('Resposta do servidor:', data);
+                alert('Imagem salva com sucesso!');
+                // Forçar recarregamento completo e ignorar o cache
+                window.location.href = window.location.href.split('?')[0] + '?timestamp=' + new Date().getTime();
+            })
+            .catch(error => {
+                console.error('Erro ao enviar a imagem:', error);
+                alert('Falha ao salvar a imagem.');
+            });
+        } else {
+            alert('Nenhuma imagem selecionada!');
+        }
+    };
+    
+    // Adiciona o evento de mudança ao campo de input de arquivo
+    imageField.addEventListener("change", loadImage);
+
+    // Obtém e mostra o modal usando o Bootstrap 5
+    const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+    modal.show();
+}
