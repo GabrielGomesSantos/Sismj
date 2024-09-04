@@ -26,6 +26,7 @@ if (isset($_GET['id_funcionario'])) {
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">   
     <!-- Bootstrap CSS -->
 
     <!-- Style -->
@@ -121,6 +122,7 @@ if (isset($_GET['id_funcionario'])) {
     <script src="../../assets/js/popper.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/dashboar.js"></script>x
     <?php include('footer.php')?>
 </body>
 
