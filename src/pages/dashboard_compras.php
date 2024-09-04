@@ -221,7 +221,7 @@ $result = $conn->query($sql);
                     <div class="search-and-button">
                         <button class="btn btn-custom-edit btn-sm" type="button"
                             onclick="location.href='cadastrarCompras.php'">Cadastrar Compras</button>
-                            <form method="GET" action="">
+                            <form method="GET" action="#">
                                 <div class="period">
                                     <label for="data-inicio">Período:</label>
                                     <input type="date" id="data-inicio" name="data_inicio" value="<?= htmlspecialchars($data_inicio) ?>">
