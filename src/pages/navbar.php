@@ -1,3 +1,7 @@
+
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">   
+
 <?php
 
 if(!isset($_SESSION['ID'])){
