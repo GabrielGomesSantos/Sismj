@@ -9,20 +9,30 @@ $items_per_page = 6;
 $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $offset = ($current_page - 1) * $items_per_page;
 
-// Obter o número total de registros
-$sql_total = "SELECT COUNT(*) FROM `compras`";
+// Obter as datas do filtro, se estiverem definidas
+$data_inicio = isset($_GET['data_inicio']) ? $_GET['data_inicio'] : '';
+$data_fim = isset($_GET['data_fim']) ? $_GET['data_fim'] : '';
+
+// Construir a cláusula WHERE para a consulta
+$where_clause = '';
+if ($data_inicio && $data_fim) {
+    $where_clause = "WHERE data BETWEEN '$data_inicio' AND '$data_fim'";
+}
+
+// Obter o número total de registros com o filtro aplicado
+$sql_total = "SELECT COUNT(*) FROM `compras` $where_clause";
 $total_result = $conn->query($sql_total);
 $total_rows = $total_result->fetch_row()[0];
 
 // Calcular o número total de páginas
 $total_pages = ceil($total_rows / $items_per_page);
 
-// Consultar registros para a página atual
+// Consultar registros para a página atual com o filtro aplicado
 $sql = "
     SELECT * FROM compras
+    $where_clause
     LIMIT $items_per_page OFFSET $offset;
 ";
-
 
 $result = $conn->query($sql);
 ?>
@@ -153,9 +163,7 @@ $result = $conn->query($sql);
             display: flex;
             align-items: center;
             gap: 1px;
-            /* Ajusta o espaçamento entre os campos de data */
             margin-top: 5px;
-            /* Ajusta o espaçamento superior para alinhar melhor */
             margin-left: 60px;
         }
 
@@ -165,7 +173,6 @@ $result = $conn->query($sql);
 
         .search {
             margin-left: auto;
-            /* Alinha a pesquisa à direita */
         }
 
         .search input[type="search"] {
@@ -186,16 +193,12 @@ $result = $conn->query($sql);
 
         .form-control-sm {
             font-size: 0.8;
-            /* Ajusta a fonte */
             padding: 0.375rem 0.75rem;
-            /* Ajusta o padding */
         }
 
         .btn-sm {
             padding: 0.25rem 0.5rem;
-            /* Ajusta o padding do botão */
             font-size: 0.875rem;
-            /* Ajusta a fonte do botão */
         }
 
         .mt-5 {
@@ -218,12 +221,15 @@ $result = $conn->query($sql);
                     <div class="search-and-button">
                         <button class="btn btn-custom-edit btn-sm" type="button"
                             onclick="location.href='cadastrarCompras.php'">Cadastrar Compras</button>
-                        <div class="period">
-                            <label for="data-inicio">Período:</label>
-                            <input type="date" id="data-inicio" name="data-inicio">
-                            <label for="data-fim">até</label>
-                            <input type="date" id="data-fim" name="data-fim">
-                        </div>
+                            <form method="GET" action="">
+                                <div class="period">
+                                    <label for="data-inicio">Período:</label>
+                                    <input type="date" id="data-inicio" name="data_inicio" value="<?= htmlspecialchars($data_inicio) ?>">
+                                    <label for="data-fim">até</label>
+                                    <input type="date" id="data-fim" name="data_fim" value="<?= htmlspecialchars($data_fim) ?>">
+                                    <button type="submit" class="btn btn-custom-edit btn-sm">Filtrar</button>
+                                </div>
+                            </form>
                         <div class="search">
                             <input id="input" name="teste" class="truncate" type="search" autocomplete="off"
                                 spellcheck="false" role="combobox" aria-controls="matches" aria-expanded="false"
